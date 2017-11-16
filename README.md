@@ -1,2 +1,5 @@
 # IPS4BT
-BitTracker application for IPS 4 Community Suite
+
+#### Full featured bit torrent tracker application for IPS 4.2x series
+
+- In development for January 2018 Release
