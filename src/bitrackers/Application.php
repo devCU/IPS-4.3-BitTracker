@@ -2,14 +2,14 @@
 /**
  * @brief		BitTracker Application Class
  * @author		<a href='https://www.devcu.com'>devCU Software</a>
- * @copyright		(c) devCU Software Development
+ * @copyright	(c) devCU Software Development
  * @package		Invision Community Suite
- * @subpackage		BitTracker
+ * @subpackage	BitTracker
  * @since		11 FEB 2018
  * @version		1.0.0 Beta 1
  */
  
-namespace IPS\bitrackers;
+namespace IPS\bitracker;
 
 /**
  * BitTracker Application Class
@@ -24,16 +24,16 @@ class _Application extends \IPS\Application
 	public function init()
 	{
 		/* If the viewing member cannot view the board (ex: guests must login first), then send a 404 Not Found header here, before the Login page shows in the dispatcher */
-		if ( !\IPS\Member::loggedIn()->group['g_view_board'] and ( \IPS\Request::i()->module == 'bitrackers' and \IPS\Request::i()->controller == 'browse' and \IPS\Request::i()->do == 'rss' ) )
+		if ( !\IPS\Member::loggedIn()->group['g_view_board'] and ( \IPS\Request::i()->module == 'bitracker' and \IPS\Request::i()->controller == 'browse' and \IPS\Request::i()->do == 'rss' ) )
 		{
 			\IPS\Output::i()->error( 'node_error', '2D220/1', 404, '' );
 		}
 		
-		\IPS\Output::i()->cssFiles = array_merge( \IPS\Output::i()->cssFiles, \IPS\Theme::i()->css( 'bitrackers.css' ) );
+		\IPS\Output::i()->cssFiles = array_merge( \IPS\Output::i()->cssFiles, \IPS\Theme::i()->css( 'bitracker.css' ) );
 
 		if ( \IPS\Theme::i()->settings['responsive'] )
 		{
-			\IPS\Output::i()->cssFiles = array_merge( \IPS\Output::i()->cssFiles, \IPS\Theme::i()->css( 'bitrackers_responsive.css', 'bitrackers', 'front' ) );
+			\IPS\Output::i()->cssFiles = array_merge( \IPS\Output::i()->cssFiles, \IPS\Theme::i()->css( 'bitracker_responsive.css', 'bitracker', 'front' ) );
 		}
 	}
 
@@ -45,7 +45,7 @@ class _Application extends \IPS\Application
 	 */
 	protected function get__icon()
 	{
-		return 'bitracker';
+		return 'bitrack';
 	}
 	
 	/**
@@ -75,7 +75,7 @@ class _Application extends \IPS\Application
 	{
 		return array(
 			'rootTabs'		=> array(),
-			'browseTabs'	=> array( array( 'key' => 'bitrackers' ) ),
+			'browseTabs'	=> array( array( 'key' => 'bitracker' ) ),
 			'browseTabsEnd'	=> array(),
 			'activityTabs'	=> array()
 		);
@@ -92,7 +92,7 @@ class _Application extends \IPS\Application
 		{
 			try
 			{
-				$file = \IPS\bitrackers\File::loadAndCheckPerms( \IPS\Request::i()->showfile );
+				$file = \IPS\bitracker\File::loadAndCheckPerms( \IPS\Request::i()->showfile );
 				
 				\IPS\Output::i()->redirect( $file->url() );
 			}
@@ -101,7 +101,7 @@ class _Application extends \IPS\Application
 
 		if ( isset( \IPS\Request::i()->module ) AND \IPS\Request::i()->module == 'post' AND isset( \IPS\Request::i()->controller ) AND \IPS\Request::i()->controller == 'submit' )
 		{
-			\IPS\Output::i()->redirect( \IPS\Http\Url::internal( "app=bitrackers&module=bitrackers&controller=submit", "front", "bitrackers_submit" ) );
+			\IPS\Output::i()->redirect( \IPS\Http\Url::internal( "app=bitracker&module=bitracker&controller=submit", "front", "bitracker_submit" ) );
 		}
 	}
 }
