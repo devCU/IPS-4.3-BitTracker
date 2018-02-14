@@ -2,9 +2,9 @@
 /**
  * @brief		BitTracker Application Class
  * @author		<a href='https://www.devcu.com'>devCU Software</a>
- * @copyright	(c) devCU Software Development
+ * @copyright		(c) devCU Software Development
  * @package		Invision Community Suite
- * @subpackage	BitTracker
+ * @subpackage		BitTracker
  * @since		11 FEB 2018
  * @version		1.0.0 Beta 1
  */
