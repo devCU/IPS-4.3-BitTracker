@@ -2,10 +2,10 @@
 /**
  * @brief		BitTracker Application Class
  * @author		Gary Cornell
- * @copyright	(c) <a href='https://www.devcu.com'>devCU Software Development</a>
+ * @copyright		(c) <a href='https://www.devcu.com'>devCU Software Development</a>
  * @license		https://www.invisioncommunity.com/legal/standards/
  * @package		Invision Community
- * @subpackage	BitTracker
+ * @subpackage		BitTracker
  * @since		11 FEB 2018
  */
  
