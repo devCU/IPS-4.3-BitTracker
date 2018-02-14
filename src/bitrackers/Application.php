@@ -1,12 +1,12 @@
 <?php
 /**
  * @brief		BitTracker Application Class
- * @author		<a href='https://www.devcu.com'>devCU Software</a>
- * @copyright	(c) devCU Software Development
- * @package		Invision Community Suite
+ * @author		Gary Cornell
+ * @copyright	(c) <a href='https://www.devcu.com'>devCU Software Development</a>
+ * @license		https://www.invisioncommunity.com/legal/standards/
+ * @package		Invision Community
  * @subpackage	BitTracker
  * @since		11 FEB 2018
- * @version		1.0.0 Beta 1
  */
  
 namespace IPS\bitracker;
