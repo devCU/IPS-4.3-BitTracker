@@ -1,3 +1,5 @@
+![License](https://img.shields.io/badge/License-GNUv3-blue.svg)  ![Version](https://img.shields.io/badge/Version-1.0.0 Beta-blue.svg)  ![Development](https://img.shields.io/badge/Development-Active-blue.svg)
+
 # IPS 4.2 BitTracker
 
 ```
