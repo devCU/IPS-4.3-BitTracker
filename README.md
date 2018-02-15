@@ -2,6 +2,10 @@
     ![Build](https://img.shields.io/badge/Build-Beta1-lightgrey.svg)
     ![Development](https://img.shields.io/badge/Development-Active-blue.svg)
 
+```diff
+- THIS IS AN INCOMPLETE VERSION UNDER DEVELOPMENT AND SHOULD NOT BE USED IN ANY ENVIRONMENT!!!
+```
+    
 # IPS 4.2 BitTracker
 
 ```
