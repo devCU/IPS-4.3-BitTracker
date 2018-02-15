@@ -51,7 +51,7 @@ class _File
 		if ( \IPS\bitracker\Category::canOnAny( 'add' ) )
 		{
 			return array(
-				'file_bitracker' => array(
+				'file_bitrack' => array(
 					'link' 		=> \IPS\Http\Url::internal( "app=bitracker&module=bitracker&controller=submit&_new=1", 'front', 'bitracker_submit' ),
 					'title' 	=> 'select_category',
 					'extraData'	=> array( 'data-ipsDialog' => true, 'data-ipsDialog-size' => "narrow" )
