@@ -1,5 +1,5 @@
 ![License](https://img.shields.io/badge/License-GNUv3-blue.svg)  ![Version](https://img.shields.io/badge/Version-1.0.0-blue.svg)
-    ![Build](https://img.shields.io/badge/Build-Beta1-blue.svg
+    ![Build](https://img.shields.io/badge/Build-Beta1-lightgrey.svg)
     ![Development](https://img.shields.io/badge/Development-Active-blue.svg)
 
 # IPS 4.2 BitTracker
@@ -42,3 +42,15 @@
 [Info on beta build](https://www.devcu.com/forums/devcu-tracker/ips4bt/version-100-beta-1-initial-build-r3/)
 
 - In development for February 2018 Release
+
+## License
+
+GNU General Public License v3.0
+
+## Development / Contribute
+
+Pre-Release
+
+## Copyrights
+
+Created for devCU Software ©2018
