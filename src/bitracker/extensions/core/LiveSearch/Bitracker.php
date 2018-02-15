@@ -39,7 +39,7 @@ if ( !defined( '\IPS\SUITE_UNIQUE_KEY' ) )
 /**
  * @brief	ACP Live Search Extension
  */
-class _bitracker
+class _Bitracker
 {
 	/**
 	 * Check we have access
