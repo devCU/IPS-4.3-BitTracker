@@ -1,5 +1,6 @@
 ![License](https://img.shields.io/badge/License-GNUv3-blue.svg)  ![Version](https://img.shields.io/badge/Version-1.0.0-blue.svg)
     ![Build](https://img.shields.io/badge/Build-Beta1-lightgrey.svg)
+    ![Status](https://img.shields.io/badge/Status-Incomplete-red.svg)
     ![Development](https://img.shields.io/badge/Development-Active-blue.svg)
 
 ```diff
