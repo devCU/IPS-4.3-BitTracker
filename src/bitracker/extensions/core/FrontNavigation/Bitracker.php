@@ -37,7 +37,7 @@ if ( !defined( '\IPS\SUITE_UNIQUE_KEY' ) )
 }
 
 /**
- * Front Navigation Extension: BitTracke
+ * Front Navigation Extension: BitTracker
  */
 class _Bitracker extends \IPS\core\FrontNavigation\FrontNavigationAbstract
 {
