@@ -1,4 +1,4 @@
-![devCUHead](https://www.devcu.com/assets/images/githead.png)
+![devCUHead](https://www.devcu.com/assets/images/githead.png?V=1.1)
 
 ![License](https://img.shields.io/badge/License-GNUv3-blue.svg)  ![Version](https://img.shields.io/badge/Version-1.0.0-blue.svg)
     ![Build](https://img.shields.io/badge/Build-Beta1-lightgrey.svg)
