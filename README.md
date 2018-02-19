@@ -9,7 +9,7 @@
 - THIS IS AN INCOMPLETE VERSION UNDER DEVELOPMENT AND SHOULD NOT BE USED IN ANY ENVIRONMENT!!!
 ```
 
-**Support our Open Source Projects and get access to pre-release betas builds**
+**Please support our Open Source Projects and get access to pre-release beta test builds**
 
 [![donate](https://www.devcu.com/images/donate.png)](https://www.devcu.com/forums/topic/739-help-support-our-work/)
 
