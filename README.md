@@ -1,3 +1,6 @@
+**Support our Open Source Projects and get access to pre-release betas builds**
+[![donate](https://www.devcu.com/images/donate.png)](https://www.devcu.com/forums/topic/739-help-support-our-work/)
+
 ![devCUHead](https://www.devcu.com/assets/images/githead.png?V=1.1)
 
 ![License](https://img.shields.io/badge/License-GNUv3-blue.svg)  ![Version](https://img.shields.io/badge/Version-1.0.0-blue.svg)
