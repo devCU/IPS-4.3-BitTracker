@@ -542,7 +542,6 @@ class _submit extends \IPS\Dispatcher\Controller
 				\IPS\Member::loggedIn()->language()->words[ "filedata_{$key}_file_version" ] = \IPS\Member::loggedIn()->language()->addToStack( 'file_version', FALSE );
 			}
 
-
 			/* Handle Submissions */
 			if ( $values = $form->values() )
 			{
