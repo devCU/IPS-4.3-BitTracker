@@ -1,4 +1,4 @@
-![devCUHead](https://www.devcu.com/assets/images/githead.png?V=1.2)
+![devCUHead](https://www.devcu.com/assets/images/githubhead_2.gif?V=1.3)
 
 [![License](https://img.shields.io/badge/License-GNUv3-blue.svg)](https://github.com/GaalexxC/IPS-4.2-BitTracker/blob/master/LICENSE) ![Version](https://img.shields.io/badge/Version-1.0.0-blue.svg)
     ![Build](https://img.shields.io/badge/Build-Beta1-lightgrey.svg)
@@ -30,7 +30,7 @@
  * @source      https://github.com/GaalexxC/IPS-4.2-BitTracker
  * @Issue Trak  https://www.devcu.com/forums/devcu-tracker/ips4bt/
  * @Created     11 FEB 2018
- * @Updated     20 FEB 2018
+ * @Updated     21 FEB 2018
  *
  *                    GNU General Public License v3.0
  *    This program is free software: you can redistribute it and/or modify       
