@@ -1,0 +1,6 @@
+{
+    "Forums": {
+        "type": "C",
+        "class": "\\IPS\\forums\\Forum"
+    }
+}
