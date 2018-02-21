@@ -1,0 +1,197 @@
+{
+    "1": {
+        "method": "addColumn",
+        "params": [
+            "core_groups",
+            {
+                "name": "bit_view_approvers",
+                "type": "TINYINT",
+                "length": 1,
+                "null": false,
+                "default": 0,
+                "comment": "Can view who approved torrents?",
+                "unsigned": true
+            }
+        ]
+    },
+    "2": {
+        "method": "addColumn",
+        "params": [
+            "core_groups",
+            {
+                "name": "bit_bypass_revision",
+                "type": "TINYINT",
+                "length": 1,
+                "null": false,
+                "default": 0,
+                "comment": "Can bypass revisions?",
+                "unsigned": true
+            }
+        ]
+    },
+    "3": {
+        "method": "addColumn",
+        "params": [
+            "core_groups",
+            {
+                "name": "bit_view_bitracker",
+                "type": "TINYINT",
+                "length": 1,
+                "null": false,
+                "default": 0,
+                "comment": "Can view who downloaded torrents?",
+                "unsigned": true
+            }
+        ]
+    },
+    "4": {
+        "method": "addColumn",
+        "params": [
+            "core_groups",
+            {
+                "name": "bit_throttling",
+                "type": "INT",
+                "length": 10,
+                "null": false,
+                "default": 0,
+                "comment": "Torrents Speed Throttling kb",
+                "unsigned": true
+            }
+        ]
+    },
+    "5": {
+        "method": "addColumn",
+        "params": [
+            "core_groups",
+            {
+                "name": "bit_wait_period",
+                "type": "INT",
+                "length": 10,
+                "null": false,
+                "default": 0,
+                "comment": "Seconds users must wait before download",
+                "unsigned": true
+            }
+        ]
+    },
+    "6": {
+        "method": "addColumn",
+        "params": [
+            "core_groups",
+            {
+                "name": "bit_restrictions",
+                "type": "TEXT",
+                "null": false,
+                "default": "{}",
+                "comment": "Torrents Restrictions"
+            }
+        ]
+    },
+    "7": {
+        "method": "addColumn",
+        "params": [
+            "core_groups",
+            {
+                "name": "bit_linked_files",
+                "type": "TINYINT",
+                "length": 1,
+                "null": false,
+                "default": 0,
+                "comment": "Can submit URLs?",
+                "unsigned": true
+            }
+        ]
+    },
+    "8": {
+        "method": "addColumn",
+        "params": [
+            "core_groups",
+            {
+                "name": "bit_import_files",
+                "type": "TINYINT",
+                "length": 1,
+                "null": false,
+                "default": 0,
+                "comment": "Can import torrents from a path?",
+                "unsigned": true
+            }
+        ]
+    },
+    "9": {
+        "method": "addColumn",
+        "params": [
+            "core_members",
+            {
+                "name": "bit_block_submissions",
+                "type": "TINYINT",
+                "length": 1,
+                "null": false,
+                "default": 0,
+                "comment": "Blocked from submitting Bitracker torrents?",
+                "unsigned": true
+            }
+        ]
+    },
+    "10": {
+        "method": "addColumn",
+        "params": [
+            "core_groups",
+            {
+                "name": "bit_bulk_submit",
+                "type": "TINYINT",
+                "length": 1,
+                "null": false,
+                "default": 0,
+                "comment": "Can bulk upload?",
+                "unsigned": true
+            }
+        ]
+    },
+    "11": {
+        "method": "addColumn",
+        "params": [
+            "core_groups",
+            {
+                "name": "bit_add_paid",
+                "type": "TINYINT",
+                "length": 1,
+                "null": false,
+                "default": 0,
+                "comment": "Can submit paid torrents?",
+                "unsigned": true
+            }
+        ]
+    },
+    "12": {
+        "method": "addColumn",
+        "params": [
+            "core_groups",
+            {
+                "name": "bit_bypass_paid",
+                "type": "TINYINT",
+                "length": 1,
+                "null": false,
+                "default": 0,
+                "comment": "Can download paid torrents without paying?",
+                "unsigned": true
+            }
+        ]
+    },
+    "13": {
+        "method": "insert",
+        "params": [
+            "core_permission_index",
+            {
+                "app": "bitracker",
+                "perm_type": "category",
+                "perm_type_id": 1,
+                "perm_view": "*",
+                "perm_3": "<%NO_GUESTS%>",
+                "perm_3": "<%NO_GUESTS%>",
+                "perm_4": "<%NO_GUESTS%>",
+                "perm_5": "<%NO_GUESTS%>",
+                "perm_6": "<%NO_GUESTS%>"
+            }
+        ]
+    }
+}
