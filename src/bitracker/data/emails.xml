@@ -134,5 +134,5 @@
 			</strong>
 		</p>
 	</td>
-</tr>]]></template_content_html><template_data>$file, $email</template_data><template_content_plaintext><![CDATA[{$email->language->addToStack("x_created_file_in", FALSE, array( 'sprintf' => array( $file->author()->name, $file->container()->_title ) ) )}: {$file->title} ({$file->url()})
+</tr>]]></template_content_html><template_data>$file, $email</template_data><template_content_plaintext><![CDATA[{$email->language->addToStack("x_created_torrent_in", FALSE, array( 'sprintf' => array( $file->author()->name, $file->container()->_title ) ) )}: {$file->title} ({$file->url()})
 ]]></template_content_plaintext></template></emails>
