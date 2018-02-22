@@ -1,0 +1,42 @@
+{
+    "bitracker": {
+        "categories": {
+            "tab": "community",
+            "controller": "categories",
+            "do": "",
+            "restriction": "categories_manage"
+        },
+        "fields": {
+            "tab": "community",
+            "controller": "fields",
+            "do": "",
+            "restriction": "fields_manage"
+        },
+        "settings": {
+            "tab": "community",
+            "controller": "settings",
+            "do": "",
+            "restriction": "settings_manage"
+        }
+    },
+    "stats": {
+        "bitracker": {
+            "tab": "stats",
+            "controller": "bitracker",
+            "do": "",
+            "restriction": "bitracker_manage"
+        },
+        "downloaders": {
+            "tab": "stats",
+            "controller": "downloaders",
+            "do": "",
+            "restriction": "downloaders_manage"
+        },
+        "submitters": {
+            "tab": "stats",
+            "controller": "submitters",
+            "do": "",
+            "restriction": "submitters_manage"
+        }
+    }
+}
