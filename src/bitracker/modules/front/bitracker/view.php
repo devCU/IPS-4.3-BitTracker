@@ -491,7 +491,7 @@ class _view extends \IPS\Content\Controller
 			{
 				if ( $category->log !== 0 )
 				{
-					\IPS\Db::i()->insert( 'bitracker_downloads', array(
+					\IPS\Db::i()->insert( 'bitracker_torrents', array(
 						'dfid'		=> $this->file->id,
 						'dtime'		=> time(),
 						'dip'		=> \IPS\Request::i()->ipAddress(),
@@ -778,7 +778,7 @@ class _view extends \IPS\Content\Controller
 			\IPS\Output::i()->error( 'no_module_permission', '2D161/B', 403, '' );
 		}
 		
-		$table = new \IPS\Helpers\Table\Db( 'bitracker_downloads', $this->file->url()->setQueryString( 'do', 'log' ), array( 'dfid=?', $this->file->id ) );
+		$table = new \IPS\Helpers\Table\Db( 'bitracker_torrents', $this->file->url()->setQueryString( 'do', 'log' ), array( 'dfid=?', $this->file->id ) );
 		$table->tableTemplate = array( \IPS\Theme::i()->getTemplate( 'view' ), 'logTable' );
 		$table->rowsTemplate = array( \IPS\Theme::i()->getTemplate( 'view' ), 'logRows' );
 		$table->sortBy = 'dtime';

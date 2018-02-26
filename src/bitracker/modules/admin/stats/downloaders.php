@@ -94,7 +94,7 @@ class _downloaders extends \IPS\Dispatcher\Controller
 			$page = 1;
 		}
 
-		$select = \IPS\Db::i()->select( 'dmid, COUNT(*) as bitracker', 'bitracker_downloads', $where, 'bitracker DESC', array( ( $page - 1 ) * static::PER_PAGE, static::PER_PAGE ), 'dmid', NULL, \IPS\Db::SELECT_SQL_CALC_FOUND_ROWS );
+		$select = \IPS\Db::i()->select( 'dmid, COUNT(*) as bitracker', 'bitracker_torrents', $where, 'bitracker DESC', array( ( $page - 1 ) * static::PER_PAGE, static::PER_PAGE ), 'dmid', NULL, \IPS\Db::SELECT_SQL_CALC_FOUND_ROWS );
 		$mids = array();
 		
 		foreach( $select as $row )

@@ -121,7 +121,7 @@ class _topBitracker extends \IPS\Widget\PermissionCache
 			$ids	= array();
 			$cases	= array();
 
-			foreach( \IPS\Db::i()->select( 'dfid, COUNT(*) AS bitracker', 'bitracker_downloads', $where, 'bitracker DESC', isset( $this->configuration['number_to_show'] ) ? $this->configuration['number_to_show'] : 5, array( 'dfid' ) )->join( 'bitracker_files', 'dfid=file_id' ) as $bitrack )
+			foreach( \IPS\Db::i()->select( 'dfid, COUNT(*) AS bitracker', 'bitracker_torrents', $where, 'bitracker DESC', isset( $this->configuration['number_to_show'] ) ? $this->configuration['number_to_show'] : 5, array( 'dfid' ) )->join( 'bitracker_files', 'dfid=file_id' ) as $bitrack )
 			{
 				$ids[]		= $bitrack['dfid'];
 				$cases[]	= "WHEN file_id={$bitrack['dfid']} THEN {$bitrack['bitracker']}";

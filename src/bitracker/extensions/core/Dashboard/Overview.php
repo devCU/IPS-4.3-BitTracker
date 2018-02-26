@@ -66,8 +66,8 @@ class _Overview
 			'total_files'				=> (int) \IPS\Db::i()->select( 'COUNT(*)', 'bitracker_files' )->first(),
 			'total_views'				=> (int) \IPS\Db::i()->select( 'SUM(file_views)', 'bitracker_files' )->first(),
 			'total_downloads'			=> (int) \IPS\Db::i()->select( 'SUM(file_bitracker)', 'bitracker_files' )->first(),
-			'total_bandwidth'			=> (int) \IPS\Db::i()->select( 'SUM(dsize)', 'bitracker_downloads' )->first(),
-			'current_month_bandwidth'	=> (int) \IPS\Db::i()->select( 'SUM(dsize)', 'bitracker_downloads', array( 'dtime>?', $oneMonthAgo ) )->first(),
+			'total_bandwidth'			=> (int) \IPS\Db::i()->select( 'SUM(dsize)', 'bitracker_torrents' )->first(),
+			'current_month_bandwidth'	=> (int) \IPS\Db::i()->select( 'SUM(dsize)', 'bitracker_torrents', array( 'dtime>?', $oneMonthAgo ) )->first(),
 		);
 		
 		/* Specific files (will fail if no files yet) */

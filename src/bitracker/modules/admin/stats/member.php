@@ -66,13 +66,13 @@ class _member extends \IPS\Dispatcher\Controller
 			case 'information':
 				$fileCount = \IPS\Db::i()->select( 'COUNT(*)', 'bitracker_files', array( 'file_submitter=?', $member->member_id ) )->first();
 				$diskspaceUsed = \IPS\Db::i()->select( 'SUM(file_size)', 'bitracker_files', array( 'file_submitter=?', $member->member_id ) )->first();
-				$numberOfDownloads = \IPS\Db::i()->select( 'COUNT(*)', 'bitracker_downloads', array( 'dmid=?', $member->member_id ) )->first();
-				$totalDownloads = \IPS\Db::i()->select( 'COUNT(*)', 'bitracker_downloads' )->first();
-				$bandwidthUsed = \IPS\Db::i()->select( 'SUM(dsize)', 'bitracker_downloads', array( 'dmid=?', $member->member_id ) )->first();
+				$numberOfDownloads = \IPS\Db::i()->select( 'COUNT(*)', 'bitracker_torrents', array( 'dmid=?', $member->member_id ) )->first();
+				$totalDownloads = \IPS\Db::i()->select( 'COUNT(*)', 'bitracker_torrents' )->first();
+				$bandwidthUsed = \IPS\Db::i()->select( 'SUM(dsize)', 'bitracker_torrents', array( 'dmid=?', $member->member_id ) )->first();
 
 				$allFiles = \IPS\Db::i()->select( 'COUNT(*)', 'bitracker_files' )->first();
 				$totalFileSize = \IPS\Db::i()->select( 'SUM(file_size)', 'bitracker_files' )->first();
-				$totalDownloadSize = \IPS\Db::i()->select( 'SUM(dsize)', 'bitracker_downloads' )->first();
+				$totalDownloadSize = \IPS\Db::i()->select( 'SUM(dsize)', 'bitracker_torrents' )->first();
 
 				$activeTabContents = \IPS\Theme::i()->getTemplate( 'stats' )->information( \IPS\Theme::i()->getTemplate( 'global', 'core' )->definitionTable( array(
 					'files_submitted'		=>
@@ -104,7 +104,7 @@ class _member extends \IPS\Dispatcher\Controller
 				break;
 			
 			case 'bitracker':
-				$downloadsChart = new \IPS\Helpers\Chart\Database( \IPS\Http\Url::internal( "app=bitracker&module=stats&controller=member&do=bitracker&id={$member->member_id}&tab=bitracker&_graph=1" ), 'bitracker_downloads', 'dtime', '', array(
+				$downloadsChart = new \IPS\Helpers\Chart\Database( \IPS\Http\Url::internal( "app=bitracker&module=stats&controller=member&do=bitracker&id={$member->member_id}&tab=bitracker&_graph=1" ), 'bitracker_torrents', 'dtime', '', array(
 						'backgroundColor' 	=> '#ffffff',
 						'colors'			=> array( '#10967e', '#ea7963', '#de6470', '#6b9dde', '#b09be4', '#eec766', '#9fc973', '#e291bf', '#55c1a6', '#5fb9da' ),
 						'hAxis'				=> array( 'gridlines' => array( 'color' => '#f5f5f5' ) ),
@@ -149,7 +149,7 @@ class _member extends \IPS\Dispatcher\Controller
 			break;
 		
 			case 'bandwidth_use':
-				$bandwidthChart = new \IPS\Helpers\Chart\Database( \IPS\Http\Url::internal( "app=bitracker&module=stats&controller=member&do=bitracker&id={$member->member_id}&tab=bandwidth_use&_graph=1" ), 'bitracker_downloads', 'dtime', '', array( 
+				$bandwidthChart = new \IPS\Helpers\Chart\Database( \IPS\Http\Url::internal( "app=bitracker&module=stats&controller=member&do=bitracker&id={$member->member_id}&tab=bandwidth_use&_graph=1" ), 'bitracker_torrents', 'dtime', '', array( 
 						'vAxis' => array( 'title' => '(' . \IPS\Member::loggedIn()->language()->addToStack( 'filesize_raw_k' ) . ')' ),
 						'backgroundColor' 	=> '#ffffff',
 						'colors'			=> array( '#10967e', '#ea7963', '#de6470', '#6b9dde', '#b09be4', '#eec766', '#9fc973', '#e291bf', '#55c1a6', '#5fb9da' ),

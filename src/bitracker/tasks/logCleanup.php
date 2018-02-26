@@ -56,7 +56,7 @@ class _logCleanup extends \IPS\Task
 	{	
 		foreach ( \IPS\Db::i()->select( '*', 'bitracker_categories', 'clog>0' ) as $cat )
 		{
-			\IPS\Db::i()->delete( 'bitracker_downloads', array( 'dtime<? AND dfid IN(?)', \IPS\DateTime::create()->sub( new \DateInterval( 'P' . $cat['clog'] . 'D' ) )->getTimestamp(), \IPS\Db::i()->select( 'file_id', 'bitracker_files', array( 'file_cat=?', $cat['cid'] ) ) ) );
+			\IPS\Db::i()->delete( 'bitracker_torrents', array( 'dtime<? AND dfid IN(?)', \IPS\DateTime::create()->sub( new \DateInterval( 'P' . $cat['clog'] . 'D' ) )->getTimestamp(), \IPS\Db::i()->select( 'file_id', 'bitracker_files', array( 'file_cat=?', $cat['cid'] ) ) ) );
 		}
 				
 		return NULL;

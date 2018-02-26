@@ -75,11 +75,11 @@ class _DownloadLog
 		/* Return count */
 		if ( $baseUrl === NULL )
 		{
-			return \IPS\Db::i()->select( 'COUNT(*)', 'bitracker_downloads', array( "dip LIKE ?", $ip ) )->first();
+			return \IPS\Db::i()->select( 'COUNT(*)', 'bitracker_torrents', array( "dip LIKE ?", $ip ) )->first();
 		}
 		
 		/* Init Table */
-		$table = new \IPS\Helpers\Table\Db( 'bitracker_downloads', $baseUrl, array( "dip LIKE ?", $ip ) );
+		$table = new \IPS\Helpers\Table\Db( 'bitracker_torrents', $baseUrl, array( "dip LIKE ?", $ip ) );
 
 		$table->tableTemplate  = array( \IPS\Theme::i()->getTemplate( 'tables', 'core', 'admin' ), 'table' );
 		$table->rowsTemplate  = array( \IPS\Theme::i()->getTemplate( 'tables', 'core', 'admin' ), 'rows' );
@@ -143,6 +143,6 @@ class _DownloadLog
 	 */
 	public function findByMember( $member )
 	{
-		return \IPS\Db::i()->select( "dip AS ip, COUNT(*) AS count, MIN(dtime) AS first, MAX(dtime) AS last", 'bitracker_downloads', array( "dmid=?", $member->member_id ), NULL, NULL, 'dip' )->setKeyField( 'ip' );
+		return \IPS\Db::i()->select( "dip AS ip, COUNT(*) AS count, MIN(dtime) AS first, MAX(dtime) AS last", 'bitracker_torrents', array( "dmid=?", $member->member_id ), NULL, NULL, 'dip' )->setKeyField( 'ip' );
 	}	
 }

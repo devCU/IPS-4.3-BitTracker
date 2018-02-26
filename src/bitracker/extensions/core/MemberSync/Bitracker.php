@@ -50,7 +50,7 @@ class _Bitracker
 	 */
 	public function onMerge( $member, $member2 )
 	{
-		\IPS\Db::i()->update( 'bitracker_downloads', array( 'dmid' => $member->member_id ), array( 'dmid=?', $member2->member_id ) );
+		\IPS\Db::i()->update( 'bitracker_torrents', array( 'dmid' => $member->member_id ), array( 'dmid=?', $member2->member_id ) );
 		\IPS\Db::i()->update( 'bitracker_files', array( 'file_approver' => $member->member_id ), array( 'file_approver=?', $member2->member_id ) );
 		\IPS\Db::i()->delete( 'bitracker_sessions', array( 'dsess_mid=?', $member2->member_id ) );
 	}
@@ -63,7 +63,7 @@ class _Bitracker
 	 */
 	public function onDelete( $member )
 	{
-		\IPS\Db::i()->delete( 'bitracker_downloads', array( 'dmid=?', $member->member_id ) );
+		\IPS\Db::i()->delete( 'bitracker_torrents', array( 'dmid=?', $member->member_id ) );
 		\IPS\Db::i()->delete( 'bitracker_sessions', array( 'dsess_mid=?', $member->member_id ) );
 		\IPS\Db::i()->update( 'bitracker_files', array( 'file_approver' => 0 ), array( 'file_approver=?', $member->member_id ) );
 	}

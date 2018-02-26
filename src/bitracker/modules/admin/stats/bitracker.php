@@ -59,7 +59,7 @@ class _bitracker extends \IPS\Dispatcher\Controller
 	 */
 	protected function manage()
 	{
-		$chart = new \IPS\Helpers\Chart\Database( \IPS\Http\Url::internal( "app=bitracker&module=stats&controller=bitracker" ), 'bitracker_downloads', 'dtime', '', array(
+		$chart = new \IPS\Helpers\Chart\Database( \IPS\Http\Url::internal( "app=bitracker&module=stats&controller=bitracker" ), 'bitracker_torrents', 'dtime', '', array(
 			'backgroundColor' 	=> '#ffffff',
 			'colors'			=> array( '#10967e', '#ea7963', '#de6470', '#6b9dde', '#b09be4', '#eec766', '#9fc973', '#e291bf', '#55c1a6', '#5fb9da' ),
 			'hAxis'				=> array( 'gridlines' => array( 'color' => '#f5f5f5' ) ),

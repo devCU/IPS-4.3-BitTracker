@@ -70,7 +70,7 @@ class _categories extends \IPS\Node\Controller
 		{
 			$category = \IPS\bitracker\Category::load( \IPS\Request::i()->id );
 			
-			\IPS\Db::i()->update( 'bitracker_files', array( 'file_bitracker' => \IPS\Db::i()->select( 'COUNT(*)', 'bitracker_downloads', array( 'dfid=file_id' ) ) ), array( 'file_cat=?', $category->id ) );
+			\IPS\Db::i()->update( 'bitracker_files', array( 'file_bitracker' => \IPS\Db::i()->select( 'COUNT(*)', 'bitracker_torrents', array( 'dfid=file_id' ) ) ), array( 'file_cat=?', $category->id ) );
 			\IPS\Session::i()->log( 'acplogs__bitracker_recount_bitracker', array( $category->_title => FALSE ) );
 		
 			\IPS\Output::i()->redirect( \IPS\Http\Url::internal( "app=bitracker&module=bitracker&controller=categories&do=form&id=" . \IPS\Request::i()->id ), 'clog_recount_done' );
