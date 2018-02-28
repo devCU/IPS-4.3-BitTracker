@@ -122,9 +122,9 @@
 			}
 
 			this._ui = {
-				progressBar: this.scope.find('#elBitrackerSubmit_progress'),
-				screenshots: this.scope.find('#elBitrackerSubmit_screenshots'),
-				fileInfo: this.scope.find('#elBitrackerSubmit_otherinfo')
+				progressBar: this.scope.find('#elTorrentsSubmit_progress'),
+				screenshots: this.scope.find('#elTorrentsSubmit_screenshots'),
+				fileInfo: this.scope.find('#elTorrentsSubmit_otherinfo')
 			};
 
 
@@ -148,8 +148,8 @@
 				if( !this.scope.find('input[name^="files_existing"]').length ){
 					hideProgressBar();
 				} else {
-					this.scope.find('#elBitrackerSubmit_uploader .ipsAttachment_dropZone').hide();
-					this.scope.find('#elBitrackerSubmit_uploader [data-action="uploadMore"]').show();
+					this.scope.find('#elTorrentsSubmit_uploader .ipsAttachment_dropZone').hide();
+					this.scope.find('#elTorrentsSubmit_uploader [data-action="uploadMore"]').show();
 					this._hiddenUploader = true;
 				}
 
@@ -217,8 +217,8 @@
 		uploadMore: function (e) {
 			e.preventDefault();
 
-			this.scope.find('#elBitrackerSubmit_uploader .ipsAttachment_dropZone').show();
-			this.scope.find('#elBitrackerSubmit_uploader [data-action="uploadMore"]').hide();
+			this.scope.find('#elTorrentsSubmit_uploader .ipsAttachment_dropZone').show();
+			this.scope.find('#elTorrentsSubmit_uploader [data-action="uploadMore"]').hide();
 			this._hiddenUploader = false;
 			this._overriddenUploader = true;
 		},
@@ -255,14 +255,14 @@
 			}
 
 			if( data.count === 0 ){
-				this.scope.find( '#elBitrackerSubmit_progress .ipsProgressBar_progress')
+				this.scope.find( '#elTorrentsSubmit_progress .ipsProgressBar_progress')
 					.attr('data-progress', '0%')
 					.css( {
 						width: '0%'
 					});
 
-				this.scope.find('#elBitrackerSubmit_uploader .ipsAttachment_dropZone').show();
-				this.scope.find('#elBitrackerSubmit_uploader [data-action="uploadMore"]').hide();
+				this.scope.find('#elTorrentsSubmit_uploader .ipsAttachment_dropZone').show();
+				this.scope.find('#elTorrentsSubmit_uploader [data-action="uploadMore"]').hide();
 				this._hiddenUploader = false;
 				this._overriddenUploader = true;
 			}
@@ -296,7 +296,7 @@
 			var self = this;
 			this._showProgress();
 
-			this.scope.find( '#elBitrackerSubmit_progress .ipsProgressBar_progress')
+			this.scope.find( '#elTorrentsSubmit_progress .ipsProgressBar_progress')
 				.attr('data-progress', data.percent + '%')
 				.css( {
 					width: data.percent + '%'
@@ -468,8 +468,8 @@
 		_showProgress: function () {
 			if( !this._hiddenUploader && !this._overriddenUploader ){
 				this._ui.progressBar.show().find('.ipsProgressBar').addClass('ipsProgressBar_animated');
-				this.scope.find('#elBitrackerSubmit_uploader .ipsAttachment_dropZone').hide();
-				this.scope.find('#elBitrackerSubmit_uploader [data-action="uploadMore"]').show();
+				this.scope.find('#elTorrentsSubmit_uploader .ipsAttachment_dropZone').hide();
+				this.scope.find('#elTorrentsSubmit_uploader [data-action="uploadMore"]').show();
 				this._hiddenUploader = true;
 			}
 		}
@@ -596,18 +596,18 @@
 		
 	});
 }(jQuery, _));]]></file>
- <file javascript_app="bitracker" javascript_location="front" javascript_path="controllers/view" javascript_name="ips.view.bitrack.js" javascript_type="controller" javascript_version="102042" javascript_position="1000100">/**&#13;
+ <file javascript_app="bitracker" javascript_location="front" javascript_path="controllers/view" javascript_name="ips.view.tracker.js" javascript_type="controller" javascript_version="102042" javascript_position="1000100">/**&#13;
  * Invision Community&#13;
  * (c) Invision Power Services, Inc. - https://www.invisioncommunity.com&#13;
  *&#13;
- * ips.view.bitrack.js - Bitracker popup controller&#13;
+ * ips.view.tracker.js - Bitracker popup controller&#13;
  *&#13;
  * Author: Rikki Tissier&#13;
  */&#13;
 ;( function($, _, undefined){&#13;
 	&quot;use strict&quot;;&#13;
 &#13;
-	ips.controller.register('bitracker.front.view.bitrack', {&#13;
+	ips.controller.register('bitracker.front.view.tracker', {&#13;
 &#13;
 		initialize: function () {&#13;
 			this.on( 'click', '[data-action=&quot;dialogClose&quot;]', this.closeDialog );&#13;
@@ -687,7 +687,7 @@
 				&#13;
 				ips.getAjax()( $( e.currentTarget ).attr('href') )&#13;
 					.done( function (response) {&#13;
-						var secondsRemaining = response.bitrack - response.currentTime;&#13;
+						var secondsRemaining = response.tracker - response.currentTime;&#13;
 						&#13;
 						$( e.currentTarget )&#13;
 							.hide()&#13;
