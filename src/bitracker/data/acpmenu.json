@@ -1,42 +1,152 @@
 {
-    "bitracker": {
+    "tracker": {
+        "overview": {
+            "tab": "bitracker",
+            "controller": "overview",
+            "do": "",
+            "restriction": "overview_manage"
+        },
+        "torrents": {
+            "tab": "bitracker",
+            "controller": "torrents",
+            "do": "",
+            "restriction": "torrents_manage"
+        },
+        "announce": {
+            "tab": "bitracker",
+            "controller": "announce",
+            "do": "",
+            "restriction": "announce_manage"
+        },
+        "security": {
+            "tab": "bitracker",
+            "controller": "security",
+            "do": "",
+            "restriction": "security_manage"
+        }
+    },
+    "configure": {
         "categories": {
-            "tab": "community",
+            "tab": "bitracker",
             "controller": "categories",
             "do": "",
             "restriction": "categories_manage"
         },
         "fields": {
-            "tab": "community",
+            "tab": "bitracker",
             "controller": "fields",
             "do": "",
             "restriction": "fields_manage"
-        },
-        "settings": {
-            "tab": "community",
-            "controller": "settings",
+        }
+    },
+    "settings": {
+        "general": {
+            "tab": "bitracker",
+            "controller": "general",
             "do": "",
             "restriction": "settings_manage"
+        },
+        "file": {
+            "tab": "bitracker",
+            "controller": "files",
+            "do": "",
+            "restriction": "settings_manage"
+        },
+        "topics": {
+            "tab": "bitracker",
+            "controller": "topics",
+            "do": "",
+            "restriction": "settings_manage"
+        },
+        "sites": {
+            "tab": "bitracker",
+            "controller": "sites",
+            "do": "",
+            "restriction": "sites_manage"
+        },
+        "storage": {
+            "tab": "bitracker",
+            "controller": "storage",
+            "do": "",
+            "restriction": "settings_manage"
+        },
+        "menu": {
+            "tab": "bitracker",
+            "controller": "menu",
+            "do": "",
+            "restriction": "menu_manage"
+        },
+        "permissions": {
+            "tab": "bitracker",
+            "controller": "permissions",
+            "do": "",
+            "restriction": "permissions_manage"
+        }
+    },
+    "members": {
+        "members": {
+            "tab": "bitracker",
+            "controller": "members",
+            "do": "",
+            "restriction": "members_manage"
+        },
+        "profiles": {
+            "tab": "bitracker",
+            "controller": "profiles",
+            "do": "",
+            "restriction": "profiles_manage"
         }
     },
     "stats": {
-        "bitracker": {
-            "tab": "stats",
-            "controller": "bitracker",
+        "torrent": {
+            "tab": "bitracker",
+            "controller": "torrents",
             "do": "",
-            "restriction": "bitracker_manage"
+            "restriction": "torrents_manage"
         },
-        "downloaders": {
-            "tab": "stats",
-            "controller": "downloaders",
+        "network": {
+            "tab": "bitracker",
+            "controller": "network",
             "do": "",
-            "restriction": "downloaders_manage"
+            "restriction": "network_manage"
+        },
+        "member": {
+            "tab": "bitracker",
+            "controller": "member",
+            "do": "",
+            "restriction": "members_manage"
+        },
+        "peers": {
+            "tab": "bitracker",
+            "controller": "peers",
+            "do": "",
+            "restriction": "peers_manage"
         },
         "submitters": {
-            "tab": "stats",
+            "tab": "bitracker",
             "controller": "submitters",
             "do": "",
             "restriction": "submitters_manage"
+        }
+    },
+    "about": {
+        "about": {
+            "tab": "bitracker",
+            "controller": "about",
+            "do": "",
+            "restriction": "overview_manage"
+        },
+        "version": {
+            "tab": "bitracker",
+            "controller": "version",
+            "do": "",
+            "restriction": "overview_manage"
+        },
+        "update": {
+            "tab": "bitracker",
+            "controller": "update",
+            "do": "",
+            "restriction": "update_manage"
         }
     }
 }
