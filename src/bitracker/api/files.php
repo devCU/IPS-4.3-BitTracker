@@ -183,9 +183,9 @@ class _files extends \IPS\Content\Api\ItemController
 		/* Save records */
 		foreach ( \IPS\Request::i()->files as $name => $content )
 		{
-			$fileObject = \IPS\File::create( 'bitracker_Files', $name, $content );
+			$fileObject = \IPS\File::create( 'bitracker_Torrents', $name, $content );
 			
-			\IPS\Db::i()->insert( 'bitracker_files_records', array(
+			\IPS\Db::i()->insert( 'bitracker_torrents_records', array(
 				'record_file_id'	=> $file->id,
 				'record_type'		=> 'upload',
 				'record_location'	=> (string) $fileObject,
@@ -200,7 +200,7 @@ class _files extends \IPS\Content\Api\ItemController
 			{
 				$fileObject = \IPS\File::create( 'bitracker_Nfo', $name, $content );
 				
-				\IPS\Db::i()->insert( 'bitracker_files_records', array(
+				\IPS\Db::i()->insert( 'bitracker_torrents_records', array(
 					'record_file_id'		=> $file->id,
 					'record_type'			=> 'nfoupload',
 					'record_location'		=> (string) $fileObject,
@@ -217,7 +217,7 @@ class _files extends \IPS\Content\Api\ItemController
 			{
 				$fileObject = \IPS\File::create( 'bitracker_Screenshots', $name, $content );
 				
-				\IPS\Db::i()->insert( 'bitracker_files_records', array(
+				\IPS\Db::i()->insert( 'bitracker_torrents_records', array(
 					'record_file_id'		=> $file->id,
 					'record_type'			=> 'ssupload',
 					'record_location'		=> (string) $fileObject,
@@ -352,12 +352,12 @@ class _files extends \IPS\Content\Api\ItemController
 	protected function _recalculate( $file )
 	{
 		/* File size */
-		$file->size = floatval( \IPS\Db::i()->select( 'SUM(record_size)', 'bitracker_files_records', array( 'record_file_id=? AND record_type=? AND record_backup=0', $file->id, 'upload' ) )->first() );
+		$file->size = floatval( \IPS\Db::i()->select( 'SUM(record_size)', 'bitracker_torrents_records', array( 'record_file_id=? AND record_type=? AND record_backup=0', $file->id, 'upload' ) )->first() );
 		
 		/* Work out the new primary screenshot */
 		try
 		{
-			$file->primary_screenshot = \IPS\Db::i()->select( 'record_id', 'bitracker_files_records', array( 'record_file_id=? AND ( record_type=? OR record_type=? ) AND record_backup=0', $file->id, 'ssupload', 'sslink' ), 'record_default DESC, record_id ASC' )->first();
+			$file->primary_screenshot = \IPS\Db::i()->select( 'record_id', 'bitracker_torrents_records', array( 'record_file_id=? AND ( record_type=? OR record_type=? ) AND record_backup=0', $file->id, 'ssupload', 'sslink' ), 'record_default DESC, record_id ASC' )->first();
 		}
 		catch ( \UnderflowException $e ) { }
 		
@@ -491,26 +491,26 @@ class _files extends \IPS\Content\Api\ItemController
 			}
 			else
 			{
-				foreach ( \IPS\Db::i()->select( 'record_location', 'bitracker_files_records', array( 'record_file_id=?', $file->id ) ) as $record )
+				foreach ( \IPS\Db::i()->select( 'record_location', 'bitracker_torrents_records', array( 'record_file_id=?', $file->id ) ) as $record )
 				{
 					if ( in_array( $record['record_type'], array( 'upload', 'ssupload' ) ) )
 					{
 						try
 						{
-							\IPS\File::get( $record['record_type'] == 'upload' ? 'bitracker_Files' : 'bitracker_Screenshots', $url )->delete();
+							\IPS\File::get( $record['record_type'] == 'upload' ? 'bitracker_Torrents' : 'bitracker_Screenshots', $url )->delete();
 						}
 						catch ( \Exception $e ) { }
 					}
 				}
-				\IPS\Db::i()->delete( 'bitracker_files_records', array( 'record_file_id=?', $file->id ) );
+				\IPS\Db::i()->delete( 'bitracker_torrents_records', array( 'record_file_id=?', $file->id ) );
 			}
 			
 			/* Insert the new records */
 			foreach ( \IPS\Request::i()->files as $name => $content )
 			{
-				$fileObject = \IPS\File::create( 'bitracker_Files', $name, $content );
+				$fileObject = \IPS\File::create( 'bitracker_Torrents', $name, $content );
 				
-				\IPS\Db::i()->insert( 'bitracker_files_records', array(
+				\IPS\Db::i()->insert( 'bitracker_torrents_records', array(
 					'record_file_id'	=> $file->id,
 					'record_type'		=> 'upload',
 					'record_location'	=> (string) $fileObject,
@@ -525,7 +525,7 @@ class _files extends \IPS\Content\Api\ItemController
 				{
 					$fileObject = \IPS\File::create( 'bitracker_Nfo', $name, $content );
 					
-					\IPS\Db::i()->insert( 'bitracker_files_records', array(
+					\IPS\Db::i()->insert( 'bitracker_torrents_records', array(
 						'record_file_id'		=> $file->id,
 						'record_type'			=> 'nfoupload',
 						'record_location'		=> (string) $fileObject,
@@ -542,7 +542,7 @@ class _files extends \IPS\Content\Api\ItemController
 				{
 					$fileObject = \IPS\File::create( 'bitracker_Screenshots', $name, $content );
 					
-					\IPS\Db::i()->insert( 'bitracker_files_records', array(
+					\IPS\Db::i()->insert( 'bitracker_torrents_records', array(
 						'record_file_id'		=> $file->id,
 						'record_type'			=> 'ssupload',
 						'record_location'		=> (string) $fileObject,
