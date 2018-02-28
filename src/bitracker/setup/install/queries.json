@@ -127,7 +127,7 @@
                 "length": 1,
                 "null": false,
                 "default": 0,
-                "comment": "Blocked from submitting Bitracker torrents?",
+                "comment": "Blocked from submitting torrents?",
                 "unsigned": true
             }
         ]
@@ -142,7 +142,7 @@
                 "length": 1,
                 "null": false,
                 "default": 0,
-                "comment": "Can bulk upload?",
+                "comment": "Can bulk upload torrents?",
                 "unsigned": true
             }
         ]
@@ -185,12 +185,337 @@
                 "app": "bitracker",
                 "perm_type": "category",
                 "perm_type_id": 1,
-                "perm_view": "*",
+                "perm_view": "<%NO_GUESTS%>",
                 "perm_3": "<%NO_GUESTS%>",
                 "perm_3": "<%NO_GUESTS%>",
                 "perm_4": "<%NO_GUESTS%>",
                 "perm_5": "<%NO_GUESTS%>",
                 "perm_6": "<%NO_GUESTS%>"
+            }
+        ]
+    },
+    "14": {
+        "method": "insert",
+        "params": [
+            "core_permission_index",
+            {
+                "app": "bitracker",
+                "perm_type": "torrents",
+                "perm_type_id": 2,
+                "perm_view": "<%NO_GUESTS%>",
+                "perm_2": "<%NO_GUESTS%>",
+                "perm_3": "<%NO_GUESTS%>",
+                "perm_4": "<%NO_GUESTS%>",
+                "perm_5": "<%NO_GUESTS%>",
+                "perm_6": "<%NO_GUESTS%>"
+            }
+        ]
+    },
+    "15": {
+        "method": "addColumn",
+        "params": [
+            "core_groups",
+            {
+                "name": "g_bit_add_torrent",
+                "type": "TINYINT",
+                "length": 1,
+                "null": false,
+                "default": 0,
+                "unsigned": true
+            }
+        ]
+    },
+    "16": {
+        "method": "addColumn",
+        "params": [
+            "core_groups",
+            {
+                "name": "g_bit_edit_torrent",
+                "type": "TINYINT",
+                "length": 1,
+                "null": false,
+                "default": 0,
+                "unsigned": true
+            }
+        ]
+    },
+    "17": {
+        "method": "addColumn",
+        "params": [
+            "core_groups",
+            {
+                "name": "g_bit_add_comments",
+                "type": "TINYINT",
+                "length": 1,
+                "null": false,
+                "default": 0,
+                "unsigned": true
+            }
+        ]
+    },
+    "18": {
+        "method": "addColumn",
+        "params": [
+            "core_groups",
+            {
+                "name": "g_bit_edit_comments",
+                "type": "TINYINT",
+                "length": 1,
+                "null": false,
+                "default": 0,
+                "unsigned": true
+            }
+        ]
+    },
+    "19": {
+        "method": "addColumn",
+        "params": [
+            "core_groups",
+            {
+                "name": "g_bit_rate_torrent",
+                "type": "TINYINT",
+                "length": 1,
+                "null": false,
+                "default": 0,
+                "unsigned": true
+            }
+        ]
+    },
+    "20": {
+        "method": "addColumn",
+        "params": [
+            "core_groups",
+            {
+                "name": "g_bit_delete_torrent",
+                "type": "TINYINT",
+                "length": 1,
+                "null": false,
+                "default": 1,
+                "unsigned": true
+            }
+        ]
+    },
+    "21": {
+        "method": "addColumn",
+        "params": [
+            "core_groups",
+            {
+                "name": "g_bit_delete_comments",
+                "type": "TINYINT",
+                "length": 1,
+                "null": false,
+                "default": 0,
+                "unsigned": true
+            }
+        ]
+    },
+    "22": {
+        "method": "addColumn",
+        "params": [
+            "core_groups",
+            {
+                "name": "g_bit_m_edit_torrent",
+                "type": "TINYINT",
+                "length": 1,
+                "null": false,
+                "default": 1,
+                "unsigned": true
+            }
+        ]
+    },
+    "23": {
+        "method": "addColumn",
+        "params": [
+            "core_groups",
+            {
+                "name": "g_bit_m_delete_torrent",
+                "type": "TINYINT",
+                "length": 1,
+                "null": false,
+                "default": 0,
+                "unsigned": true
+            }
+        ]
+    },
+    "24": {
+        "method": "addColumn",
+        "params": [
+            "core_groups",
+            {
+                "name": "g_bit_m_edit_comments",
+                "type": "TINYINT",
+                "length": 1,
+                "null": false,
+                "default": 0,
+                "unsigned": true
+            }
+        ]
+    },
+    "25": {
+        "method": "addColumn",
+        "params": [
+            "core_groups",
+            {
+                "name": "g_bit_m_delete_comments",
+                "type": "TINYINT",
+                "length": 1,
+                "null": false,
+                "default": 0,
+                "unsigned": true
+            }
+        ]
+    },
+    "26": {
+        "method": "addColumn",
+        "params": [
+            "core_groups",
+            {
+                "name": "g_bit_m_manage",
+                "type": "INT",
+                "length": 5,
+                "null": false,
+                "default": 0,
+                "unsigned": true
+            }
+        ]
+    },
+    "27": {
+        "method": "addColumn",
+        "params": [
+            "core_members",
+            {
+                "name": "bit_perm_key",
+                "type": "VARCHAR",
+                "length": 32,
+                "null": false,
+                "default": 0,
+                "unsigned": true
+            }
+        ]
+    },
+    "28": {
+        "method": "addColumn",
+        "params": [
+            "core_members",
+            {
+                "name": "bit_downloaded",
+                "type": "BIGINT",
+                "length": 20,
+                "null": false,
+                "default": 0,
+                "unsigned": true
+            }
+        ]
+    },
+    "29": {
+        "method": "addColumn",
+        "params": [
+            "core_members",
+            {
+                "name": "bit_uploaded",
+                "type": "BIGINT",
+                "length": 20,
+                "null": false,
+                "default": 0,
+                "unsigned": true
+            }
+        ]
+    },
+    "30": {
+        "method": "addColumn",
+        "params": [
+            "core_members",
+            {
+                "name": "bit_download_total",
+                "type": "BIGINT",
+                "length": 25,
+                "null": false,
+                "default": 0,
+                "unsigned": true
+            }
+        ]
+    },
+    "31": {
+        "method": "addColumn",
+        "params": [
+            "core_members",
+            {
+                "name": "bit_upload_total",
+                "type": "BIGINT",
+                "length": 25,
+                "null": false,
+                "default": 0,
+                "unsigned": true
+            }
+        ]
+    },
+    "32": {
+        "method": "addColumn",
+        "params": [
+            "core_members",
+            {
+                "name": "bit_download_total",
+                "type": "BIGINT",
+                "length": 25,
+                "null": false,
+                "default": 0,
+                "unsigned": true
+            }
+        ]
+    },
+    "33": {
+        "method": "addColumn",
+        "params": [
+            "core_members",
+            {
+                "name": "bit_downloaded_his",
+                "type": "BIGINT",
+                "length": 20,
+                "null": false,
+                "default": 0,
+                "unsigned": true
+            }
+        ]
+    },
+    "34": {
+        "method": "addColumn",
+        "params": [
+            "core_members",
+            {
+                "name": "bit_uploaded_his",
+                "type": "BIGINT",
+                "length": 20,
+                "null": false,
+                "default": 0,
+                "unsigned": true
+            }
+        ]
+    },
+    "35": {
+        "method": "addColumn",
+        "params": [
+            "core_members",
+            {
+                "name": "bit_ip_address2",
+                "type": "VARCHAR",
+                "length": 46,
+                "null": false,
+                "default": "None",
+                "unsigned": true
+            }
+        ]
+    },
+    "36": {
+        "method": "addColumn",
+        "params": [
+            "core_members",
+            {
+                "name": "bit_ip_address3",
+                "type": "VARCHAR",
+                "length": 46,
+                "null": false,
+                "default": "None",
+                "unsigned": true
             }
         ]
     }
