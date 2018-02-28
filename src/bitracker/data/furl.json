@@ -22,7 +22,7 @@
  * They must be provided in that order, otherwise the former will redirec to /myfolder/?do=myaction rather than /myfolder/myaction
  */
 {
-	"topLevel": "bitrack",
+	"topLevel": "tracker",
 	"pages": {
 	    "bitracker_submit": {
 	        "friendly": "submit",
@@ -37,7 +37,7 @@
 		    "friendly": "categories",
 		    "real": "app=bitracker&module=bitracker&controller=browse&do=categories"
 	    },
-	    "bitracker_file": {
+	    "bitracker_torrent": {
 		    "friendly": "file/{#id}-{?}",
 		    "real": "app=bitracker&module=bitracker&controller=view",
 		    "verify": "\\IPS\\bitracker\\File"
