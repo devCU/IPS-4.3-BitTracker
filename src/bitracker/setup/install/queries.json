@@ -384,6 +384,21 @@
         "params": [
             "core_members",
             {
+                "name": "bit_access_tracker",
+                "type": "TINYINT",
+                "length": 1,
+                "null": false,
+                "default": 0,
+                "comment": "Blocked from accessing tracker?",
+                "unsigned": true
+            }
+        ]
+    },
+    "28": {
+        "method": "addColumn",
+        "params": [
+            "core_members",
+            {
                 "name": "bit_perm_key",
                 "type": "VARCHAR",
                 "length": 32,
@@ -393,7 +408,7 @@
             }
         ]
     },
-    "28": {
+    "29": {
         "method": "addColumn",
         "params": [
             "core_members",
@@ -407,7 +422,7 @@
             }
         ]
     },
-    "29": {
+    "30": {
         "method": "addColumn",
         "params": [
             "core_members",
@@ -421,26 +436,12 @@
             }
         ]
     },
-    "30": {
-        "method": "addColumn",
-        "params": [
-            "core_members",
-            {
-                "name": "bit_download_total",
-                "type": "BIGINT",
-                "length": 25,
-                "null": false,
-                "default": 0,
-                "unsigned": true
-            }
-        ]
-    },
     "31": {
         "method": "addColumn",
         "params": [
             "core_members",
             {
-                "name": "bit_upload_total",
+                "name": "bit_download_total",
                 "type": "BIGINT",
                 "length": 25,
                 "null": false,
@@ -454,7 +455,7 @@
         "params": [
             "core_members",
             {
-                "name": "bit_download_total",
+                "name": "bit_upload_total",
                 "type": "BIGINT",
                 "length": 25,
                 "null": false,
@@ -468,9 +469,9 @@
         "params": [
             "core_members",
             {
-                "name": "bit_downloaded_his",
+                "name": "bit_download_total",
                 "type": "BIGINT",
-                "length": 20,
+                "length": 25,
                 "null": false,
                 "default": 0,
                 "unsigned": true
@@ -482,7 +483,7 @@
         "params": [
             "core_members",
             {
-                "name": "bit_uploaded_his",
+                "name": "bit_downloaded_his",
                 "type": "BIGINT",
                 "length": 20,
                 "null": false,
@@ -496,11 +497,11 @@
         "params": [
             "core_members",
             {
-                "name": "bit_ip_address2",
-                "type": "VARCHAR",
-                "length": 46,
+                "name": "bit_uploaded_his",
+                "type": "BIGINT",
+                "length": 20,
                 "null": false,
-                "default": "None",
+                "default": 0,
                 "unsigned": true
             }
         ]
@@ -510,11 +511,40 @@
         "params": [
             "core_members",
             {
+                "name": "bit_ip_address2",
+                "type": "VARCHAR",
+                "length": 46,
+                "null": false,
+                "default": "None",
+                "unsigned": true
+            }
+        ]
+    },
+    "37": {
+        "method": "addColumn",
+        "params": [
+            "core_members",
+            {
                 "name": "bit_ip_address3",
                 "type": "VARCHAR",
                 "length": 46,
                 "null": false,
                 "default": "None",
+                "unsigned": true
+            }
+        ]
+    },
+    "38": {
+        "method": "addColumn",
+        "params": [
+            "core_groups",
+            {
+                "name": "bit_single_submit",
+                "type": "TINYINT",
+                "length": 1,
+                "null": false,
+                "default": 0,
+                "comment": "Can upload torrents?",
                 "unsigned": true
             }
         ]
