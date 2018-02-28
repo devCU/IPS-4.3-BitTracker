@@ -54,7 +54,7 @@
 
 [Info on beta build](https://www.devcu.com/forums/devcu-tracker/ips4bt/)
 
-- In development for February 2018 Release
+- In development for late March 2018 Release
 
 ## License
 
