@@ -1,0 +1,94 @@
+[
+    {
+        "key": "bit_announce_url",
+        "default": ""
+    },
+    {
+        "key": "bit_announce_enable",
+        "default": "0"
+    },
+    {
+        "key": "bit_announce_scrape_interval",
+        "default": "20"
+    },
+    {
+        "key": "bit_security_forcessl",
+        "default": "1"
+    },
+    {
+        "key": "bit_security_private",
+        "default": ""
+    },
+    {
+        "key": "bit_security_permkey",
+        "default": "1"
+    },
+    {
+        "key": "bit_security_singleip",
+        "default": "1"
+    },
+    {
+        "key": "bit_security_multipleip",
+        "default": "0"
+    },
+    {
+        "key": "bit_security_forceip",
+        "default": "0"
+    },
+    {
+        "key": "bit_seedbox_whitelist",
+        "default": ""
+    },
+    {
+        "key": "bit_seedbox_blacklist",
+        "default": ""
+    },
+    {
+        "key": "bit_antileech",
+        "default": "1"
+    },
+    {
+        "key": "bit_featured_count",
+        "default": "4"
+    },
+    {
+        "key": "bit_highest_rated_categories",
+        "default": "0"
+    },
+    {
+        "key": "bit_link_blacklist",
+        "default": ""
+    },
+    {
+        "key": "bit_newest_categories",
+        "default": "0"
+    },
+    {
+        "key": "bit_rss",
+        "default": "1"
+    },
+    {
+        "key": "bit_show_featured",
+        "default": "1"
+    },
+    {
+        "key": "bit_show_highest_rated",
+        "default": "1"
+    },
+    {
+        "key": "bit_show_most_downloaded",
+        "default": "1"
+    },
+    {
+        "key": "bit_show_most_downloaded_categories",
+        "default": "0"
+    },
+    {
+        "key": "bit_show_newest",
+        "default": "1"
+    },
+    {
+        "key": "bit_watermarkpath",
+        "default": ""
+    }
+]
