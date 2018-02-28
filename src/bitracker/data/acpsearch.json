@@ -780,21 +780,37 @@
             "fee"
         ]
     },
-    "app=bitracker&module=stats&controller=downloaders": {
-        "lang_key": "menu__bitracker_stats_downloaders",
-        "restriction": "downloaders_manage",
+    "app=bitracker&module=stats&controller=member": {
+        "lang_key": "menu__bitracker_stats_member",
+        "restriction": "member_manage",
         "keywords": [
-            "download statistics",
-            "bitracker stats",
-            "top downloaders"
+            "member statistics",
+            "member stats"
         ]
     },
-    "app=bitracker&module=stats&controller=bitracker": {
-        "lang_key": "menu__bitracker_stats_bitracker",
-        "restriction": "bitracker_manage",
+    "app=bitracker&module=stats&controller=network": {
+        "lang_key": "menu__bitracker_stats_network",
+        "restriction": "network_manage",
         "keywords": [
-            "download statistics",
-            "bitracker stats"
+            "network statistics",
+            "network stats"
+        ]
+    },
+    "app=bitracker&module=stats&controller=peers": {
+        "lang_key": "menu__bitracker_stats_peers",
+        "restriction": "peers_manage",
+        "keywords": [
+            "peer statistics",
+            "peer stats",
+            "top peers"
+        ]
+    },
+    "app=bitracker&module=stats&controller=torrents": {
+        "lang_key": "menu__bitracker_stats_torrents",
+        "restriction": "torrents_manage",
+        "keywords": [
+            "torrent statistics",
+            "torrent stats"
         ]
     },
     "app=bitracker&module=stats&controller=submitters": {
