@@ -1,9 +1,9 @@
 ![devCUHead](https://www.devcu.com/assets/images/githubhead_2.gif?V=1.3)
 
-[![License](https://img.shields.io/badge/License-GNUv3-blue.svg)](https://github.com/GaalexxC/IPS-4.2-BitTracker/blob/master/LICENSE) ![Version](https://img.shields.io/badge/Version-1.0.0-blue.svg)
-    ![Build](https://img.shields.io/badge/Build-Beta1-lightgrey.svg)
-    ![Status](https://img.shields.io/badge/Status-Testing-yellowgreen.svg)
-    ![Development](https://img.shields.io/badge/Development-Active-blue.svg)
+[![License](https://img.shields.io/badge/License-GNUv3-blue.svg)](https://github.com/GaalexxC/IPS-4.2-BitTracker/blob/master/LICENSE) [![Version](https://img.shields.io/badge/Version-1.0.0-blue.svg)](https://www.devcu.com/forums/devcu-tracker/ips4bt/)
+    [![Build](https://img.shields.io/badge/Build-Beta1-lightgrey.svg)](https://www.devcu.com/forums/devcu-tracker/ips4bt/)
+    [![Status](https://img.shields.io/badge/Status-Testing-yellowgreen.svg)](https://www.devcu.com/forums/devcu-tracker/ips4bt/)
+    [![Development](https://img.shields.io/badge/Development-Active-blue.svg)](https://www.devcu.com/forums/devcu-tracker/ips4bt/)
 
 ```diff
 - THIS IS AN INCOMPLETE VERSION UNDER DEVELOPMENT AND SHOULD NOT BE USED IN ANY ENVIRONMENT!!!
