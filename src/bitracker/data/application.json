@@ -3,6 +3,6 @@
     "app_author": "devCU Software",
     "app_directory": "bitracker",
     "app_protected": 0,
-    "app_website": "https://www.devcu.com",
-    "app_update_check": "https://www.devcu.com/apps/IPS/upcheck"
+    "app_website": "http:\/\/www.devcu.com",
+    "app_update_check": "http:\/\/www.devcu.com\/sources\/updateCheck.php?app=ips4bt"
 }
