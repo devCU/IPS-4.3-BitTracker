@@ -10,7 +10,7 @@
  * @source      https://github.com/GaalexxC/IPS-4.2-BitTracker
  * @Issue Trak  https://www.devcu.com/forums/devcu-tracker/ips4bt/
  * @Created     11 FEB 2018
- * @Updated     15 FEB 2018
+ * @Updated     27 FEB 2018
  *
  *                    GNU General Public License v3.0
  *    This program is free software: you can redistribute it and/or modify       
@@ -37,14 +37,14 @@ if ( !defined( '\IPS\SUITE_UNIQUE_KEY' ) )
 }
 
 /**
- * BitrackStats Widget
+ * BitrackerStats Widget
  */
-class _bitrackStats extends \IPS\Widget\PermissionCache
+class _bitrackerStats extends \IPS\Widget\PermissionCache
 {
 	/**
 	 * @brief	Widget Key
 	 */
-	public $key = 'bitrackStats';
+	public $key = 'bitrackerStats';
 	
 	/**
 	 * @brief	App
@@ -75,8 +75,8 @@ class _bitrackStats extends \IPS\Widget\PermissionCache
 	 */
 	public function render()
 	{
-		$stats = \IPS\Db::i()->select( 'COUNT(*) AS totalFiles, SUM(file_comments) AS totalComments, SUM(file_reviews) AS totalReviews', 'bitracker_files', array( "file_open=?", 1 ) )->first();
-		$stats['totalAuthors'] = \IPS\Db::i()->select( 'COUNT(DISTINCT file_submitter)', 'bitracker_files' )->first();
+		$stats = \IPS\Db::i()->select( 'COUNT(*) AS totalFiles, SUM(file_comments) AS totalComments, SUM(file_reviews) AS totalReviews', 'bitracker_torrents', array( "file_open=?", 1 ) )->first();
+		$stats['totalAuthors'] = \IPS\Db::i()->select( 'COUNT(DISTINCT file_submitter)', 'bitracker_torrents' )->first();
 		
 		$latestFile = NULL;
 		foreach ( \IPS\bitracker\File::getItemsWithPermission( array(), NULL, 1 ) as $latestFile )

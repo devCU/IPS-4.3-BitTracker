@@ -37,14 +37,14 @@ if ( !defined( '\IPS\SUITE_UNIQUE_KEY' ) )
 }
 
 /**
- * topSubmitters Widget
+ * topTorrents Widget
  */
-class _topSubmitters extends \IPS\Widget\PermissionCache
+class _topTorrents extends \IPS\Widget\PermissionCache
 {
 	/**
 	 * @brief	Widget Key
 	 */
-	public $key = 'topSubmitters';
+	public $key = 'topTorrents';
 	
 	/**
 	 * @brief	App
@@ -57,6 +57,12 @@ class _topSubmitters extends \IPS\Widget\PermissionCache
 	public $plugin = '';
 
 	/**
+	 * @brief	Cache Expiration
+	 * @note	We allow this cache to be valid for 48 hours
+	 */
+	public $cacheExpiration = 172800;
+
+	/**
 	* Init the widget
 	*
 	* @return	void
@@ -67,7 +73,7 @@ class _topSubmitters extends \IPS\Widget\PermissionCache
 
 		parent::init();
 	}
-		
+	
 	/**
 	 * Specify widget configuration
 	 *
@@ -92,48 +98,53 @@ class _topSubmitters extends \IPS\Widget\PermissionCache
 	 */
 	public function render()
 	{
-		foreach ( array( 'week' => 'P1W', 'month' => 'P1M', 'year' => 'P1Y', 'all' => NULL ) as $time => $interval )
+		$categories = array();
+
+		foreach( \IPS\Db::i()->select( 'perm_type_id', 'core_permission_index', array( 'app=? and perm_type=? and (' . \IPS\Db::i()->findInSet( 'perm_' . \IPS\bitracker\Category::$permissionMap['read'], \IPS\Member::loggedIn()->groups ) . ' OR ' . 'perm_' . \IPS\bitracker\Category::$permissionMap['read'] . '=? )', 'bitracker', 'category', '*' ) ) as $category )
 		{
-			/* What's the time period we care about? */
-			$intervalWhere = NULL;
-			if ( $interval )
-			{
-				$intervalWhere = array( 'file_submitted>?', \IPS\DateTime::create()->sub( new \DateInterval( $interval ) )->getTimestamp() );
-			}
-			
-			/* Get the submitters ordered by their rating */
-			$where = array( array( 'file_submitter != ? and file_rating > ? AND file_open = 1', 0, 0 ) );
-			if ( $interval )
-			{
-				$where[] = $intervalWhere;
-			}
-			$ratings = iterator_to_array( \IPS\Db::i()->select(
-				'bitracker_torrents.file_submitter, AVG(file_rating) as rating, COUNT(file_id) AS files',
-				'bitracker_torrents',
-				$where,
-				'files DESC, rating DESC',
-				isset( $this->configuration['number_to_show'] ) ? $this->configuration['number_to_show'] : 5, 'file_submitter'
-			)->setKeyField('file_submitter')->setValueField('rating') );
-			
-			/* Get their file counts */
-			$where = array( array( \IPS\Db::i()->in( 'file_submitter', array_keys( $ratings ) ) ) );
-			if ( $interval )
-			{
-				$where[] = $intervalWhere;
-			}
-			
-			$fileCounts = iterator_to_array( \IPS\Db::i()->select( 'file_submitter, COUNT(*) AS count', 'bitracker_torrents', $where, NULL, NULL, 'file_submitter' )->setKeyField('file_submitter')->setValueField('count') );
-						
-			/* Get member data and put it together */
-			${$time} = array();
-			foreach( \IPS\Db::i()->select( '*', 'core_members', \IPS\Db::i()->in( 'member_id', array_keys( $ratings ) ) ) as $key => $memberData )
-			{
-				${$time}[$key]['member'] = \IPS\Member::constructFromData( $memberData );
-				${$time}[$key]['files']  = isset( $fileCounts[ $memberData['member_id'] ] ) ? $fileCounts[ $memberData['member_id'] ] : 0;
-				${$time}[$key]['rating'] = $ratings[ $memberData['member_id'] ];
-			}
+			$categories[]	= $category;
 		}
 
+		if( !count( $categories ) )
+		{
+			return '';
+		}
+
+		foreach ( array( 'week' => 'P1W', 'month' => 'P1M', 'year' => 'P1Y', 'all' => NULL ) as $time => $interval )
+		{			
+			$where = array( array( 'file_cat IN(' . implode( ',', $categories ) . ')' ) );
+			if ( $interval )
+			{
+				$where[] = array( 'dtime>?', \IPS\DateTime::create()->sub( new \DateInterval( $interval ) )->getTimestamp() );
+			}
+			
+			$ids	= array();
+			$cases	= array();
+
+			foreach( \IPS\Db::i()->select( 'dfid, COUNT(*) AS bitracker', 'bitracker_downloads', $where, 'bitracker DESC', isset( $this->configuration['number_to_show'] ) ? $this->configuration['number_to_show'] : 5, array( 'dfid' ) )->join( 'bitracker_torrents', 'dfid=file_id' ) as $tracker )
+			{
+				$ids[]		= $tracker['dfid'];
+				$cases[]	= "WHEN file_id={$tracker['dfid']} THEN {$tracker['bitracker']}";
+			}
+
+			if( count( $ids ) )
+			{
+				$$time = new \IPS\Patterns\ActiveRecordIterator(
+					\IPS\Db::i()->select(
+						'*, CASE ' . implode( ' ', $cases ) . ' END AS file_bitracker',
+						'bitracker_torrents',
+						'file_id IN(' . implode( ',', $ids ) . ')',
+						'file_bitracker DESC'
+					),
+					'IPS\bitracker\File'
+				);
+			}
+			else
+			{
+				$$time = array();
+			}
+		}
+		
 		return $this->output( $week, $month, $year, $all );
 	}
 }
