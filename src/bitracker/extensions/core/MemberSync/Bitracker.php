@@ -10,7 +10,7 @@
  * @source      https://github.com/GaalexxC/IPS-4.2-BitTracker
  * @Issue Trak  https://www.devcu.com/forums/devcu-tracker/ips4bt/
  * @Created     11 FEB 2018
- * @Updated     15 FEB 2018
+ * @Updated     27 FEB 2018
  *
  *                    GNU General Public License v3.0
  *    This program is free software: you can redistribute it and/or modify       
@@ -50,8 +50,8 @@ class _Bitracker
 	 */
 	public function onMerge( $member, $member2 )
 	{
-		\IPS\Db::i()->update( 'bitracker_torrents', array( 'dmid' => $member->member_id ), array( 'dmid=?', $member2->member_id ) );
-		\IPS\Db::i()->update( 'bitracker_files', array( 'file_approver' => $member->member_id ), array( 'file_approver=?', $member2->member_id ) );
+		\IPS\Db::i()->update( 'bitracker_downloads', array( 'dmid' => $member->member_id ), array( 'dmid=?', $member2->member_id ) );
+		\IPS\Db::i()->update( 'bitracker_torrents', array( 'file_approver' => $member->member_id ), array( 'file_approver=?', $member2->member_id ) );
 		\IPS\Db::i()->delete( 'bitracker_sessions', array( 'dsess_mid=?', $member2->member_id ) );
 	}
 	
@@ -63,8 +63,8 @@ class _Bitracker
 	 */
 	public function onDelete( $member )
 	{
-		\IPS\Db::i()->delete( 'bitracker_torrents', array( 'dmid=?', $member->member_id ) );
+		\IPS\Db::i()->delete( 'bitracker_downloads', array( 'dmid=?', $member->member_id ) );
 		\IPS\Db::i()->delete( 'bitracker_sessions', array( 'dsess_mid=?', $member->member_id ) );
-		\IPS\Db::i()->update( 'bitracker_files', array( 'file_approver' => 0 ), array( 'file_approver=?', $member->member_id ) );
+		\IPS\Db::i()->update( 'bitracker_torrents', array( 'file_approver' => 0 ), array( 'file_approver=?', $member->member_id ) );
 	}
 }

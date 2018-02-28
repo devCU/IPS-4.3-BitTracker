@@ -10,7 +10,7 @@
  * @source      https://github.com/GaalexxC/IPS-4.2-BitTracker
  * @Issue Trak  https://www.devcu.com/forums/devcu-tracker/ips4bt/
  * @Created     11 FEB 2018
- * @Updated     15 FEB 2018
+ * @Updated     27 FEB 2018
  *
  *                    GNU General Public License v3.0
  *    This program is free software: you can redistribute it and/or modify       
@@ -75,11 +75,11 @@ class _DownloadLog
 		/* Return count */
 		if ( $baseUrl === NULL )
 		{
-			return \IPS\Db::i()->select( 'COUNT(*)', 'bitracker_torrents', array( "dip LIKE ?", $ip ) )->first();
+			return \IPS\Db::i()->select( 'COUNT(*)', 'bitracker_downloads', array( "dip LIKE ?", $ip ) )->first();
 		}
 		
 		/* Init Table */
-		$table = new \IPS\Helpers\Table\Db( 'bitracker_torrents', $baseUrl, array( "dip LIKE ?", $ip ) );
+		$table = new \IPS\Helpers\Table\Db( 'bitracker_downloads', $baseUrl, array( "dip LIKE ?", $ip ) );
 
 		$table->tableTemplate  = array( \IPS\Theme::i()->getTemplate( 'tables', 'core', 'admin' ), 'table' );
 		$table->rowsTemplate  = array( \IPS\Theme::i()->getTemplate( 'tables', 'core', 'admin' ), 'rows' );
@@ -143,6 +143,6 @@ class _DownloadLog
 	 */
 	public function findByMember( $member )
 	{
-		return \IPS\Db::i()->select( "dip AS ip, COUNT(*) AS count, MIN(dtime) AS first, MAX(dtime) AS last", 'bitracker_torrents', array( "dmid=?", $member->member_id ), NULL, NULL, 'dip' )->setKeyField( 'ip' );
+		return \IPS\Db::i()->select( "dip AS ip, COUNT(*) AS count, MIN(dtime) AS first, MAX(dtime) AS last", 'bitracker_downloads', array( "dmid=?", $member->member_id ), NULL, NULL, 'dip' )->setKeyField( 'ip' );
 	}	
 }

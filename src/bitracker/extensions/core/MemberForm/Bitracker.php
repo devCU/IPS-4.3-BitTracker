@@ -10,7 +10,7 @@
  * @source      https://github.com/GaalexxC/IPS-4.2-BitTracker
  * @Issue Trak  https://www.devcu.com/forums/devcu-tracker/ips4bt/
  * @Created     11 FEB 2018
- * @Updated     15 FEB 2018
+ * @Updated     27 FEB 2018
  *
  *                    GNU General Public License v3.0
  *    This program is free software: you can redistribute it and/or modify       
@@ -51,6 +51,9 @@ class _Bitracker
 	public function process( &$form, $member )
 	{		
 		$form->addMessage( "<a href='" . \IPS\Http\Url::internal( 'app=bitracker&module=stats&controller=member&do=bitracker&id=' . $member->member_id ) . "'>" . \IPS\Member::loggedIn()->language()->addToStack('bitracker_stats') . '</a>', '', FALSE );
+        
+        $form->addHeader( 'access_restrictions' );
+		$form->add( new \IPS\Helpers\Form\YesNo( 'bit_access_tracker', !$member->bit_access_tracker ) );
 		$form->add( new \IPS\Helpers\Form\YesNo( 'bit_block_submissions', !$member->bit_block_submissions ) );
 	}
 	
@@ -63,6 +66,7 @@ class _Bitracker
 	 */
 	public function save( $values, &$member )
 	{
+		$member->bit_access_tracker = !$values['bit_access_tracker'];	
 		$member->bit_block_submissions = !$values['bit_block_submissions'];	
 	}
 }

@@ -10,7 +10,7 @@
  * @source      https://github.com/GaalexxC/IPS-4.2-BitTracker
  * @Issue Trak  https://www.devcu.com/forums/devcu-tracker/ips4bt/
  * @Created     11 FEB 2018
- * @Updated     15 FEB 2018
+ * @Updated     27 FEB 2018
  *
  *                    GNU General Public License v3.0
  *    This program is free software: you can redistribute it and/or modify       
@@ -52,7 +52,7 @@ class _Files
 	public function count( $member, $postKey, $search=NULL )
 	{
 		$where = array(
-			array( "record_file_id IN(?) AND record_type=? AND record_backup=0", \IPS\Db::i()->select( 'file_id', 'bitracker_files', array( 'file_submitter=?', $member->member_id ) ), 'upload' ),
+			array( "record_file_id IN(?) AND record_type=? AND record_backup=0", \IPS\Db::i()->select( 'file_id', 'bitracker_torrents', array( 'file_submitter=?', $member->member_id ) ), 'upload' ),
 		);
 		
 		if ( $search )
@@ -60,7 +60,7 @@ class _Files
 			$where[] = array( "record_realname LIKE ( CONCAT( '%', ?, '%' ) )", $search );
 		}
 						
-		return \IPS\Db::i()->select( 'COUNT(*)', 'bitracker_files_records', $where )->first();
+		return \IPS\Db::i()->select( 'COUNT(*)', 'bitracker_torrents_records', $where )->first();
 	}
 	
 	/**
@@ -76,7 +76,7 @@ class _Files
 	public function get( $member, $search, $postKey, $page, $limit )
 	{
 		$where = array(
-			array( "record_file_id IN(?) AND record_type=? AND record_backup=0", \IPS\Db::i()->select( 'file_id', 'bitracker_files', array( 'file_submitter=?', $member->member_id ) ), 'upload' ),
+			array( "record_file_id IN(?) AND record_type=? AND record_backup=0", \IPS\Db::i()->select( 'file_id', 'bitracker_torrents', array( 'file_submitter=?', $member->member_id ) ), 'upload' ),
 		);
 		
 		if ( $search )
@@ -85,10 +85,10 @@ class _Files
 		}
 		
 		$return = array();
-		foreach ( \IPS\Db::i()->select( '*', 'bitracker_files_records', $where, 'record_time DESC', array( ( $page - 1 ) * $limit, $limit ) ) as $row )
+		foreach ( \IPS\Db::i()->select( '*', 'bitracker_torrents_records', $where, 'record_time DESC', array( ( $page - 1 ) * $limit, $limit ) ) as $row )
 		{
 			$file = \IPS\bitracker\File::load( $row['record_file_id'] );
-			$obj = \IPS\File::get( 'bitracker_Files', $row['record_location'] );
+			$obj = \IPS\File::get( 'bitracker_Torrents', $row['record_location'] );
 			$obj->contextInfo = $file->name;
 			$obj->screenshot = $file->primary_screenshot;
 			$obj->originalFilename = $row['record_realname'];

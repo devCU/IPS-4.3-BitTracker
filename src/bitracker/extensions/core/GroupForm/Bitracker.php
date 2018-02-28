@@ -10,7 +10,7 @@
  * @source      https://github.com/GaalexxC/IPS-4.2-BitTracker
  * @Issue Trak  https://www.devcu.com/forums/devcu-tracker/ips4bt/
  * @Created     11 FEB 2018
- * @Updated     15 FEB 2018
+ * @Updated     127 FEB 2018
  *
  *                    GNU General Public License v3.0
  *    This program is free software: you can redistribute it and/or modify       
@@ -52,7 +52,7 @@ class _Bitracker
 	{
 		$restrictions = $group->bit_restrictions ? json_decode( $group->bit_restrictions, TRUE ) : array();
 
-		$form->addHeader( 'file_management' );
+		$form->addHeader( 'torrent_management' );
 		$form->add( new \IPS\Helpers\Form\YesNo( 'bit_view_bitracker', $group->bit_view_bitracker ) );
 		$form->add( new \IPS\Helpers\Form\YesNo( 'bit_view_approvers', $group->bit_view_approvers ) );
 		if( $group->g_id != \IPS\Settings::i()->guest_group )
@@ -77,7 +77,7 @@ class _Bitracker
 		$form->add( new \IPS\Helpers\Form\YesNo( 'bit_linked_files', $group->bit_linked_files ) );
 		$form->add( new \IPS\Helpers\Form\YesNo( 'bit_import_files', $group->bit_import_files ) );
 		
-		$form->addHeader( 'bitrack_restrictions' );
+		$form->addHeader( 'access_restrictions' );
 		if( $group->g_id != \IPS\Settings::i()->guest_group )
 		{
 			$form->add( new \IPS\Helpers\Form\Number( 'min_posts', isset( $restrictions['min_posts'] ) ? $restrictions['min_posts'] : 0, FALSE, array( 'unlimited' => 0, 'unlimitedLang' => 'bit_throttling_unlimited' ), NULL, NULL, \IPS\Member::loggedIn()->language()->addToStack('approved_posts_comments') ) );
@@ -95,7 +95,7 @@ class _Bitracker
 		$form->add( new \IPS\Helpers\Form\Number( 'daily_bw', isset( $restrictions['daily_bw'] ) ? $restrictions['daily_bw'] : 0, FALSE, array( 'unlimited' => 0 ), NULL, NULL, \IPS\Member::loggedIn()->language()->addToStack('kb_per_day') ) );
 		$form->add( new \IPS\Helpers\Form\Number( 'weekly_bw', isset( $restrictions['weekly_bw'] ) ? $restrictions['weekly_bw'] : 0, FALSE, array( 'unlimited' => 0 ), NULL, NULL, \IPS\Member::loggedIn()->language()->addToStack('kb_per_week') ) );
 		$form->add( new \IPS\Helpers\Form\Number( 'monthly_bw', isset( $restrictions['monthly_bw'] ) ? $restrictions['monthly_bw'] : 0, FALSE, array( 'unlimited' => 0 ), NULL, NULL, \IPS\Member::loggedIn()->language()->addToStack('kb_per_month') ) );
-		$form->addHeader( 'bitrack_limits' );
+		$form->addHeader( 'torrent_limits' );
 		$form->addMessage( 'bitracker_requires_log' );
 		$form->add( new \IPS\Helpers\Form\Number( 'daily_dl', isset( $restrictions['daily_dl'] ) ? $restrictions['daily_dl'] : 0, FALSE, array( 'unlimited' => 0 ), NULL, NULL, \IPS\Member::loggedIn()->language()->addToStack('bitracker_per_day') ) );
 		$form->add( new \IPS\Helpers\Form\Number( 'weekly_dl', isset( $restrictions['weekly_dl'] ) ? $restrictions['weekly_dl'] : 0, FALSE, array( 'unlimited' => 0 ), NULL, NULL, \IPS\Member::loggedIn()->language()->addToStack('bitracker_per_week') ) );

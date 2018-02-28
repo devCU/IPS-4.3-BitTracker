@@ -10,7 +10,7 @@
  * @source      https://github.com/GaalexxC/IPS-4.2-BitTracker
  * @Issue Trak  https://www.devcu.com/forums/devcu-tracker/ips4bt/
  * @Created     11 FEB 2018
- * @Updated     15 FEB 2018
+ * @Updated     27 FEB 2018
  *
  *                    GNU General Public License v3.0
  *    This program is free software: you can redistribute it and/or modify       
@@ -53,7 +53,7 @@ class _Files
 	 */
 	public function count()
 	{
-		return \IPS\Db::i()->select( 'COUNT(*)', 'bitracker_files_records', array( 'record_type=?', 'upload' ) )->first();
+		return \IPS\Db::i()->select( 'COUNT(*)', 'bitracker_torrents_records', array( 'record_type=?', 'upload' ) )->first();
 	}
 	
 	/**
@@ -67,15 +67,15 @@ class _Files
 	 */
 	public function move( $offset, $storageConfiguration, $oldConfiguration=NULL )
 	{
-		$record = \IPS\Db::i()->select( '*', 'bitracker_files_records', array( 'record_type=?', 'upload' ), 'record_id', array( $offset, 1 ) )->first();
+		$record = \IPS\Db::i()->select( '*', 'bitracker_torrents_records', array( 'record_type=?', 'upload' ), 'record_id', array( $offset, 1 ) )->first();
 
 		try
 		{
-			$file = \IPS\File::get( $oldConfiguration ?: 'bitracker_Files', $record['record_location'] )->move( $storageConfiguration );
+			$file = \IPS\File::get( $oldConfiguration ?: 'bitracker_Torrents', $record['record_location'] )->move( $storageConfiguration );
 			
 			if ( (string) $file != $record['record_location'] )
 			{
-				\IPS\Db::i()->update( 'bitracker_files_records', array( 'record_location' => (string) $file ), array( 'record_id=?', $record['record_id'] ) );
+				\IPS\Db::i()->update( 'bitracker_torrents_records', array( 'record_location' => (string) $file ), array( 'record_id=?', $record['record_id'] ) );
 			}
 		}
 		catch( \Exception $e )
@@ -92,11 +92,11 @@ class _Files
 	 */
 	public function fixUrls( $offset )
 	{
-		$record = \IPS\Db::i()->select( '*', 'bitracker_files_records', array( 'record_type=?', 'upload' ), 'record_id', array( $offset, 1 ) )->first();
+		$record = \IPS\Db::i()->select( '*', 'bitracker_torrents_records', array( 'record_type=?', 'upload' ), 'record_id', array( $offset, 1 ) )->first();
 		
 		if ( $new = \IPS\File::repairUrl( $record['record_location'] ) )
 		{
-			\IPS\Db::i()->update( 'bitracker_files_records', array( 'record_location' => $new ), array( 'record_id=?', $record['record_id'] ) );
+			\IPS\Db::i()->update( 'bitracker_torrents_records', array( 'record_location' => $new ), array( 'record_id=?', $record['record_id'] ) );
 		}
 	}
 	
@@ -110,7 +110,7 @@ class _Files
 	{
 		try
 		{
-			$record	= \IPS\Db::i()->select( '*', 'bitracker_files_records', array( 'record_location=? AND record_type=?', (string) $file, 'upload' ) )->first();
+			$record	= \IPS\Db::i()->select( '*', 'bitracker_torrents_records', array( 'record_location=? AND record_type=?', (string) $file, 'upload' ) )->first();
 
 			return TRUE;
 		}
@@ -127,11 +127,11 @@ class _Files
 	 */
 	public function delete()
 	{
-		foreach( \IPS\Db::i()->select( '*', 'bitracker_files_records', "record_location IS NOT NULL and record_type='upload'" ) as $file )
+		foreach( \IPS\Db::i()->select( '*', 'bitracker_torrents_records', "record_location IS NOT NULL and record_type='upload'" ) as $file )
 		{
 			try
 			{
-				\IPS\File::get( 'bitracker_Files', $file['record_location'] )->delete();
+				\IPS\File::get( 'bitracker_Torrents', $file['record_location'] )->delete();
 			}
 			catch( \Exception $e ){}
 		}
