@@ -46,8 +46,16 @@
         "lang_key": "bit_block_submissions",
         "restriction": null,
         "keywords": [
-            "Files",
+            "Torrents",
             "Submit"
+        ]
+    },
+    "app=core&module=members&controller=members&searchResult=form_bit_access_tracker": {
+        "lang_key": "bit_access_tracker",
+        "restriction": null,
+        "keywords": [
+            "Tracker ban",
+            "Tracker access"
         ]
     },
     "app=bitracker&module=bitracker&controller=categories": {
