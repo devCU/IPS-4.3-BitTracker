@@ -10,7 +10,7 @@
  * @source      https://github.com/GaalexxC/IPS-4.2-BitTracker
  * @Issue Trak  https://www.devcu.com/forums/devcu-tracker/ips4bt/
  * @Created     11 FEB 2018
- * @Updated     14 FEB 2018
+ * @Updated     27 FEB 2018
  *
  *                    GNU General Public License v3.0
  *    This program is free software: you can redistribute it and/or modify       
@@ -56,7 +56,7 @@ class _logCleanup extends \IPS\Task
 	{	
 		foreach ( \IPS\Db::i()->select( '*', 'bitracker_categories', 'clog>0' ) as $cat )
 		{
-			\IPS\Db::i()->delete( 'bitracker_torrents', array( 'dtime<? AND dfid IN(?)', \IPS\DateTime::create()->sub( new \DateInterval( 'P' . $cat['clog'] . 'D' ) )->getTimestamp(), \IPS\Db::i()->select( 'file_id', 'bitracker_files', array( 'file_cat=?', $cat['cid'] ) ) ) );
+			\IPS\Db::i()->delete( 'bitracker_downloads', array( 'dtime<? AND dfid IN(?)', \IPS\DateTime::create()->sub( new \DateInterval( 'P' . $cat['clog'] . 'D' ) )->getTimestamp(), \IPS\Db::i()->select( 'file_id', 'bitracker_torrents', array( 'file_cat=?', $cat['cid'] ) ) ) );
 		}
 				
 		return NULL;

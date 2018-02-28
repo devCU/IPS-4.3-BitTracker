@@ -10,7 +10,7 @@
  * @source      https://github.com/GaalexxC/IPS-4.2-BitTracker
  * @Issue Trak  https://www.devcu.com/forums/devcu-tracker/ips4bt/
  * @Created     11 FEB 2018
- * @Updated     14 FEB 2018
+ * @Updated     27 FEB 2018
  *
  *                    GNU General Public License v3.0
  *    This program is free software: you can redistribute it and/or modify       
@@ -54,11 +54,11 @@ class _tempFileCleanup extends \IPS\Task
 	 */
 	public function execute()
 	{
-		foreach ( \IPS\Db::i()->select( '*', 'bitracker_files_records', array( 'record_file_id=0 AND record_time<?', \IPS\DateTime::create()->sub( new \DateInterval( 'P1D' ) )->getTimestamp() ) ) as $file )
+		foreach ( \IPS\Db::i()->select( '*', 'bitracker_torrents_records', array( 'record_file_id=0 AND record_time<?', \IPS\DateTime::create()->sub( new \DateInterval( 'P1D' ) )->getTimestamp() ) ) as $file )
 		{
 			try
 			{
-				\IPS\File::get( $file['record_type'] === 'upload' ? 'bitracker_Files' : 'bitracker_Screenshots', $file['record_location'] )->delete();
+				\IPS\File::get( $file['record_type'] === 'upload' ? 'bitracker_Torrents' : 'bitracker_Screenshots', $file['record_location'] )->delete();
 			}
 			catch ( \Exception $e ) { }
 
@@ -81,7 +81,7 @@ class _tempFileCleanup extends \IPS\Task
 			}
 		}
 		
-		\IPS\Db::i()->delete( 'bitracker_files_records', array( 'record_file_id=0 AND record_time<?', \IPS\DateTime::create()->sub( new \DateInterval( 'P1D' ) )->getTimestamp() ) );
+		\IPS\Db::i()->delete( 'bitracker_torrents_records', array( 'record_file_id=0 AND record_time<?', \IPS\DateTime::create()->sub( new \DateInterval( 'P1D' ) )->getTimestamp() ) );
 		
 		\IPS\Db::i()->delete( 'bitracker_sessions', array( 'dsess_start<?', \IPS\DateTime::create()->sub( new \DateInterval( 'PT6H' ) )->getTimestamp() ) );
 		
