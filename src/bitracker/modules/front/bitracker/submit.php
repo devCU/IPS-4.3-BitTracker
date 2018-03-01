@@ -10,7 +10,7 @@
  * @source      https://github.com/GaalexxC/IPS-4.2-BitTracker
  * @Issue Trak  https://www.devcu.com/forums/devcu-tracker/ips4bt/
  * @Created     11 FEB 2018
- * @Updated     19 FEB 2018
+ * @Updated     28 FEB 2018
  *
  *                    GNU General Public License v3.0
  *    This program is free software: you can redistribute it and/or modify       
@@ -69,8 +69,7 @@ class _submit extends \IPS\Dispatcher\Controller
 			'class'					=> 'IPS\bitracker\Category',
 			'permissionCheck'		=> 'add',
 		) ) );
-
-		if ( \IPS\Member::loggedIn()->group['bit_bulk_submit'] )
+		if ( \IPS\Member::loggedIn()->group['bit_bulk_submit'] and \IPS\Settings::i()->bit_single_submit )
 		{
 			$form->add( new \IPS\Helpers\Form\YesNo( 'bulk', NULL, FALSE, array( 'label' => "bulk_upload_button" ) ) );
 		}
@@ -138,7 +137,7 @@ class _submit extends \IPS\Dispatcher\Controller
 			{
 				foreach ( $data['files'] as $url )
 				{
-					$files[] = \IPS\File::get( 'bitracker_Files', $url );
+					$files[] = \IPS\File::get( 'bitracker_Torrents', $url );
 				}
 			}
             
@@ -159,7 +158,7 @@ class _submit extends \IPS\Dispatcher\Controller
 			}
 			
 			/* Add the fields */
-			$form->add( new \IPS\Helpers\Form\Upload( 'files', $files, ( !\IPS\Member::loggedIn()->group['bit_linked_files'] and !\IPS\Member::loggedIn()->group['bit_import_files'] ), array( 'storageExtension' => 'bitracker_Files', 'allowedFileTypes' => $category->types, 'maxFileSize' => $category->maxfile !== NULL ? ( $category->maxfile / 1024 ) : NULL, 'multiple' => TRUE, 'minimize' => FALSE ) ) );
+			$form->add( new \IPS\Helpers\Form\Upload( 'files', $files, ( !\IPS\Member::loggedIn()->group['bit_linked_files'] and !\IPS\Member::loggedIn()->group['bit_import_files'] ), array( 'storageExtension' => 'bitracker_Torrents', 'allowedFileTypes' => $category->types, 'maxFileSize' => $category->maxfile !== NULL ? ( $category->maxfile / 1024 ) : NULL, 'multiple' => TRUE, 'minimize' => FALSE ) ) );
 
 			if ( !isset( \IPS\Request::i()->bulk ) )
 			{
@@ -244,7 +243,7 @@ class _submit extends \IPS\Dispatcher\Controller
 				/* Check */
 				if ( empty( $values['files'] ) and empty( $values['url_files'] ) and empty( $values['import_files'] ) )
 				{
-					$form->error = \IPS\Member::loggedIn()->language()->addToStack('err_no_files');
+					$form->error = \IPS\Member::loggedIn()->language()->addToStack('err_no_torrents');
 					return \IPS\Theme::i()->getTemplate( 'submit' )->submitForm( $form, $category, $category->message('subterms'), ( \IPS\Member::loggedIn()->group['bit_bulk_submit'] && \IPS\Request::i()->bulk ) );
 				}
 				if ( !isset( \IPS\Request::i()->bulk ) && $category->bitoptions['reqnfo'] and empty( $values['nfo'] ) and empty( $values['url_nfo'] ) )
@@ -259,7 +258,7 @@ class _submit extends \IPS\Dispatcher\Controller
 				}
 												
 				/* Get any records we had before in case we need to delete them */
-				$existing = iterator_to_array( \IPS\Db::i()->select( '*', 'bitracker_files_records', array( 'record_post_key=?', \IPS\Request::i()->postKey ) )->setKeyField( 'record_location' ) );
+				$existing = iterator_to_array( \IPS\Db::i()->select( '*', 'bitracker_torrents_records', array( 'record_post_key=?', \IPS\Request::i()->postKey ) )->setKeyField( 'record_location' ) );
 				
 				/* Loop through the values we have */
 				$k					= 0;
@@ -273,7 +272,7 @@ class _submit extends \IPS\Dispatcher\Controller
 					$files[ $k ] = (string) $file;
 					if ( !isset( $existing[ (string) $file ] ) )
 					{
-						\IPS\Db::i()->insert( 'bitracker_files_records', array(
+						\IPS\Db::i()->insert( 'bitracker_torrents_records', array(
 							'record_post_key'	=> isset( \IPS\Request::i()->bulk ) ? md5( \IPS\Request::i()->postKey . "-{$k}" ) : \IPS\Request::i()->postKey,
 							'record_type'		=> 'upload',
 							'record_location'	=> (string) $file,
@@ -289,12 +288,12 @@ class _submit extends \IPS\Dispatcher\Controller
 				{
 					foreach ( $values['import_files'] as $path )
 					{
-						$file = \IPS\File::create( 'bitracker_Files', mb_substr( $path, mb_strrpos( $path, DIRECTORY_SEPARATOR ) + 1 ), NULL, NULL, FALSE, $path );
+						$file = \IPS\File::create( 'bitracker_Torrents', mb_substr( $path, mb_strrpos( $path, DIRECTORY_SEPARATOR ) + 1 ), NULL, NULL, FALSE, $path );
 						
 						$files[ $k ] = (string) $file;
 						if ( !isset( $existing[ (string) $file ] ) )
 						{
-							\IPS\Db::i()->insert( 'bitracker_files_records', array(
+							\IPS\Db::i()->insert( 'bitracker_torrents_records', array(
 								'record_post_key'	=> isset( \IPS\Request::i()->bulk ) ? md5( \IPS\Request::i()->postKey . "-{$k}" ) : \IPS\Request::i()->postKey,
 								'record_type'		=> 'upload',
 								'record_location'	=> (string) $file,
@@ -313,7 +312,7 @@ class _submit extends \IPS\Dispatcher\Controller
 						$linkedFiles[] = (string) $url;
 						if ( !isset( $existing[ (string) $url ] ) )
 						{
-							\IPS\Db::i()->insert( 'bitracker_files_records', array(
+							\IPS\Db::i()->insert( 'bitracker_torrents_records', array(
 								'record_post_key'	=> \IPS\Request::i()->postKey,
 								'record_type'		=> 'link',
 								'record_location'	=> (string) $url,
@@ -346,7 +345,7 @@ class _submit extends \IPS\Dispatcher\Controller
 								catch ( \Exception $e ) { }
 							}
 							
-							\IPS\Db::i()->insert( 'bitracker_files_records', array(
+							\IPS\Db::i()->insert( 'bitracker_torrents_records', array(
 								'record_post_key'		=> \IPS\Request::i()->postKey,
 								'record_type'			=> 'ssupload',
 								'record_location'		=> (string) $file,
@@ -368,7 +367,7 @@ class _submit extends \IPS\Dispatcher\Controller
 						$linkedScreenshots[] = (string) $url;
 						if ( !isset( $existing[ (string) $url ] ) )
 						{
-							\IPS\Db::i()->insert( 'bitracker_files_records', array(
+							\IPS\Db::i()->insert( 'bitracker_torrents_records', array(
 								'record_post_key'	=> \IPS\Request::i()->postKey,
 								'record_type'		=> 'sslink',
 								'record_location'	=> (string) $url,
@@ -388,7 +387,7 @@ class _submit extends \IPS\Dispatcher\Controller
 				{
 					try
 					{
-						\IPS\File::get( $file['record_type'] === 'upload' ? 'bitracker_Files' : 'bitracker_Screenshots', $location )->delete();
+						\IPS\File::get( $file['record_type'] === 'upload' ? 'bitracker_Torrents' : 'bitracker_Screenshots', $location )->delete();
 					}
 					catch ( \Exception $e ) { }
 
@@ -410,7 +409,7 @@ class _submit extends \IPS\Dispatcher\Controller
 						catch ( \Exception $e ) { }
 					}
 					
-					\IPS\Db::i()->delete( 'bitracker_files_records', array( 'record_id=?', $file['record_id'] ) );
+					\IPS\Db::i()->delete( 'bitracker_torrents_records', array( 'record_id=?', $file['record_id'] ) );
 				}
 				
 
@@ -470,7 +469,7 @@ class _submit extends \IPS\Dispatcher\Controller
 			foreach ( $data['files'] as $key => $file )
 			{
 				/* Header */
-				$file = \IPS\File::get( 'bitracker_Files', $file );
+				$file = \IPS\File::get( 'bitracker_Torrents', $file );
 				$form->addTab( $file->originalFilename );
 				$form->addHeader( $file->originalFilename );
 				
@@ -512,7 +511,7 @@ class _submit extends \IPS\Dispatcher\Controller
 				/* Nfo */
 				if ( $category->bitoptions['allownfo'] )
 				{
-					$existing[ $key ] = iterator_to_array( new \IPS\File\Iterator( \IPS\Db::i()->select( '*', 'bitracker_files_records', array( 'record_post_key=? AND record_type=?', md5( "{$data['postKey']}-{$key}" ), 'nfoupload' ) )->setValueField( function( $row ) { return $row['record_no_watermark'] ?: $row['record_location']; } )->setKeyField( function( $row ) { return $row['record_no_watermark'] ?: $row['record_location']; } ), 'bitracker_Screenshots' ) );
+					$existing[ $key ] = iterator_to_array( new \IPS\File\Iterator( \IPS\Db::i()->select( '*', 'bitracker_torrents_records', array( 'record_post_key=? AND record_type=?', md5( "{$data['postKey']}-{$key}" ), 'nfoupload' ) )->setValueField( function( $row ) { return $row['record_no_watermark'] ?: $row['record_location']; } )->setKeyField( function( $row ) { return $row['record_no_watermark'] ?: $row['record_location']; } ), 'bitracker_Screenshots' ) );
 											
 					$form->add( new \IPS\Helpers\Form\Upload( "nfo_{$key}", $existing[ $key ], ( $category->bitoptions['reqnfo'] and !\IPS\Member::loggedIn()->group['bit_linked_files'] ), array(
 						'storageExtension'	=> 'bitracker_Nfo',
@@ -525,7 +524,7 @@ class _submit extends \IPS\Dispatcher\Controller
 				/* Screenshots */
 				if ( $category->bitoptions['allowss'] )
 				{
-					$existing[ $key ] = iterator_to_array( new \IPS\File\Iterator( \IPS\Db::i()->select( '*', 'bitracker_files_records', array( 'record_post_key=? AND record_type=?', md5( "{$data['postKey']}-{$key}" ), 'ssupload' ) )->setValueField( function( $row ) { return $row['record_no_watermark'] ?: $row['record_location']; } )->setKeyField( function( $row ) { return $row['record_no_watermark'] ?: $row['record_location']; } ), 'bitracker_Screenshots' ) );
+					$existing[ $key ] = iterator_to_array( new \IPS\File\Iterator( \IPS\Db::i()->select( '*', 'bitracker_torrents_records', array( 'record_post_key=? AND record_type=?', md5( "{$data['postKey']}-{$key}" ), 'ssupload' ) )->setValueField( function( $row ) { return $row['record_no_watermark'] ?: $row['record_location']; } )->setKeyField( function( $row ) { return $row['record_no_watermark'] ?: $row['record_location']; } ), 'bitracker_Screenshots' ) );
 											
 					$form->add( new \IPS\Helpers\Form\Upload( "screenshots_{$key}", $existing[ $key ], ( $category->bitoptions['reqss'] and !\IPS\Member::loggedIn()->group['bit_linked_files'] ), array(
 						'storageExtension'	=> 'bitracker_Screenshots',
@@ -565,7 +564,7 @@ class _submit extends \IPS\Dispatcher\Controller
 									$file = \IPS\File::create( 'bitracker_Screenshots', $file->originalFilename, $image );
 								}
 								
-								\IPS\Db::i()->insert( 'bitracker_files_records', array(
+								\IPS\Db::i()->insert( 'bitracker_torrents_records', array(
 									'record_post_key'		=> md5( "{$data['postKey']}-{$key}" ),
 									'record_type'			=> 'ssupload',
 									'record_location'		=> (string) $file,
@@ -593,7 +592,7 @@ class _submit extends \IPS\Dispatcher\Controller
 							}
 							catch ( \Exception $e ) { }
 							
-							\IPS\Db::i()->delete( 'bitracker_files_records', array( 'record_location=? OR record_no_watermark=?', (string) $file, (string) $file ) );
+							\IPS\Db::i()->delete( 'bitracker_torrents_records', array( 'record_location=? OR record_no_watermark=?', (string) $file, (string) $file ) );
 						}
 					}
 				}

@@ -10,7 +10,7 @@
  * @source      https://github.com/GaalexxC/IPS-4.2-BitTracker
  * @Issue Trak  https://www.devcu.com/forums/devcu-tracker/ips4bt/
  * @Created     11 FEB 2018
- * @Updated     19 FEB 2018
+ * @Updated     28 FEB 2018
  *
  *                    GNU General Public License v3.0
  *    This program is free software: you can redistribute it and/or modify       
@@ -491,7 +491,7 @@ class _view extends \IPS\Content\Controller
 			{
 				if ( $category->log !== 0 )
 				{
-					\IPS\Db::i()->insert( 'bitracker_torrents', array(
+					\IPS\Db::i()->insert( 'bitracker_downloads', array(
 						'dfid'		=> $this->file->id,
 						'dtime'		=> time(),
 						'dip'		=> \IPS\Request::i()->ipAddress(),
@@ -518,7 +518,7 @@ class _view extends \IPS\Content\Controller
 			}
 			else
 			{
-				$file = \IPS\File::get( 'bitracker_Files', $data['record_location'] );
+				$file = \IPS\File::get( 'bitracker_Torrents', $data['record_location'] );
 				$file->originalFilename = $data['record_realname'] ?: $file->originalFilename;
 				$this->_download( $file );
 			}
@@ -605,7 +605,7 @@ class _view extends \IPS\Content\Controller
 		}
 		
 		/* Delete the current versions and any versions in between */
-		foreach ( new \IPS\File\Iterator( \IPS\Db::i()->select( 'record_location', 'bitracker_files_records', array( 'record_file_id=? AND record_backup=0', $this->file->id ) ), 'bitracker_Files' ) as $file )
+		foreach ( new \IPS\File\Iterator( \IPS\Db::i()->select( 'record_location', 'bitracker_torrents_records', array( 'record_file_id=? AND record_backup=0', $this->file->id ) ), 'bitracker_Torrents' ) as $file )
 		{
 			try
 			{
@@ -613,12 +613,12 @@ class _view extends \IPS\Content\Controller
 			}
 			catch ( \Exception $e ) {}
 		}
-		\IPS\Db::i()->delete( 'bitracker_files_records', array( 'record_file_id=? AND record_backup=0', $this->file->id ) );
+		\IPS\Db::i()->delete( 'bitracker_torrents_records', array( 'record_file_id=? AND record_backup=0', $this->file->id ) );
 		
 		/* Delete any versions in between */
 		foreach ( \IPS\Db::i()->select( 'b_records', 'bitracker_filebackup', array( 'b_fileid=? AND b_backup>?', $this->file->id, $version['b_backup'] ) ) as $backup )
 		{
-			foreach ( new \IPS\File\Iterator( \IPS\Db::i()->select( 'record_location', 'bitracker_files_records', array( array( 'record_type=?', 'upload' ), \IPS\Db::i()->in( 'record_id', explode( ',', $backup ) ) ) ), 'bitracker_Files' ) as $file )
+			foreach ( new \IPS\File\Iterator( \IPS\Db::i()->select( 'record_location', 'bitracker_torrents_records', array( array( 'record_type=?', 'upload' ), \IPS\Db::i()->in( 'record_id', explode( ',', $backup ) ) ) ), 'bitracker_Torrents' ) as $file )
 			{
 				try
 				{
@@ -626,7 +626,7 @@ class _view extends \IPS\Content\Controller
 				}
 				catch ( \Exception $e ) { }
 			}
-			foreach ( new \IPS\File\Iterator( \IPS\Db::i()->select( 'record_location', 'bitracker_files_records', array( array( 'record_type=?', 'ssupload' ), \IPS\Db::i()->in( 'record_id', explode( ',', $backup ) ) ) ), 'bitracker_Files' ) as $file )
+			foreach ( new \IPS\File\Iterator( \IPS\Db::i()->select( 'record_location', 'bitracker_torrents_records', array( array( 'record_type=?', 'ssupload' ), \IPS\Db::i()->in( 'record_id', explode( ',', $backup ) ) ) ), 'bitracker_Torrents' ) as $file )
 			{
 				try
 				{
@@ -635,12 +635,12 @@ class _view extends \IPS\Content\Controller
 				catch ( \Exception $e ) { }
 			}
 			
-			\IPS\Db::i()->delete( 'bitracker_files_records', \IPS\Db::i()->in( 'record_id', explode( ',', $backup ) ) );
+			\IPS\Db::i()->delete( 'bitracker_torrents_records', \IPS\Db::i()->in( 'record_id', explode( ',', $backup ) ) );
 		}
 		\IPS\Db::i()->delete( 'bitracker_filebackup', array( 'b_fileid=? AND b_backup>=?', $this->file->id, $version['b_backup'] ) );
 		
 		/* Restore the records */
-		\IPS\Db::i()->update( 'bitracker_files_records', array( 'record_backup' => 0 ), array( 'record_file_id=?', $this->file->id ) );
+		\IPS\Db::i()->update( 'bitracker_torrents_records', array( 'record_backup' => 0 ), array( 'record_file_id=?', $this->file->id ) );
 		
 		/* Update the file information */
 		$this->file->name = $version['b_filetitle'];
@@ -724,11 +724,11 @@ class _view extends \IPS\Content\Controller
 		{
 			return new \IPS\File\Iterator(
 				\IPS\Db::i()->select(
-					'record_location', 'bitracker_files_records', array(
+					'record_location', 'bitracker_torrents_records', array(
 						array( 'record_type=?', $recordType ),
 						\IPS\Db::i()->in( 'record_id', explode( ',', $version['b_records'] ) ),
 						array( 'record_location NOT IN (?)', \IPS\Db::i()->select(
-							'record_location', 'bitracker_files_records', array( 'record_type=?', $recordType ), NULL,
+							'record_location', 'bitracker_torrents_records', array( 'record_type=?', $recordType ), NULL,
 							NULL, 'record_location', 'COUNT(*) > 1'
 						) )
 					)
@@ -737,7 +737,7 @@ class _view extends \IPS\Content\Controller
 		};
 
 		/* Delete */
-		foreach ( $fileIterator( 'upload', 'bitracker_Files' ) as $file )
+		foreach ( $fileIterator( 'upload', 'bitracker_Torrents' ) as $file )
 		{
 			try
 			{
@@ -755,7 +755,7 @@ class _view extends \IPS\Content\Controller
 			catch ( \Exception $e ) { }
 		}
 
-		\IPS\Db::i()->delete( 'bitracker_files_records', \IPS\Db::i()->in( 'record_id', explode( ',', $version['b_records'] ) ) );
+		\IPS\Db::i()->delete( 'bitracker_torrents_records', \IPS\Db::i()->in( 'record_id', explode( ',', $version['b_records'] ) ) );
 		\IPS\Db::i()->delete( 'bitracker_filebackup', array( 'b_id=?', $version['b_id'] ) );
 
 		/* Moderator log */
@@ -778,7 +778,7 @@ class _view extends \IPS\Content\Controller
 			\IPS\Output::i()->error( 'no_module_permission', '2D161/B', 403, '' );
 		}
 		
-		$table = new \IPS\Helpers\Table\Db( 'bitracker_torrents', $this->file->url()->setQueryString( 'do', 'log' ), array( 'dfid=?', $this->file->id ) );
+		$table = new \IPS\Helpers\Table\Db( 'bitracker_downloads', $this->file->url()->setQueryString( 'do', 'log' ), array( 'dfid=?', $this->file->id ) );
 		$table->tableTemplate = array( \IPS\Theme::i()->getTemplate( 'view' ), 'logTable' );
 		$table->rowsTemplate = array( \IPS\Theme::i()->getTemplate( 'view' ), 'logRows' );
 		$table->sortBy = 'dtime';
@@ -816,9 +816,9 @@ class _view extends \IPS\Content\Controller
 		$form->add( new \IPS\Helpers\Form\Text( 'file_version', $this->file->version, ( $category->versioning !== 0 ), array( 'maxLength' => 32 ) ) );
 		$form->add( new \IPS\Helpers\Form\Editor( 'file_changelog', $this->file->changelog, FALSE, array( 'app' => 'bitracker', 'key' => 'Bitracker', 'autoSaveKey' => "downloads-{$this->file->id}-changelog") ) );
 		$form->addHeader( 'upload_files' );
-		$form->add( new \IPS\Helpers\Form\Upload( 'files', iterator_to_array( $this->file->files( NULL, FALSE ) ), ( !\IPS\Member::loggedIn()->group['bit_linked_files'] and !\IPS\Member::loggedIn()->group['bit_import_files'] ), array( 'storageExtension' => 'bitracker_Files', 'allowedFileTypes' => $category->types, 'maxFileSize' => $category->maxfile ? ( $category->maxfile / 1024 ) : NULL, 'multiple' => TRUE, 'retainDeleted' => TRUE ) ) );
+		$form->add( new \IPS\Helpers\Form\Upload( 'files', iterator_to_array( $this->file->files( NULL, FALSE ) ), ( !\IPS\Member::loggedIn()->group['bit_linked_files'] and !\IPS\Member::loggedIn()->group['bit_import_files'] ), array( 'storageExtension' => 'bitracker_Torrents', 'allowedFileTypes' => $category->types, 'maxFileSize' => $category->maxfile ? ( $category->maxfile / 1024 ) : NULL, 'multiple' => TRUE, 'retainDeleted' => TRUE ) ) );
 
-		$linkedFiles = iterator_to_array( \IPS\Db::i()->select( 'record_location', 'bitracker_files_records', array( 'record_file_id=? AND record_type=? AND record_backup=0', $this->file->id, 'link' ) ) );
+		$linkedFiles = iterator_to_array( \IPS\Db::i()->select( 'record_location', 'bitracker_torrents_records', array( 'record_file_id=? AND record_type=? AND record_backup=0', $this->file->id, 'link' ) ) );
 
 		if ( \IPS\Member::loggedIn()->group['bit_linked_files'] )
 		{
@@ -866,10 +866,10 @@ class _view extends \IPS\Content\Controller
 
 			if ( \IPS\Member::loggedIn()->group['bit_linked_files'] )
 			{
-				//iterator_to_array( \IPS\Db::i()->select( 'record_location', 'bitracker_files_records', array( 'record_file_id=? AND record_type=? AND record_backup=0', $this->file->id, 'sslink' ) ) )
+				//iterator_to_array( \IPS\Db::i()->select( 'record_location', 'bitracker_torrents_records', array( 'record_file_id=? AND record_type=? AND record_backup=0', $this->file->id, 'sslink' ) ) )
 				//
 				$form->add( new \IPS\bitracker\Form\LinkedScreenshots( 'url_screenshots', array(
-					'values'	=> iterator_to_array( \IPS\Db::i()->select( 'record_id, record_location', 'bitracker_files_records', array( 'record_file_id=? AND record_type=? AND record_backup=0', $this->file->id, 'sslink' ) )->setKeyField('record_id')->setValueField('record_location') ),
+					'values'	=> iterator_to_array( \IPS\Db::i()->select( 'record_id, record_location', 'bitracker_torrents_records', array( 'record_file_id=? AND record_type=? AND record_backup=0', $this->file->id, 'sslink' ) )->setKeyField('record_id')->setValueField('record_location') ),
 					'default'	=> $this->file->_primary_screenshot
 				), FALSE, array( 'IPS\bitracker\File', 'blacklistCheck' ) ) );
 			}
@@ -884,7 +884,7 @@ class _view extends \IPS\Content\Controller
 			/* Check */
 			if ( empty( $values['files'] ) and empty( $values['url_files'] ) and empty( $values['import_files'] ) )
 			{
-				$form->error = \IPS\Member::loggedIn()->language()->addToStack('err_no_files');
+				$form->error = \IPS\Member::loggedIn()->language()->addToStack('err_no_torrents');
 				\IPS\Output::i()->output = \IPS\Theme::i()->getTemplate( 'submit' )->newVersion( $form, $category->versioning !== 0 );
 				return (string) $form;
 			}
@@ -906,10 +906,10 @@ class _view extends \IPS\Content\Controller
 			}
 			else
 			{
-				$existingRecords = array_unique( iterator_to_array( \IPS\Db::i()->select( 'record_location', 'bitracker_files_records', array( 'record_file_id=? AND record_type=? AND record_backup=?', $this->file->id, 'upload', 0 ) ) ) );
-				$existingScreenshots = array_unique( iterator_to_array( \IPS\Db::i()->select( 'record_location', 'bitracker_files_records', array( 'record_file_id=? AND record_type=? AND record_backup=?', $this->file->id, 'ssupload', 0 ) ) ) );
-				$existingLinks = array_unique( iterator_to_array( \IPS\Db::i()->select( 'record_id, record_location', 'bitracker_files_records', array( 'record_file_id=? AND record_type=? AND record_backup=?', $this->file->id, 'link', 0 ) )->setKeyField('record_id')->setValueField('record_location') ) );
-                $existingScreenshotLinks = array_unique( iterator_to_array( \IPS\Db::i()->select( 'record_id, record_location', 'bitracker_files_records', array( 'record_file_id=? AND record_type=? AND record_backup=?', $this->file->id, 'sslink', 0 ) )->setKeyField('record_id')->setValueField('record_location') ) );
+				$existingRecords = array_unique( iterator_to_array( \IPS\Db::i()->select( 'record_location', 'bitracker_torrents_records', array( 'record_file_id=? AND record_type=? AND record_backup=?', $this->file->id, 'upload', 0 ) ) ) );
+				$existingScreenshots = array_unique( iterator_to_array( \IPS\Db::i()->select( 'record_location', 'bitracker_torrents_records', array( 'record_file_id=? AND record_type=? AND record_backup=?', $this->file->id, 'ssupload', 0 ) ) ) );
+				$existingLinks = array_unique( iterator_to_array( \IPS\Db::i()->select( 'record_id, record_location', 'bitracker_torrents_records', array( 'record_file_id=? AND record_type=? AND record_backup=?', $this->file->id, 'link', 0 ) )->setKeyField('record_id')->setValueField('record_location') ) );
+                $existingScreenshotLinks = array_unique( iterator_to_array( \IPS\Db::i()->select( 'record_id, record_location', 'bitracker_torrents_records', array( 'record_file_id=? AND record_type=? AND record_backup=?', $this->file->id, 'sslink', 0 ) )->setKeyField('record_id')->setValueField('record_location') ) );
 			}
 			
 			/* Insert the new records */
@@ -923,7 +923,7 @@ class _view extends \IPS\Content\Controller
 				}
 				else
 				{
-					\IPS\Db::i()->insert( 'bitracker_files_records', array(
+					\IPS\Db::i()->insert( 'bitracker_torrents_records', array(
 						'record_file_id'	=> $this->file->id,
 						'record_type'		=> 'upload',
 						'record_location'	=> (string) $file,
@@ -938,7 +938,7 @@ class _view extends \IPS\Content\Controller
 			{
 				foreach ( $values['import_files'] as $path )
 				{
-					$file = \IPS\File::create( 'bitracker_Files', mb_substr( $path, mb_strrpos( $path, DIRECTORY_SEPARATOR ) + 1 ), file_get_contents( $path ) );
+					$file = \IPS\File::create( 'bitracker_Torrents', mb_substr( $path, mb_strrpos( $path, DIRECTORY_SEPARATOR ) + 1 ), file_get_contents( $path ) );
 					
 					$key = array_search( (string) $file, $existingRecords );
 					if ( $key !== FALSE )
@@ -947,7 +947,7 @@ class _view extends \IPS\Content\Controller
 					}
 					else
 					{
-						\IPS\Db::i()->insert( 'bitracker_files_records', array(
+						\IPS\Db::i()->insert( 'bitracker_torrents_records', array(
 							'record_file_id'	=> $this->file->id,
 							'record_type'		=> 'upload',
 							'record_location'	=> (string) $file,
@@ -970,7 +970,7 @@ class _view extends \IPS\Content\Controller
 					}
 					else
 					{
-						\IPS\Db::i()->insert( 'bitracker_files_records', array(
+						\IPS\Db::i()->insert( 'bitracker_torrents_records', array(
 							'record_file_id'	=> $this->file->id,
 							'record_type'		=> 'link',
 							'record_location'	=> (string) $url,
@@ -995,7 +995,7 @@ class _view extends \IPS\Content\Controller
 					$key = array_search( (string) $file, $existingScreenshots );
 					if ( $key !== FALSE )
 					{
-						\IPS\Db::i()->update( 'bitracker_files_records', array(
+						\IPS\Db::i()->update( 'bitracker_torrents_records', array(
 							'record_default'		=> ( \IPS\Request::i()->screenshots_primary_screenshot AND \IPS\Request::i()->screenshots_primary_screenshot == $_key ) ? 1 : 0
 						), array( 'record_id=?', $_key ) );
 
@@ -1029,12 +1029,12 @@ class _view extends \IPS\Content\Controller
 						{
 							try
 							{
-								$existing = \IPS\Db::i()->select( '*', 'bitracker_files_records', array( "record_location=? AND record_file_id=?", (string) $file, $this->file->id ), NULL, NULL, NULL, NULL, \IPS\Db::SELECT_FROM_WRITE_SERVER )->first();
+								$existing = \IPS\Db::i()->select( '*', 'bitracker_torrents_records', array( "record_location=? AND record_file_id=?", (string) $file, $this->file->id ), NULL, NULL, NULL, NULL, \IPS\Db::SELECT_FROM_WRITE_SERVER )->first();
 							}
 							catch( \UnderflowException $e ) {}
 						}
 						
-						\IPS\Db::i()->insert( 'bitracker_files_records', array(
+						\IPS\Db::i()->insert( 'bitracker_torrents_records', array(
 							'record_file_id'		=> $this->file->id,
 							'record_type'			=> 'ssupload',
 							'record_location'		=> (string) $file,
@@ -1056,14 +1056,14 @@ class _view extends \IPS\Content\Controller
 					$key = array_search( (string) $file, $existingScreenshotLinks );
 					if ( $key !== FALSE )
 					{
-						\IPS\Db::i()->update( 'bitracker_files_records', array(
+						\IPS\Db::i()->update( 'bitracker_torrents_records', array(
 							'record_default'		=> ( \IPS\Request::i()->screenshots_primary_screenshot AND \IPS\Request::i()->screenshots_primary_screenshot == $_key ) ? 1 : 0
 						), array( 'record_id=?', $_key ) );
 						unset( $existingScreenshotLinks[ $key ] );
 					}
 					else
 					{
-						\IPS\Db::i()->insert( 'bitracker_files_records', array(
+						\IPS\Db::i()->insert( 'bitracker_torrents_records', array(
 							'record_file_id'	=> $this->file->id,
 							'record_type'		=> 'sslink',
 							'record_location'	=> (string) $url,
@@ -1081,11 +1081,11 @@ class _view extends \IPS\Content\Controller
 			{
 				try
 				{
-					$file = \IPS\File::get( 'bitracker_Files', $url )->delete();
+					$file = \IPS\File::get( 'bitracker_Torrents', $url )->delete();
 				}
 				catch ( \Exception $e ) { }
 				
-				\IPS\Db::i()->delete( 'bitracker_files_records', array( 'record_location=?', $url ) );
+				\IPS\Db::i()->delete( 'bitracker_torrents_records', array( 'record_location=?', $url ) );
 			}
 			foreach ( $existingScreenshots as $url )
 			{
@@ -1095,26 +1095,26 @@ class _view extends \IPS\Content\Controller
 				}
 				catch ( \Exception $e ) { }
 				
-				\IPS\Db::i()->delete( 'bitracker_files_records', array( 'record_location=?', $url ) );
+				\IPS\Db::i()->delete( 'bitracker_torrents_records', array( 'record_location=?', $url ) );
 			}
 			foreach ( $existingLinks as $id => $url )
 			{				
-				\IPS\Db::i()->delete( 'bitracker_files_records', array( 'record_id=?', $id ) );
+				\IPS\Db::i()->delete( 'bitracker_torrents_records', array( 'record_id=?', $id ) );
 			}
             foreach ( $existingScreenshotLinks as $id => $url )
             {
-                \IPS\Db::i()->delete( 'bitracker_files_records', array( 'record_id=?', $id ) );
+                \IPS\Db::i()->delete( 'bitracker_torrents_records', array( 'record_id=?', $id ) );
             }
 			
 			/* Set the new details */
 			$this->file->version = $values['file_version'];
 			$this->file->changelog = $values['file_changelog'];
-			$this->file->size = floatval( \IPS\Db::i()->select( 'SUM(record_size)', 'bitracker_files_records', array( 'record_file_id=? AND record_type=? AND record_backup=0', $this->file->id, 'upload' ), NULL, NULL, NULL, NULL, \IPS\Db::SELECT_FROM_WRITE_SERVER )->first() );
+			$this->file->size = floatval( \IPS\Db::i()->select( 'SUM(record_size)', 'bitracker_torrents_records', array( 'record_file_id=? AND record_type=? AND record_backup=0', $this->file->id, 'upload' ), NULL, NULL, NULL, NULL, \IPS\Db::SELECT_FROM_WRITE_SERVER )->first() );
 			
 			/* Work out the new primary screenshot */
 			try
 			{
-				$this->file->primary_screenshot = \IPS\Db::i()->select( 'record_id', 'bitracker_files_records', array( 'record_file_id=? AND ( record_type=? OR record_type=? ) AND record_backup=0', $this->file->id, 'ssupload', 'sslink' ), 'record_default DESC, record_id ASC', NULL, NULL, NULL, \IPS\Db::SELECT_FROM_WRITE_SERVER )->first();
+				$this->file->primary_screenshot = \IPS\Db::i()->select( 'record_id', 'bitracker_torrents_records', array( 'record_file_id=? AND ( record_type=? OR record_type=? ) AND record_backup=0', $this->file->id, 'ssupload', 'sslink' ), 'record_default DESC, record_id ASC', NULL, NULL, NULL, \IPS\Db::SELECT_FROM_WRITE_SERVER )->first();
 			}
 			catch ( \UnderflowException $e ) { }
 			
