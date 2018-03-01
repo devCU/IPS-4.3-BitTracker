@@ -92,7 +92,7 @@ class _torrents extends \IPS\Dispatcher\Controller
         /* Form Settings */
         $form->addHeader( 'head_tracker_torrent_configure' );
 
-        $form->add( new \IPS\Helpers\Form\YesNo( 'bit_torrents_enable', \IPS\Settings::i()->bit_torrents_enable, FALSE, array( 'togglesOn' => array( 'bit_tracker_filter_option', 'bit_filter_action', 'bit_filter_any_action' ) ) ) );
+        $form->add( new \IPS\Helpers\Form\YesNo( 'bit_torrents_enable', \IPS\Settings::i()->bit_torrents_enable, FALSE, array( 'togglesOn' => array( 'bit_tracker_filter_option', 'bit_filter_action', 'bit_filter_any_action', 'bit_filter_white_action' ) ) ) );
 		$form->add( new \IPS\Helpers\Form\Radio( 'bit_tracker_filter_option', \IPS\Settings::i()->bit_tracker_filter_option, FALSE, array(
 			'options' => array(
 				'none' => 'bit_none',
@@ -100,7 +100,7 @@ class _torrents extends \IPS\Dispatcher\Controller
 				'white' => "bit_whitelist" ),
 			'toggles' => array(
 				'black'	=> array( 'bit_tracker_blacklist', 'bit_filter_action' ),
-				'white'	=> array( 'bit_tracker_whitelist', 'bit_filter_action' ),
+				'white'	=> array( 'bit_tracker_whitelist', 'bit_filter_white_action' ),
 				'none'		=> array( 'bit_filter_any_action' ),
 			)
 		), NULL, NULL, NULL, 'bit_tracker_filter_option' ) );
@@ -116,14 +116,25 @@ class _torrents extends \IPS\Dispatcher\Controller
 		 		'moderate'		=> 'bit_filter_moderate_desc'
 	 		)
  		), NULL, NULL, NULL, 'bit_filter_action' ) );
+
+ 		$form->add( new \IPS\Helpers\Form\Radio( 'bit_filter_white_action', \IPS\Settings::i()->bit_filter_white_action, FALSE, array(
+	 		'options'		=> array(
+		 		'open'			=> 'bit_filter_white_open',
+		 		'moderate'		=> 'bit_filter_white_moderate'
+	 		),
+	 		'description'	=> array(
+		 		'open'			=> 'bit_filter_white_open_desc',
+		 		'moderate'		=> 'bit_filter_white_moderate_desc'
+	 		)
+ 		), NULL, NULL, NULL, 'bit_filter_white_action' ) );
  		
  		$form->add( new \IPS\Helpers\Form\Radio( 'bit_filter_any_action', \IPS\Settings::i()->bit_filter_any_action, FALSE, array(
 	 		'options'		=> array(
-		 		'allow'			=> 'bit_filter_any_allow',
+		 		'open'			=> 'bit_filter_any_open',
 		 		'moderate'		=> 'bit_filter_any_moderate'
 	 		),
 	 		'description'	=> array(
-		 		'allow'			=> 'bit_filter_any_allow_desc',
+		 		'open'			=> 'bit_filter_any_open_desc',
 		 		'moderate'		=> 'bit_filter_any_moderate_desc'
 	 		)
  		), NULL, NULL, NULL, 'bit_filter_any_action' ) );
