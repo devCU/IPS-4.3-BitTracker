@@ -816,11 +816,11 @@ class _view extends \IPS\Content\Controller
 		$form->add( new \IPS\Helpers\Form\Text( 'file_version', $this->file->version, ( $category->versioning !== 0 ), array( 'maxLength' => 32 ) ) );
 		$form->add( new \IPS\Helpers\Form\Editor( 'file_changelog', $this->file->changelog, FALSE, array( 'app' => 'bitracker', 'key' => 'Bitracker', 'autoSaveKey' => "downloads-{$this->file->id}-changelog") ) );
 		$form->addHeader( 'upload_files' );
-		$form->add( new \IPS\Helpers\Form\Upload( 'files', iterator_to_array( $this->file->files( NULL, FALSE ) ), ( !\IPS\Member::loggedIn()->group['bit_linked_files'] and !\IPS\Member::loggedIn()->group['bit_import_torrents'] ), array( 'storageExtension' => 'bitracker_Torrents', 'allowedFileTypes' => $category->types, 'maxFileSize' => $category->maxfile ? ( $category->maxfile / 1024 ) : NULL, 'multiple' => TRUE, 'retainDeleted' => TRUE ) ) );
+		$form->add( new \IPS\Helpers\Form\Upload( 'files', iterator_to_array( $this->file->files( NULL, FALSE ) ), ( !\IPS\Member::loggedIn()->group['bit_linked_torrents'] and !\IPS\Member::loggedIn()->group['bit_import_torrents'] ), array( 'storageExtension' => 'bitracker_Torrents', 'allowedFileTypes' => $category->types, 'maxFileSize' => $category->maxfile ? ( $category->maxfile / 1024 ) : NULL, 'multiple' => TRUE, 'retainDeleted' => TRUE ) ) );
 
 		$linkedFiles = iterator_to_array( \IPS\Db::i()->select( 'record_location', 'bitracker_torrents_records', array( 'record_file_id=? AND record_type=? AND record_backup=0', $this->file->id, 'link' ) ) );
 
-		if ( \IPS\Member::loggedIn()->group['bit_linked_files'] )
+		if ( \IPS\Member::loggedIn()->group['bit_linked_torrents'] )
 		{
 			$form->add( new \IPS\Helpers\Form\Stack( 'url_files', $linkedFiles, FALSE, array( 'stackFieldType' => 'Url' ), array( 'IPS\bitracker\File', 'blacklistCheck' ) ) );
 		}
@@ -855,7 +855,7 @@ class _view extends \IPS\Content\Controller
 				$screenshots[ $this->file->_primary_screenshot ] = array( 'fileurl' => $screenshots[ $this->file->_primary_screenshot ], 'default' => true );
 			}
 
-			$form->add( new \IPS\Helpers\Form\Upload( 'screenshots', $screenshots, ( $category->bitoptions['reqss'] and !\IPS\Member::loggedIn()->group['bit_linked_files'] ), array(
+			$form->add( new \IPS\Helpers\Form\Upload( 'screenshots', $screenshots, ( $category->bitoptions['reqss'] and !\IPS\Member::loggedIn()->group['bit_linked_torrents'] ), array(
 				'storageExtension'	=> 'bitracker_Screenshots',
 				'image'				=> $category->maxssdims ? explode( 'x', $category->maxssdims ) : TRUE,
 				'maxFileSize'		=> $category->maxss ? ( $category->maxss / 1024 ) : NULL,
@@ -864,7 +864,7 @@ class _view extends \IPS\Content\Controller
 				'template'			=> "bitracker.submit.screenshot",
 			) ) );
 
-			if ( \IPS\Member::loggedIn()->group['bit_linked_files'] )
+			if ( \IPS\Member::loggedIn()->group['bit_linked_torrents'] )
 			{
 				//iterator_to_array( \IPS\Db::i()->select( 'record_location', 'bitracker_torrents_records', array( 'record_file_id=? AND record_type=? AND record_backup=0', $this->file->id, 'sslink' ) ) )
 				//

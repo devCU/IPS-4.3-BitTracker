@@ -10,7 +10,7 @@
  * @source      https://github.com/GaalexxC/IPS-4.2-BitTracker
  * @Issue Trak  https://www.devcu.com/forums/devcu-tracker/ips4bt/
  * @Created     11 FEB 2018
- * @Updated     127 FEB 2018
+ * @Updated     28 FEB 2018
  *
  *                    GNU General Public License v3.0
  *    This program is free software: you can redistribute it and/or modify       
@@ -74,8 +74,8 @@ class _Bitracker
 			}
 		}
 		$form->add( new \IPS\Helpers\Form\YesNo( 'bit_bulk_submit', $group->bit_bulk_submit ) );
-		$form->add( new \IPS\Helpers\Form\YesNo( 'bit_linked_files', $group->bit_linked_files ) );
-		$form->add( new \IPS\Helpers\Form\YesNo( 'bit_import_files', $group->bit_import_files ) );
+		$form->add( new \IPS\Helpers\Form\YesNo( 'bit_linked_torrents', $group->bit_linked_torrents ) );
+		$form->add( new \IPS\Helpers\Form\YesNo( 'bit_import_torrents', $group->bit_import_torrents ) );
 		
 		$form->addHeader( 'access_restrictions' );
 		if( $group->g_id != \IPS\Settings::i()->guest_group )
@@ -120,8 +120,8 @@ class _Bitracker
 		$group->bit_view_bitracker = $values['bit_view_bitracker'];
 		$group->bit_throttling = $values['bit_throttling'];
 		$group->bit_wait_period = $values['bit_wait_period'];
-		$group->bit_linked_files = $values['bit_linked_files'];
-		$group->bit_import_files = $values['bit_import_files'];
+		$group->bit_linked_torrents = $values['bit_linked_torrents'];
+		$group->bit_import_torrents = $values['bit_import_torrents'];
 		$group->bit_bulk_submit = $values['bit_bulk_submit'];
 		
 		if ( \IPS\Application::appIsEnabled( 'nexus' ) and \IPS\Settings::i()->bit_nexus_on )

@@ -158,11 +158,11 @@ class _submit extends \IPS\Dispatcher\Controller
 			}
 			
 			/* Add the fields */
-			$form->add( new \IPS\Helpers\Form\Upload( 'files', $files, ( !\IPS\Member::loggedIn()->group['bit_linked_files'] and !\IPS\Member::loggedIn()->group['bit_import_torrents'] ), array( 'storageExtension' => 'bitracker_Torrents', 'allowedFileTypes' => $category->types, 'maxFileSize' => $category->maxfile !== NULL ? ( $category->maxfile / 1024 ) : NULL, 'multiple' => TRUE, 'minimize' => FALSE ) ) );
+			$form->add( new \IPS\Helpers\Form\Upload( 'files', $files, ( !\IPS\Member::loggedIn()->group['bit_linked_torrents'] and !\IPS\Member::loggedIn()->group['bit_import_torrents'] ), array( 'storageExtension' => 'bitracker_Torrents', 'allowedFileTypes' => $category->types, 'maxFileSize' => $category->maxfile !== NULL ? ( $category->maxfile / 1024 ) : NULL, 'multiple' => TRUE, 'minimize' => FALSE ) ) );
 
 			if ( !isset( \IPS\Request::i()->bulk ) )
 			{
-				if ( \IPS\Member::loggedIn()->group['bit_linked_files'] )
+				if ( \IPS\Member::loggedIn()->group['bit_linked_torrents'] )
 				{
 					$form->add( new \IPS\Helpers\Form\Stack( 'url_files', isset( $data['url_files'] ) ? $data['url_files'] : array(), FALSE, array( 'stackFieldType' => 'Url' ), array( 'IPS\bitracker\File', 'blacklistCheck' ) ) );
 				}
@@ -195,13 +195,13 @@ class _submit extends \IPS\Dispatcher\Controller
 						$maxDims = explode( 'x', $category->maxdims );
 						$image = array( 'maxWidth' => $maxDims[0], 'maxHeight' => $maxDims[1] );
 					}
-					$form->add( new \IPS\Helpers\Form\Upload( 'nfo', $nfo, ( $category->bitoptions['reqnfo'] and !\IPS\Member::loggedIn()->group['bit_linked_files'] ), array(
+					$form->add( new \IPS\Helpers\Form\Upload( 'nfo', $nfo, ( $category->bitoptions['reqnfo'] and !\IPS\Member::loggedIn()->group['bit_linked_torrents'] ), array(
 						'storageExtension'	=> 'bitracker_Nfo',
 						'maxFileSize'		=> $category->maxnfo ? ( $category->maxnfo / 1024 ) : NULL,
 						'multiple'			=> TRUE,
 						'template'			=> "bitracker.submit.nfo",
 					) ) );
-					if ( \IPS\Member::loggedIn()->group['bit_linked_files'] )
+					if ( \IPS\Member::loggedIn()->group['bit_linked_torrents'] )
 					{
 						$form->add( new \IPS\bitracker\Form\LinkedNfo( 'url_nfo', isset( $data['url_nfo'] ) ? array( 'values' => $data['url_nfo'] ) : array(), FALSE, array( 'stackFieldType' => 'Url' ), array( 'IPS\bitracker\File', 'blacklistCheck' ) ) );
 					}
@@ -215,14 +215,14 @@ class _submit extends \IPS\Dispatcher\Controller
 						$maxDims = explode( 'x', $category->maxdims );
 						$image = array( 'maxWidth' => $maxDims[0], 'maxHeight' => $maxDims[1] );
 					}
-					$form->add( new \IPS\Helpers\Form\Upload( 'screenshots', $screenshots, ( $category->bitoptions['reqss'] and !\IPS\Member::loggedIn()->group['bit_linked_files'] ), array(
+					$form->add( new \IPS\Helpers\Form\Upload( 'screenshots', $screenshots, ( $category->bitoptions['reqss'] and !\IPS\Member::loggedIn()->group['bit_linked_torrents'] ), array(
 						'storageExtension'	=> 'bitracker_Screenshots',
 						'image'				=> $image,
 						'maxFileSize'		=> $category->maxss ? ( $category->maxss / 1024 ) : NULL,
 						'multiple'			=> TRUE,
 						'template'			=> "bitracker.submit.screenshot",
 					) ) );
-					if ( \IPS\Member::loggedIn()->group['bit_linked_files'] )
+					if ( \IPS\Member::loggedIn()->group['bit_linked_torrents'] )
 					{
 						$form->add( new \IPS\bitracker\Form\LinkedScreenshots( 'url_screenshots', isset( $data['url_screenshots'] ) ? array( 'values' => $data['url_screenshots'] ) : array(), FALSE, array( 'stackFieldType' => 'Url' ), array( 'IPS\bitracker\File', 'blacklistCheck' ) ) );
 					}
@@ -513,7 +513,7 @@ class _submit extends \IPS\Dispatcher\Controller
 				{
 					$existing[ $key ] = iterator_to_array( new \IPS\File\Iterator( \IPS\Db::i()->select( '*', 'bitracker_torrents_records', array( 'record_post_key=? AND record_type=?', md5( "{$data['postKey']}-{$key}" ), 'nfoupload' ) )->setValueField( function( $row ) { return $row['record_no_watermark'] ?: $row['record_location']; } )->setKeyField( function( $row ) { return $row['record_no_watermark'] ?: $row['record_location']; } ), 'bitracker_Screenshots' ) );
 											
-					$form->add( new \IPS\Helpers\Form\Upload( "nfo_{$key}", $existing[ $key ], ( $category->bitoptions['reqnfo'] and !\IPS\Member::loggedIn()->group['bit_linked_files'] ), array(
+					$form->add( new \IPS\Helpers\Form\Upload( "nfo_{$key}", $existing[ $key ], ( $category->bitoptions['reqnfo'] and !\IPS\Member::loggedIn()->group['bit_linked_torrents'] ), array(
 						'storageExtension'	=> 'bitracker_Nfo',
 						'maxFileSize'		=> $category->maxss ? ( $category->maxnfo / 1024 ) : NULL,
 						'multiple'			=> TRUE
@@ -526,7 +526,7 @@ class _submit extends \IPS\Dispatcher\Controller
 				{
 					$existing[ $key ] = iterator_to_array( new \IPS\File\Iterator( \IPS\Db::i()->select( '*', 'bitracker_torrents_records', array( 'record_post_key=? AND record_type=?', md5( "{$data['postKey']}-{$key}" ), 'ssupload' ) )->setValueField( function( $row ) { return $row['record_no_watermark'] ?: $row['record_location']; } )->setKeyField( function( $row ) { return $row['record_no_watermark'] ?: $row['record_location']; } ), 'bitracker_Screenshots' ) );
 											
-					$form->add( new \IPS\Helpers\Form\Upload( "screenshots_{$key}", $existing[ $key ], ( $category->bitoptions['reqss'] and !\IPS\Member::loggedIn()->group['bit_linked_files'] ), array(
+					$form->add( new \IPS\Helpers\Form\Upload( "screenshots_{$key}", $existing[ $key ], ( $category->bitoptions['reqss'] and !\IPS\Member::loggedIn()->group['bit_linked_torrents'] ), array(
 						'storageExtension'	=> 'bitracker_Screenshots',
 						'image'				=> $category->maxssdims ? explode( 'x', $category->maxssdims ) : TRUE,
 						'maxFileSize'		=> $category->maxss ? ( $category->maxss / 1024 ) : NULL,
