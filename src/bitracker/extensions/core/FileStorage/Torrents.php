@@ -10,7 +10,7 @@
  * @source      https://github.com/GaalexxC/IPS-4.2-BitTracker
  * @Issue Trak  https://www.devcu.com/forums/devcu-tracker/ips4bt/
  * @Created     11 FEB 2018
- * @Updated     27 FEB 2018
+ * @Updated     28 FEB 2018
  *
  *                    GNU General Public License v3.0
  *    This program is free software: you can redistribute it and/or modify       
@@ -37,17 +37,17 @@ if ( !defined( '\IPS\SUITE_UNIQUE_KEY' ) )
 }
 
 /**
- * File Storage Extension: Files
+ * File Storage Extension: Torrents
  */
-class _Files
+class _Torrents
 {
 	/**
-	 * Some file storage engines have the facility to upload private files that need specially signed URLs to download to prevent public access of protected files.
+	 * Some torrent storage engines have the facility to upload private torrents that need specially signed URLs to download to prevent public access of protected torrents.
 	 */
 	public static $isPrivate = true;
 	
 	/**
-	 * Count stored files
+	 * Count stored torrents
 	 *
 	 * @return	int
 	 */
@@ -57,12 +57,12 @@ class _Files
 	}
 	
 	/**
-	 * Move stored files
+	 * Move stored torrents
 	 *
-	 * @param	int			$offset					This will be sent starting with 0, increasing to get all files stored by this extension
+	 * @param	int			$offset					This will be sent starting with 0, increasing to get all torrents stored by this extension
 	 * @param	int			$storageConfiguration	New storage configuration ID
 	 * @param	int|NULL	$oldConfiguration		Old storage configuration ID
-	 * @throws	\Underflowexception				When file record doesn't exist. Indicating there are no more files to move
+	 * @throws	\Underflowexception				When torrent record doesn't exist. Indicating there are no more torrents to move
 	 * @return	void
 	 */
 	public function move( $offset, $storageConfiguration, $oldConfiguration=NULL )
@@ -87,7 +87,7 @@ class _Files
 	/**
 	 * Fix all URLs
 	 *
-	 * @param	int			$offset					This will be sent starting with 0, increasing to get all files stored by this extension
+	 * @param	int			$offset					This will be sent starting with 0, increasing to get all torrents stored by this extension
 	 * @return void
 	 */
 	public function fixUrls( $offset )
@@ -101,9 +101,9 @@ class _Files
 	}
 	
 	/**
-	 * Check if a file is valid
+	 * Check if a torrent is valid
 	 *
-	 * @param	string	$file		The file path to check
+	 * @param	string	$file		The torrent path to check
 	 * @return	bool
 	 */
 	public function isValidFile( $file )
@@ -121,7 +121,7 @@ class _Files
 	}
 
 	/**
-	 * Delete all stored files
+	 * Delete all stored torrents
 	 *
 	 * @return	void
 	 */
