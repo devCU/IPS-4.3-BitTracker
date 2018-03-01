@@ -10,7 +10,7 @@
  * @source      https://github.com/GaalexxC/IPS-4.2-BitTracker
  * @Issue Trak  https://www.devcu.com/forums/devcu-tracker/ips4bt/
  * @Created     11 FEB 2018
- * @Updated     27 FEB 2018
+ * @Updated     28 FEB 2018
  *
  *                    GNU General Public License v3.0
  *    This program is free software: you can redistribute it and/or modify       
@@ -37,9 +37,9 @@ if ( !defined( '\IPS\SUITE_UNIQUE_KEY' ) )
 }
 
 /**
- * @brief	BitTracker Files API
+ * @brief	BitTracker Torrents API
  */
-class _files extends \IPS\Content\Api\ItemController
+class _torrents extends \IPS\Content\Api\ItemController
 {
 	/**
 	 * Class
@@ -47,15 +47,15 @@ class _files extends \IPS\Content\Api\ItemController
 	protected $class = 'IPS\bitracker\File';
 	
 	/**
-	 * GET /bitracker/files
-	 * Get list of files
+	 * GET /bitracker/torrents
+	 * Get list of torrents
 	 *
 	 * @apiparam	string	categories		Comma-delimited list of category IDs
-	 * @apiparam	string	authors			Comma-delimited list of member IDs - if provided, only files started by those members are returned
-	 * @apiparam	int		locked			If 1, only files which are locked are returned, if 0 only unlocked
-	 * @apiparam	int		hidden			If 1, only files which are hidden are returned, if 0 only not hidden
-	 * @apiparam	int		pinned			If 1, only files which are pinned are returned, if 0 only not pinned
-	 * @apiparam	int		featured		If 1, only files which are featured are returned, if 0 only not featured
+	 * @apiparam	string	authors			Comma-delimited list of member IDs - if provided, only torrents started by those members are returned
+	 * @apiparam	int		locked			If 1, only torrents which are locked are returned, if 0 only unlocked
+	 * @apiparam	int		hidden			If 1, only torrents which are hidden are returned, if 0 only not hidden
+	 * @apiparam	int		pinned			If 1, only torrents which are pinned are returned, if 0 only not pinned
+	 * @apiparam	int		featured		If 1, only torrents which are featured are returned, if 0 only not featured
 	 * @apiparam	string	sortBy			What to sort by. Can be 'date' for creation date, 'title' or leave unspecified for ID
 	 * @apiparam	string	sortDir			Sort direction. Can be 'asc' or 'desc' - defaults to 'asc'
 	 * @apiparam	int		page			Page number
@@ -71,12 +71,12 @@ class _files extends \IPS\Content\Api\ItemController
 	}
 	
 	/**
-	 * GET /bitracker/files/{id}
-	 * View information about a specific file
+	 * GET /bitracker/torrents/{id}
+	 * View information about a specific torrent
 	 *
 	 * @param		int		$id				ID Number
-	 * @apiparam	int		version			If specified, will show a previous version of a file (see GET /bitracker/files/{id}/versions)
-	 * @throws		2S303/1	INVALID_ID		The file ID does not exist
+	 * @apiparam	int		version			If specified, will show a previous version of a torrent (see GET /bitracker/torrents/{id}/versions)
+	 * @throws		2S303/1	INVALID_ID		The torrent ID does not exist
 	 * @throws		2S303/1	INVALID_VERSION	The version ID does not exist
 	 * @return		\IPS\bitracker\File
 	 */
@@ -110,15 +110,15 @@ class _files extends \IPS\Content\Api\ItemController
 	}
 	
 	/**
-	 * POST /bitracker/files
-	 * Upload a file
+	 * POST /bitracker/torrents
+	 * Upload a torrent
 	 *
-	 * @reqapiparam	int					category		The ID number of the category the file should be created in
-	 * @reqapiparam	int					author			The ID number of the member creating the file (0 for guest)
-	 * @reqapiparam	string				title			The file name
-	 * @reqapiparam	string				description		The description as HTML (e.g. "<p>This is an file.</p>")
+	 * @reqapiparam	int					category		The ID number of the category the torrent should be created in
+	 * @reqapiparam	int					author			The ID number of the member creating the torrent (0 for guest)
+	 * @reqapiparam	string				title			The torrent name
+	 * @reqapiparam	string				description		The description as HTML (e.g. "<p>This is an torrent.</p>")
 	 * @apiparam	string				version			The version number
-	 * @reqapiparam	object				files			Files. Keys should be filename (e.g. 'file.txt') and values should be file content
+	 * @reqapiparam	object				torrents			torrents. Keys should be filename (e.g. 'file.torrent') and values should be file content
 	 * @apiparam	object				screenshots		Screenshots. Keys should be filename (e.g. 'screenshot1.png') and values should be file content
 	 * @apiparam	string				prefix			Prefix tag
 	 * @apiparam	string				tags			Comma-separated list of tags (do not include prefix)
@@ -132,7 +132,7 @@ class _files extends \IPS\Content\Api\ItemController
 	 * @throws		1S303/8				NO_AUTHOR		The author ID does not exist
 	 * @throws		1S303/9				NO_TITLE		No title was supplied
 	 * @throws		1S303/A				NO_DESC			No description was supplied
-	 * @throws		1S303/B				NO_FILES		No files were supplied
+	 * @throws		1S303/B				NO_TORRENTS		No torrents were supplied
 	 * @return		\IPS\bitracker\File
 	 */
 	public function POSTindex()
@@ -171,17 +171,17 @@ class _files extends \IPS\Content\Api\ItemController
 			throw new \IPS\Api\Exception( 'NO_DESC', '1S303/A', 400 );
 		}
 		
-		/* Validate files */
-		if ( !isset( \IPS\Request::i()->files ) or !is_array( \IPS\Request::i()->files ) or empty( \IPS\Request::i()->files ) )
+		/* Validate torrents */
+		if ( !isset( \IPS\Request::i()->torrents ) or !is_array( \IPS\Request::i()->torrents ) or empty( \IPS\Request::i()->torrents ) )
 		{
-			throw new \IPS\Api\Exception( 'NO_FILES', '1L296/B', 400 );
+			throw new \IPS\Api\Exception( 'NO_TORRENTS', '1L296/B', 400 );
 		}
 		
-		/* Create file record */
+		/* Create torrent record */
 		$file = $this->_create( $category, $author );
 				
 		/* Save records */
-		foreach ( \IPS\Request::i()->files as $name => $content )
+		foreach ( \IPS\Request::i()->torrents as $name => $content )
 		{
 			$fileObject = \IPS\File::create( 'bitracker_Torrents', $name, $content );
 			
@@ -242,13 +242,13 @@ class _files extends \IPS\Content\Api\ItemController
 	}
 	
 	/**
-	 * POST /bitracker/files/{id}
+	 * POST /bitracker/torrents/{id}
 	 * Edit a file
 	 *
-	 * @apiparam	int					category		The ID number of the category the file should be created in
-	 * @apiparam	int					author			The ID number of the member creating the file (0 for guest)
-	 * @apiparam	string				title			The file name
-	 * @apiparam	string				description		The description as HTML (e.g. "<p>This is an file.</p>")
+	 * @apiparam	int					category		The ID number of the category the torrent should be created in
+	 * @apiparam	int					author			The ID number of the member creating the torrent (0 for guest)
+	 * @apiparam	string				title			The torrent name
+	 * @apiparam	string				description		The description as HTML (e.g. "<p>This is an torrent.</p>")
 	 * @apiparam	string				prefix			Prefix tag
 	 * @apiparam	string				tags			Comma-separated list of tags (do not include prefix)
 	 * @apiparam	datetime			date			The date/time that should be used for the file post date. If not provided, will use the current date/time
@@ -267,7 +267,7 @@ class _files extends \IPS\Content\Api\ItemController
 		{
 			$file = \IPS\bitracker\File::load( $id );
 			
-			/* Move file to another category */
+			/* Move torrent to another category */
 			if ( isset( \IPS\Request::i()->category ) and \IPS\Request::i()->category != $file->category_id )
 			{
 				try
@@ -366,14 +366,14 @@ class _files extends \IPS\Content\Api\ItemController
 	}
 	
 	/**
-	 * GET /bitracker/files/{id}/comments
-	 * Get comments on an file
+	 * GET /bitracker/torrents/{id}/comments
+	 * Get comments on an torrent
 	 *
 	 * @param		int		$id			ID Number
 	 * @apiparam	int		hidden		If 1, only comments which are hidden are returned, if 0 only not hidden
 	 * @apiparam	string	sortDir		Sort direction. Can be 'asc' or 'desc' - defaults to 'asc'
 	 * @apiparam	int		page		Page number
-	 * @throws		2S303/2	INVALID_ID	The file ID does not exist
+	 * @throws		2S303/2	INVALID_ID	The torrent ID does not exist
 	 * @return		\IPS\Api\PaginatedResponse<IPS\bitracker\File\Comment>
 	 */
 	public function GETitem_comments( $id )
@@ -389,14 +389,14 @@ class _files extends \IPS\Content\Api\ItemController
 	}
 	
 	/**
-	 * GET /bitracker/files/{id}/reviews
-	 * Get reviews on an file
+	 * GET /bitracker/torrents/{id}/reviews
+	 * Get reviews on an torrent
 	 *
 	 * @param		int		$id			ID Number
 	 * @apiparam	int		hidden		If 1, only comments which are hidden are returned, if 0 only not hidden
 	 * @apiparam	string	sortDir		Sort direction. Can be 'asc' or 'desc' - defaults to 'asc'
 	 * @apiparam	int		page		Page number
-	 * @throws		2S303/3	INVALID_ID	The file ID does not exist
+	 * @throws		2S303/3	INVALID_ID	The torrent ID does not exist
 	 * @return		\IPS\Api\PaginatedResponse<IPS\bitracker\File\Review>
 	 */
 	public function GETitem_reviews( $id )
@@ -412,13 +412,13 @@ class _files extends \IPS\Content\Api\ItemController
 	}
 	
 	/**
-	 * GET /bitracker/files/{id}/history
-	 * Get previous versions for a file
+	 * GET /bitracker/torrents/{id}/history
+	 * Get previous versions for a torrent
 	 *
 	 * @param		int		$id			ID Number
-	 * @throws		2S303/4	INVALID_ID	The file ID does not exist
+	 * @throws		2S303/4	INVALID_ID	The torrent ID does not exist
 	 * @return		array
-	 * @apiresponse	int		id			The version ID number (use to get more information about this version in GET /bitracker/files/{id})
+	 * @apiresponse	int		id			The version ID number (use to get more information about this version in GET /bitracker/torrents/{id})
 	 * @apiresponse	string	version		The version number provided by the user
 	 * @apiresponse	string	changelog	What was new in this version
 	 * @apiresponse	bool	hidden		If this version is hidden
@@ -448,32 +448,32 @@ class _files extends \IPS\Content\Api\ItemController
 	}
 	
 	/**
-	 * POST /bitracker/files/{id}/history
-	 * Upload a new file version
+	 * POST /bitracker/torrents/{id}/history
+	 * Upload a new torrent version
 	 *
-	 * @apiparam	string				title			The file name
-	 * @apiparam	string				description		The description as HTML (e.g. "<p>This is an file.</p>")
+	 * @apiparam	string				title			The torrent name
+	 * @apiparam	string				description		The description as HTML (e.g. "<p>This is an torrent.</p>")
 	 * @apiparam	string				version			The version number
 	 * @apiparam	string				changelog		What changed in this version
-	 * @apiparam	int					save			If 1 this will be saved as a new version and the previous version available in the history. If 0, will simply replace the existing files/screenshots. Defaults to 1 if versioning is enabled in the category.
-	 * @reqapiparam	object				files			Files. Keys should be filename (e.g. 'file.txt') and values should be file content - will replace all current files
+	 * @apiparam	int					save			If 1 this will be saved as a new version and the previous version available in the history. If 0, will simply replace the existing torrents/screenshots. Defaults to 1 if versioning is enabled in the category.
+	 * @reqapiparam	object				torrents			torrents. Keys should be filename (e.g. 'file.torrent') and values should be file content - will replace all current torrents
 	 * @apiparam	object				screenshots		Screenshots. Keys should be filename (e.g. 'screenshot1.png') and values should be file content - will replace all current screenshots
-	 * @throws		2S303/F				INVALID_ID		The file ID is invalid
-	 * @throws		1S303/G				NO_FILES		No files were supplied
+	 * @throws		2S303/F				INVALID_ID		The torrent ID is invalid
+	 * @throws		1S303/G				NO_TORRENTS		No torrents were supplied
 	 * @return		\IPS\bitracker\File
 	 */
 	public function POSTitem_history( $id )
 	{
 		try
 		{
-			/* Load file */
+			/* Load torrent */
 			$file = \IPS\bitracker\File::load( $id );
 			$category = $file->container();
 			
-			/* Validate files */
-			if ( !isset( \IPS\Request::i()->files ) or !is_array( \IPS\Request::i()->files ) or empty( \IPS\Request::i()->files ) )
+			/* Validate torrents */
+			if ( !isset( \IPS\Request::i()->torrents ) or !is_array( \IPS\Request::i()->torrents ) or empty( \IPS\Request::i()->torrents ) )
 			{
-				throw new \IPS\Api\Exception( 'NO_FILES', '1L296/B', 400 );
+				throw new \IPS\Api\Exception( 'NO_TORRENTS', '1L296/B', 400 );
 			}
 			
 			/* Save current version? */
@@ -506,7 +506,7 @@ class _files extends \IPS\Content\Api\ItemController
 			}
 			
 			/* Insert the new records */
-			foreach ( \IPS\Request::i()->files as $name => $content )
+			foreach ( \IPS\Request::i()->torrents as $name => $content )
 			{
 				$fileObject = \IPS\File::create( 'bitracker_Torrents', $name, $content );
 				
@@ -582,11 +582,11 @@ class _files extends \IPS\Content\Api\ItemController
 	}
 	
 	/**
-	 * DELETE /bitracker/files/{id}
-	 * Delete a file
+	 * DELETE /bitracker/torrents/{id}
+	 * Delete a torrent
 	 *
 	 * @param		int		$id			ID Number
-	 * @throws		2S303/5	INVALID_ID	The file ID does not exist
+	 * @throws		2S303/5	INVALID_ID	The torrent ID does not exist
 	 * @return		void
 	 */
 	public function DELETEitem( $id )
