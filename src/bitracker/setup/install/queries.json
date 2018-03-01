@@ -107,7 +107,7 @@
         "params": [
             "core_groups",
             {
-                "name": "bit_import_files",
+                "name": "bit_import_torrents",
                 "type": "TINYINT",
                 "length": 1,
                 "null": false,
