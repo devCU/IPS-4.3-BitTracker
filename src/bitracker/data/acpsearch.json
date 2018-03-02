@@ -22,8 +22,8 @@
             "submit multiple files"
         ]
     },
-    "app=core&module=members&controller=groups&searchResult=4_bit_linked_files": {
-        "lang_key": "bit_linked_files",
+    "app=core&module=members&controller=groups&searchResult=4_bit_linked_torrents": {
+        "lang_key": "bit_linked_torrents",
         "restriction": "groups_manage",
         "keywords": [
             "Torrents upload via URL",
