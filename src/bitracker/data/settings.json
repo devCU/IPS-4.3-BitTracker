@@ -4,19 +4,19 @@
         "default": "0"
     },
     {
-        "key": "bit_tracker_blacklist",
-        "default": ""
-    },
-    {
         "key": "bit_tracker_filter_option",
         "default": "none"
+    },
+    {
+        "key": "bit_tracker_blacklist",
+        "default": ""
     },
     {
         "key": "bit_tracker_whitelist",
         "default": ""
     },
     {
-        "key": "bit_filter_action",
+        "key": "bit_filter_black_action",
         "default": "block"
     },
     {
