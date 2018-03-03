@@ -10,7 +10,7 @@
  * @source      https://github.com/GaalexxC/IPS-4.2-BitTracker
  * @Issue Trak  https://www.devcu.com/forums/devcu-tracker/ips4bt/
  * @Created     11 FEB 2018
- * @Updated     01 MAR 2018
+ * @Updated     03 MAR 2018
  *
  *                    GNU General Public License v3.0
  *    This program is free software: you can redistribute it and/or modify       
@@ -92,21 +92,21 @@ class _torrents extends \IPS\Dispatcher\Controller
         /* Form Settings */
         $form->addHeader( 'head_tracker_torrent_configure' );
 
-        $form->add( new \IPS\Helpers\Form\YesNo( 'bit_torrents_enable', \IPS\Settings::i()->bit_torrents_enable, FALSE, array( 'togglesOn' => array( 'bit_tracker_filter_option', 'bit_filter_action', 'bit_filter_any_action', 'bit_filter_white_action' ) ) ) );
+        $form->add( new \IPS\Helpers\Form\YesNo( 'bit_torrents_enable', \IPS\Settings::i()->bit_torrents_enable, FALSE, array( 'togglesOn' => array( 'bit_tracker_filter_option', 'bit_filter_black_action', 'bit_filter_any_action', 'bit_filter_white_action' ) ) ) );
 		$form->add( new \IPS\Helpers\Form\Radio( 'bit_tracker_filter_option', \IPS\Settings::i()->bit_tracker_filter_option, FALSE, array(
 			'options' => array(
 				'none' => 'bit_none',
 				'black' => 'bit_blacklist',
 				'white' => "bit_whitelist" ),
 			'toggles' => array(
-				'black'	=> array( 'bit_tracker_blacklist', 'bit_filter_action' ),
+				'black'	=> array( 'bit_tracker_blacklist', 'bit_filter_black_action' ),
 				'white'	=> array( 'bit_tracker_whitelist', 'bit_filter_white_action' ),
 				'none'		=> array( 'bit_filter_any_action' ),
 			)
 		), NULL, NULL, NULL, 'bit_tracker_filter_option' ) );
 		$form->add( new \IPS\Helpers\Form\Stack( 'bit_tracker_whitelist', \IPS\Settings::i()->bit_tracker_whitelist ? explode( ",", \IPS\Settings::i()->bit_tracker_whitelist ) : array(), FALSE, array(), NULL, NULL, NULL, 'bit_tracker_whitelist' ) );
  		$form->add( new \IPS\Helpers\Form\Stack( 'bit_tracker_blacklist', \IPS\Settings::i()->bit_tracker_blacklist ? explode( ",", \IPS\Settings::i()->bit_tracker_blacklist ) : array(), TRUE, array(), NULL, NULL, NULL, 'bit_tracker_blacklist' ) );
- 		$form->add( new \IPS\Helpers\Form\Radio( 'bit_filter_action', \IPS\Settings::i()->bit_filter_action, FALSE, array(
+ 		$form->add( new \IPS\Helpers\Form\Radio( 'bit_filter_black_action', \IPS\Settings::i()->bit_filter_black_action, FALSE, array(
 	 		'options'		=> array(
 		 		'block'			=> 'bit_filter_block',
 		 		'moderate'		=> 'bit_filter_moderate'
@@ -115,7 +115,7 @@ class _torrents extends \IPS\Dispatcher\Controller
 		 		'block'			=> 'bit_filter_block_desc',
 		 		'moderate'		=> 'bit_filter_moderate_desc'
 	 		)
- 		), NULL, NULL, NULL, 'bit_filter_action' ) );
+ 		), NULL, NULL, NULL, 'bit_filter_black_action' ) );
 
  		$form->add( new \IPS\Helpers\Form\Radio( 'bit_filter_white_action', \IPS\Settings::i()->bit_filter_white_action, FALSE, array(
 	 		'options'		=> array(
