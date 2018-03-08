@@ -44,7 +44,7 @@
         "default": "1"
     },
     {
-        "key": "bit_security_private",
+        "key": "bit_security_bindip",
         "default": ""
     },
     {
@@ -64,12 +64,32 @@
         "default": "0"
     },
     {
-        "key": "bit_seedbox_whitelist",
+        "key": "bit_security_seedboxenable",
+        "default": "0"
+    },
+    {
+        "key": "bit_security_filter_option",
+        "default": "none"
+    },
+    {
+        "key": "bit_security_sbwhitelist",
         "default": ""
     },
     {
-        "key": "bit_seedbox_blacklist",
+        "key": "bit_security_sbblacklist",
         "default": ""
+    },
+    {
+        "key": "bit_filter_sbblack_action",
+        "default": "block"
+    },
+    {
+        "key": "bit_filter_sbwhite_action",
+        "default": "open"
+    },
+    {
+        "key": "bit_filter_all_action",
+        "default": "open"
     },
     {
         "key": "bit_antileech",
