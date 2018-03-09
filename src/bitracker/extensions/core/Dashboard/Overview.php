@@ -10,7 +10,7 @@
  * @source      https://github.com/GaalexxC/IPS-4.2-BitTracker
  * @Issue Trak  https://www.devcu.com/forums/devcu-tracker/ips4bt/
  * @Created     11 FEB 2018
- * @Updated     27 FEB 2018
+ * @Updated     09 MAR2018
  *
  *                    GNU General Public License v3.0
  *    This program is free software: you can redistribute it and/or modify       
@@ -62,8 +62,9 @@ class _Overview
 		
 		/* Basic stats */
 		$data = array(
-			'total_disk_spaced'			=> (int) \IPS\Db::i()->select( 'SUM(record_size)', 'bitracker_torrents_records' )->first(),
-			'total_files'				=> (int) \IPS\Db::i()->select( 'COUNT(*)', 'bitracker_torrents' )->first(),
+			'total_disk_transfer'			=> (int) \IPS\Db::i()->select( 'SUM(record_size)', 'bitracker_torrents_records' )->first(),
+			'total_torrents'				=> (int) \IPS\Db::i()->select( 'COUNT(*)', 'bitracker_torrents' )->first(),
+			'total_peers'				=> (int) \IPS\Db::i()->select( 'COUNT(*)', 'bitracker_torrents' )->first(),
 			'total_views'				=> (int) \IPS\Db::i()->select( 'SUM(file_views)', 'bitracker_torrents' )->first(),
 			'total_downloads'			=> (int) \IPS\Db::i()->select( 'SUM(file_bitracker)', 'bitracker_torrents' )->first(),
 			'total_bandwidth'			=> (int) \IPS\Db::i()->select( 'SUM(dsize)', 'bitracker_downloads' )->first(),
