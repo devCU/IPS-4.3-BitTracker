@@ -10,7 +10,7 @@
  * @source      https://github.com/GaalexxC/IPS-4.2-BitTracker
  * @Issue Trak  https://www.devcu.com/forums/devcu-tracker/ips4bt/
  * @Created     11 FEB 2018
- * @Updated     08 MAR 2018
+ * @Updated     09 MAR 2018
  *
  *                    GNU General Public License v3.0
  *    This program is free software: you can redistribute it and/or modify       
@@ -106,21 +106,53 @@ class _security extends \IPS\Dispatcher\Controller
         $form->add( new \IPS\Helpers\Form\YesNo( 'bit_security_bindip', \IPS\Settings::i()->bit_security_bindip, FALSE, array(), NULL, NULL, NULL, 'bit_security_bindip' ) );
 
         $form->addHeader( 'head_tracker_security_seedbox' );
-        $form->add( new \IPS\Helpers\Form\YesNo( 'bit_security_seedboxenable', \IPS\Settings::i()->bit_security_seedboxenable, FALSE, array( 'togglesOn' => array( 'bit_security_seedboxip', 'bit_security_filter_option' ) ) ) );
+        $form->add( new \IPS\Helpers\Form\YesNo( 'bit_security_seedboxenable', \IPS\Settings::i()->bit_security_seedboxenable, FALSE, array( 'togglesOn' => array( 'bit_security_seedboxip', 'bit_security_filter_option', 'bit_filter_sbblack_action', 'bit_filter_all_action', 'bit_filter_sbwhite_action' ) ) ) );
         $form->add( new \IPS\Helpers\Form\YesNo( 'bit_security_seedboxip', \IPS\Settings::i()->bit_security_seedboxip, FALSE, array(), NULL, NULL, NULL, 'bit_security_seedboxip' ) );
-		$form->add( new \IPS\Helpers\Form\Radio( 'bit_security_filter_option', \IPS\Settings::i()->bit_tracker_filter_option, FALSE, array(
+		$form->add( new \IPS\Helpers\Form\Radio( 'bit_security_filter_option', \IPS\Settings::i()->bit_security_filter_option, FALSE, array(
 			'options' => array(
-				'1' => 'bit_security_none',
-				'2' => 'bit_security_blacklist',
-				'3' => "bit_security_whitelist" ),
+				'none' => 'bit_security_none',
+				'black' => 'bit_security_blacklist',
+				'white' => "bit_security_whitelist" ),
 			'toggles' => array(
-				'2'	=> array( 'bit_security_sbblacklist' ),
-				'3'	=> array( 'bit_security_sbwhitelist' ),
-				'1'		=> array( 'bit_filter_any_action' ),
+				'black'	=> array( 'bit_security_sbblacklist', 'bit_filter_sbblack_action' ),
+				'white'	=> array( 'bit_security_sbwhitelist', 'bit_filter_sbwhite_action' ),
+				'none'		=> array( 'bit_filter_all_action' ),
 			)
 		), NULL, NULL, NULL, 'bit_security_filter_option' ) );
 		$form->add( new \IPS\Helpers\Form\Stack( 'bit_security_sbwhitelist', \IPS\Settings::i()->bit_security_sbwhitelist ? explode( ",", \IPS\Settings::i()->bit_security_sbwhitelist ) : array(), FALSE, array(), NULL, NULL, NULL, 'bit_security_sbwhitelist' ) );
  		$form->add( new \IPS\Helpers\Form\Stack( 'bit_security_sbblacklist', \IPS\Settings::i()->bit_security_sbblacklist ? explode( ",", \IPS\Settings::i()->bit_security_sbblacklist ) : array(), TRUE, array(), NULL, NULL, NULL, 'bit_security_sbblacklist' ) );
+ 		$form->add( new \IPS\Helpers\Form\Radio( 'bit_filter_sbblack_action', \IPS\Settings::i()->bit_filter_sbblack_action, FALSE, array(
+	 		'options'		=> array(
+		 		'block'			=> 'bit_filter_sbblock',
+		 		'moderate'		=> 'bit_filter_sbmoderate'
+	 		),
+	 		'descriptions'	=> array(
+		 		'block'			=> 'bit_filter_sbblock_desc',
+		 		'moderate'		=> 'bit_filter_sbmoderate_desc'
+	 		)
+ 		), NULL, NULL, NULL, 'bit_filter_sbblack_action' ) );
+
+ 		$form->add( new \IPS\Helpers\Form\Radio( 'bit_filter_sbwhite_action', \IPS\Settings::i()->bit_filter_sbwhite_action, FALSE, array(
+	 		'options'		=> array(
+		 		'open'			=> 'bit_filter_sbwhite_open',
+		 		'moderate'		=> 'bit_filter_sbwhite_moderate'
+	 		),
+	 		'description'	=> array(
+		 		'open'			=> 'bit_filter_sbwhite_open_desc',
+		 		'moderate'		=> 'bit_filter_sbwhite_moderate_desc'
+	 		)
+ 		), NULL, NULL, NULL, 'bit_filter_sbwhite_action' ) );
+ 		
+ 		$form->add( new \IPS\Helpers\Form\Radio( 'bit_filter_all_action', \IPS\Settings::i()->bit_filter_all_action, FALSE, array(
+	 		'options'		=> array(
+		 		'open'			=> 'bit_filter_all_open',
+		 		'moderate'		=> 'bit_filter_all_moderate'
+	 		),
+	 		'description'	=> array(
+		 		'open'			=> 'bit_filter_all_open_desc',
+		 		'moderate'		=> 'bit_filter_all_moderate_desc'
+	 		)
+ 		), NULL, NULL, NULL, 'bit_filter_all_action' ) );
 
 		/* Save values */
 		if ( $values = $form->values() )
