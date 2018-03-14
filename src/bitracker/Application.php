@@ -1,21 +1,40 @@
 <?php
 /**
- * @brief		Downloads Application Class
- * @author		<a href='https://www.invisioncommunity.com'>Invision Power Services, Inc.</a>
- * @copyright	(c) Invision Power Services, Inc.
- * @package		Invision Community
- * @subpackage	Downloads
- * @since		27 Sep 2013
- * @version		
+ * @brief       BitTracker Application Class
+ * @author      Gary Cornell for devCU Software Open Source Projects
+ * @copyright   (c) <a href='https://www.devcu.com'>devCU Software Development</a>
+ * @license     GNU General Public License v3.0
+ * @package     Invision Community Suite 4.2x
+ * @subpackage	BitTracker
+ * @version     1.0.0 Beta 1
+ * @source      https://github.com/GaalexxC/IPS-4.2-BitTracker
+ * @Issue Trak  https://www.devcu.com/forums/devcu-tracker/ips4bt/
+ * @Created     11 FEB 2018
+ * @Updated     14 MAR 2018
+ *
+ *                    GNU General Public License v3.0
+ *    This program is free software: you can redistribute it and/or modify       
+ *    it under the terms of the GNU General Public License as published by       
+ *    the Free Software Foundation, either version 3 of the License, or          
+ *    (at your option) any later version.                                        
+ *                                                                               
+ *    This program is distributed in the hope that it will be useful,            
+ *    but WITHOUT ANY WARRANTY; without even the implied warranty of             
+ *    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *    GNU General Public License for more details.
+ *                                                                               
+ *    You should have received a copy of the GNU General Public License
+ *    along with this program.  If not, see http://www.gnu.org/licenses/
  */
- 
-namespace IPS\downloads;
+
+namespace IPS\bitracker;
 
 /**
- * Downloads Application Class
+ * BitTracker Application Class
  */
 class _Application extends \IPS\Application
 {
+
 	/**
 	 * Init
 	 *
@@ -23,19 +42,19 @@ class _Application extends \IPS\Application
 	 */
 	public function init()
 	{
-		/* If the viewing member cannot view the board (ex: guests must login first), then send a 404 Not Found header here, before the Login page shows in the dispatcher */
-		if ( !\IPS\Member::loggedIn()->group['g_view_board'] and ( \IPS\Request::i()->module == 'downloads' and \IPS\Request::i()->controller == 'browse' and \IPS\Request::i()->do == 'rss' ) )
+		/* Can view bitracker app? */
+		if ( !\IPS\Member::loggedIn()->group['g_view_board'] and ( \IPS\Request::i()->module == 'bitracker' and \IPS\Request::i()->controller == 'browse' and \IPS\Request::i()->do == 'rss' ) )
 		{
 			\IPS\Output::i()->error( 'node_error', '2D220/1', 404, '' );
 		}
 		
-		\IPS\Output::i()->cssFiles = array_merge( \IPS\Output::i()->cssFiles, \IPS\Theme::i()->css( 'downloads.css' ) );
+		\IPS\Output::i()->cssFiles = array_merge( \IPS\Output::i()->cssFiles, \IPS\Theme::i()->css( 'bitracker.css' ) );
 
 		if ( \IPS\Theme::i()->settings['responsive'] )
 		{
-			\IPS\Output::i()->cssFiles = array_merge( \IPS\Output::i()->cssFiles, \IPS\Theme::i()->css( 'downloads_responsive.css', 'downloads', 'front' ) );
+			\IPS\Output::i()->cssFiles = array_merge( \IPS\Output::i()->cssFiles, \IPS\Theme::i()->css( 'bitracker_responsive.css', 'bitracker', 'front' ) );
 		}
-	}
+	} 
 
 	/**
 	 * [Node] Get Icon for tree
@@ -45,7 +64,7 @@ class _Application extends \IPS\Application
 	 */
 	protected function get__icon()
 	{
-		return 'download';
+		return 'cloud-upload';
 	}
 	
 	/**
@@ -74,34 +93,10 @@ class _Application extends \IPS\Application
 	public function defaultFrontNavigation()
 	{
 		return array(
-			'rootTabs'		=> array(),
-			'browseTabs'	=> array( array( 'key' => 'Downloads' ) ),
+			'rootTabs'		=> array( array( 'key' => 'bitracker' ) ),
+			'browseTabs'	=> array(),
 			'browseTabsEnd'	=> array(),
 			'activityTabs'	=> array()
 		);
-	}
-	
-	/**
-	 * Perform some legacy URL parameter conversions
-	 *
-	 * @return	void
-	 */
-	public function convertLegacyParameters()
-	{
-		if ( isset( \IPS\Request::i()->showfile ) AND is_numeric( \IPS\Request::i()->showfile ) )
-		{
-			try
-			{
-				$file = \IPS\downloads\File::loadAndCheckPerms( \IPS\Request::i()->showfile );
-				
-				\IPS\Output::i()->redirect( $file->url() );
-			}
-			catch( \OutOfRangeException $e ) {}
-		}
-
-		if ( isset( \IPS\Request::i()->module ) AND \IPS\Request::i()->module == 'post' AND isset( \IPS\Request::i()->controller ) AND \IPS\Request::i()->controller == 'submit' )
-		{
-			\IPS\Output::i()->redirect( \IPS\Http\Url::internal( "app=downloads&module=downloads&controller=submit", "front", "downloads_submit" ) );
-		}
 	}
 }
