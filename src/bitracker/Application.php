@@ -10,7 +10,7 @@
  * @source      https://github.com/GaalexxC/IPS-4.2-BitTracker
  * @Issue Trak  https://www.devcu.com/forums/devcu-tracker/ips4bt/
  * @Created     11 FEB 2018
- * @Updated     28 FEB 2018
+ * @Updated     14 MAR 2018
  *
  *                    GNU General Public License v3.0
  *    This program is free software: you can redistribute it and/or modify       
@@ -54,40 +54,7 @@ class _Application extends \IPS\Application
 		{
 			\IPS\Output::i()->cssFiles = array_merge( \IPS\Output::i()->cssFiles, \IPS\Theme::i()->css( 'bitracker_responsive.css', 'bitracker', 'front' ) );
 		}
-	}
-    
-	/**
-	 * Group Permissions
-	 *
-	 * @return void
-	 */
-	public function installOther()
-	{
-	    /* Give non guests what permissions they need */
-		foreach( \IPS\Member\Group::groups( TRUE, FALSE ) as $group )
-		{
-		    /* P */
-            $group->g_bit_add_torrent     = TRUE;
-            $group->g_bit_edit_torrent    = TRUE;
-            $group->g_bit_add_comments    = TRUE;
-            $group->g_bit_edit_comments   = TRUE;
-            $group->g_bit_rate_torrent    = TRUE;                        
-            $group->save();
-            
-		    /* VIP */
-            if( $group->g_access_offline )
-            {
-                $group->g_bit_delete_torrent      = TRUE;
-                $group->g_bit_delete_comments     = TRUE;
-                $group->g_bit_m_edit_torrent      = TRUE;
-                $group->g_bit_m_delete_torrent    = TRUE;
-                $group->g_bit_m_edit_comments     = TRUE;   
-                $group->g_bit_m_delete_comments   = TRUE;                 
-                $group->g_bit_m_manage            = TRUE;                                      
-                $group->save();
-            }            
-		}
-	}  
+	} 
 
 	/**
 	 * [Node] Get Icon for tree
