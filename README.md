@@ -30,7 +30,7 @@
  * @source      https://github.com/GaalexxC/IPS-4.2-BitTracker
  * @Issue Trak  https://www.devcu.com/forums/devcu-tracker/ips4bt/
  * @Created     11 FEB 2018
- * @Updated     08 MAR 2018
+ * @Updated     14 MAR 2018
  *
  *                    GNU General Public License v3.0
  *    This program is free software: you can redistribute it and/or modify       
@@ -55,6 +55,8 @@
 [Info on beta build](https://www.devcu.com/forums/devcu-tracker/ips4bt/)
 
 - In development for late March 2018 Release
+
+[Release Time Line](https://www.devcu.com/forums/topic/754-new-timeline/)
 
 ## License
 
