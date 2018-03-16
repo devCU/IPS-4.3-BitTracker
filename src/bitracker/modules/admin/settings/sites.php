@@ -95,11 +95,11 @@ class _sites extends \IPS\Node\Controller
 					$data = array(
 							'lastId'     => 0,
 							'processing' => true,
-							'total'	     => \IPS\Db::i()->select( 'COUNT(*)', 'bitracker_episodes', array( array( 'episode_type=?', 'media_url' ) ) )->first(),
+							'total'	     => \IPS\Db::i()->select( 'COUNT(*)', 'bitracker_torrents_records', array( array( 'record_type=?', 'media_url' ) ) )->first(),
 							'done'       => 0
 					);
 						
-					return array( $data, \IPS\Member::loggedIn()->language()->addToStack('episode_rebuild_processing') );
+					return array( $data, \IPS\Member::loggedIn()->language()->addToStack('torrent_rebuild_processing') );
 				}
 	
 				/* Rebuild and then finish */
@@ -107,14 +107,14 @@ class _sites extends \IPS\Node\Controller
 				{
 					try
 					{
-						$episodeID = \IPS\Db::i()->select( 'tid', 'bitracker_episodes', array( 'tid > ? AND episode_type=?', intval( $data['lastId'] ), 'media_url' ), 'tid ASC', array( 0, 1 ) )->first();
+						$episodeID = \IPS\Db::i()->select( 'record_id', 'bitracker_torrents_records', array( 'record_id > ? AND record_type=?', intval( $data['lastId'] ), 'media_url' ), 'record_id ASC', array( 0, 1 ) )->first();
 						
-						if ( ! empty( $episodeID ) )
+						if ( ! empty( $torrentID ) )
 						{
-							$episode = \IPS\bitracker\Episode::load( $episodeID );
-							$episode->rebuildEpisode();
+							$torrent = \IPS\bitracker\Torrent::load( $torrentID );
+							$torrent->rebuildTorrent();
 							
-							$data['lastId'] = $episodeID;
+							$data['lastId'] = $torrentID;
 							$data['done']++;
 						}
 						else
