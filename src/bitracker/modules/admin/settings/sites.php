@@ -71,7 +71,7 @@ class _sites extends \IPS\Node\Controller
 		$buttons['rebuild']	= array(
 			'icon'	=> 'cog',
 			'title'	=> 'rebuild_bitracker',
-			'link'	=> \IPS\Http\Url::internal( "app=bitracker&module=sites&controller=sites&do=rebuild" ),
+			'link'	=> \IPS\Http\Url::internal( "app=bitracker&module=settings&controller=sites&do=rebuild" ),
 			'data'	=> array( 'ipsDialog' => '', 'ipsDialog-title' => \IPS\Member::loggedIn()->language()->addToStack('rebuild_bitracker') )
 		);        
             
@@ -85,7 +85,7 @@ class _sites extends \IPS\Node\Controller
 	public function rebuild()
 	{
 		\IPS\Output::i()->output = new \IPS\Helpers\MultipleRedirect(
-			\IPS\Http\Url::internal( 'app=bitracker&module=sites&controller=sites&do=rebuild' ),
+			\IPS\Http\Url::internal( 'app=bitracker&module=settings&controller=sites&do=rebuild' ),
 			function( $data )
 			{
 				/* First import */
@@ -138,7 +138,7 @@ class _sites extends \IPS\Node\Controller
 			},
 			function()
 			{
-				\IPS\Output::i()->redirect( \IPS\Http\Url::internal( 'app=bitracker&module=sites&controller=sites' ), 'completed' );
+				\IPS\Output::i()->redirect( \IPS\Http\Url::internal( 'app=bitracker&module=settings&controller=sites' ), 'completed' );
 			}
 		);
 		
