@@ -112,7 +112,7 @@
         },
         "member": {
             "tab": "bitracker",
-            "controller": "member",
+            "controller": "members",
             "do": "",
             "restriction": "members_manage"
         },
