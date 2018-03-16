@@ -52,7 +52,6 @@ class _about extends \IPS\Dispatcher\Controller
 		parent::execute();
 	}
 
-
 	/**
 	 * About
 	 *
@@ -60,8 +59,8 @@ class _about extends \IPS\Dispatcher\Controller
 	 */
 	protected function manage()
 	{
-
-		return \IPS\Theme::i()->getTemplate( 'about', 'bitracker', 'admin' )->about($data);
+		\IPS\Output::i()->title = \IPS\Member::loggedIn()->language()->addToStack('head_about_about');
+		return \IPS\Theme::i()->getTemplate( 'about', 'bitracker', 'admin' )->about();
 
 	}
 	

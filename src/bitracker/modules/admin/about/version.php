@@ -60,8 +60,8 @@ class _version extends \IPS\Dispatcher\Controller
 	 */
 	protected function manage()
 	{
-
-		return \IPS\Theme::i()->getTemplate( 'about', 'bitracker', 'admin' )->version($data);
+		\IPS\Output::i()->title = \IPS\Member::loggedIn()->language()->addToStack('head_about_update');
+		return \IPS\Theme::i()->getTemplate( 'about', 'bitracker', 'admin' )->version();
 
 	}
 	

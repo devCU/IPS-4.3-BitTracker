@@ -60,8 +60,8 @@ class _update extends \IPS\Dispatcher\Controller
 	 */
 	protected function manage()
 	{
-
-		return \IPS\Theme::i()->getTemplate( 'about', 'bitracker', 'admin' )->update($data);
+		\IPS\Output::i()->title = \IPS\Member::loggedIn()->language()->addToStack('head_about_version');
+		return \IPS\Theme::i()->getTemplate( 'about', 'bitracker', 'admin' )->update();
 
 	}
 	
