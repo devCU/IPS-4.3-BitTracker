@@ -101,12 +101,12 @@ class _Sites extends \IPS\Node\Model
 	public function form( &$form )
 	{		   
         /* Display form */       
-		$form->addHeader( 'vmedia_site_settings' );
-		$form->add( new \IPS\Helpers\Form\YesNo( 'vmedia_enabled', $this->enabled ? (bool) $this->enabled : TRUE, FALSE, array() ) );
-		$form->add( new \IPS\Helpers\Form\Text( 'vmedia_name', ( $this->name ) ? $this->name : '', TRUE, array() ) );
-		$form->add( new \IPS\Helpers\Form\Text( 'vmedia_host', ( $this->host ) ? $this->host : '', TRUE, array() ) );
-		$form->add( new \IPS\Helpers\Form\Url( 'vmedia_url', ( $this->url ) ? $this->url : '', TRUE, array() ) );
-		$form->add( new \IPS\Helpers\Form\Url( 'vmedia_oembed', ( $this->oembed ) ? $this->oembed : '', FALSE, array() ) );
+		$form->addHeader( 'siteapi_settings' );
+		$form->add( new \IPS\Helpers\Form\YesNo( 'siteapi_enabled', $this->enabled ? (bool) $this->enabled : TRUE, FALSE, array() ) );
+		$form->add( new \IPS\Helpers\Form\Text( 'siteapi_name', ( $this->name ) ? $this->name : '', TRUE, array() ) );
+		$form->add( new \IPS\Helpers\Form\Text( 'siteapi_host', ( $this->host ) ? $this->host : '', TRUE, array() ) );
+		$form->add( new \IPS\Helpers\Form\Url( 'siteapi_url', ( $this->url ) ? $this->url : '', TRUE, array() ) );
+		$form->add( new \IPS\Helpers\Form\Url( 'siteapi_oembed', ( $this->oembed ) ? $this->oembed : '', FALSE, array() ) );
  	}
     
 	/**
@@ -119,7 +119,7 @@ class _Sites extends \IPS\Node\Model
 	{ 
  		foreach( $values as $k => $v )
 		{
-			if( mb_substr( $k, 0, 7 ) === 'vmedia_' )
+			if( mb_substr( $k, 0, 7 ) === 'siteapi_' )
 			{
 				unset( $values[ $k ] );
 				$values[ mb_substr( $k, 7 ) ] = $v;
