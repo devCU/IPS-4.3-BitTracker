@@ -10,7 +10,7 @@
  * @source      https://github.com/GaalexxC/IPS-4.2-BitTracker
  * @Issue Trak  https://www.devcu.com/forums/devcu-tracker/ips4bt/
  * @Created     11 FEB 2018
- * @Updated     16 FEB 2018
+ * @Updated     27 FEB 2018
  *
  *                    GNU General Public License v3.0
  *    This program is free software: you can redistribute it and/or modify       
@@ -709,7 +709,7 @@ class _Category extends \IPS\Node\Model implements \IPS\Node\Permissions
 		{
 			try
 			{
-				$file	= \IPS\bitracker\File::constructFromData( \IPS\Db::i()->select( '*', 'bitracker_files', array( 'file_cat=? AND file_open=1', $this->id ), 'file_submitted DESC', 1, NULL, NULL, \IPS\Db::SELECT_FROM_WRITE_SERVER )->first() );
+				$file	= \IPS\bitracker\File::constructFromData( \IPS\Db::i()->select( '*', 'bitracker_torrents', array( 'file_cat=? AND file_open=1', $this->id ), 'file_submitted DESC', 1, NULL, NULL, \IPS\Db::SELECT_FROM_WRITE_SERVER )->first() );
 			}
 			catch ( \UnderflowException $e )
 			{
