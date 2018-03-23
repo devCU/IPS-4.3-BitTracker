@@ -50,7 +50,7 @@
 
 #### Full featured bit torrent tracker application for IPS 4.2x Community Suite
 
-- 02/11/18 finally got around to working on this and am hoping for a beta release within a week or so
+- 02/11/18 finally got around to working on this
 
 [Info on beta build](https://www.devcu.com/forums/devcu-tracker/ips4bt/)
 
