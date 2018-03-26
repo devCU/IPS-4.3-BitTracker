@@ -101,11 +101,11 @@
     },
     {
         "key": "bit_application_name",
-        "default": "BitTracker"
+        "default": "Tracker"
     },
     {
         "key": "bit_breadcrumb_name",
-        "default": "BitTracker"
+        "default": "Tracker"
     },
     {
         "key": "bit_breadcrumb_name_enable",
@@ -113,7 +113,7 @@
     },
     {
         "key": "bit_cusmenu_name",
-        "default": "BitTracker"
+        "default": "Tracker"
     },
     {
         "key": "bit_cusmenu_name_enable",
