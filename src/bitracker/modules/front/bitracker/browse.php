@@ -53,12 +53,12 @@ class _browse extends \IPS\Dispatcher\Controller
 		if( \IPS\Settings::i()->bit_breadcrumb_name_enable  )
 		{
 		\IPS\Output::i()->breadcrumb	= array();
-		\IPS\Output::i()->breadcrumb['module'] = array( \IPS\Http\Url::internal( 'app=bitracker&module=bitracker&controller=index', 'front', 'bitracker' ), \IPS\Settings::i()->bit_breadcrumb_name );
+		\IPS\Output::i()->breadcrumb['module'] = array( \IPS\Http\Url::internal( 'app=bitracker&module=bitracker&controller=browse', 'front', 'bitracker' ), \IPS\Settings::i()->bit_breadcrumb_name );
         }
        else
         {
 		\IPS\Output::i()->breadcrumb	= array();
-		\IPS\Output::i()->breadcrumb['module'] = array( \IPS\Http\Url::internal( 'app=bitracker&module=bitracker&controller=index', 'front', 'bitracker' ), \IPS\Settings::i()->bit_application_name );
+		\IPS\Output::i()->breadcrumb['module'] = array( \IPS\Http\Url::internal( 'app=bitracker&module=bitracker&controller=browse', 'front', 'bitracker' ), \IPS\Settings::i()->bit_application_name );
         }
 
 		parent::execute();
