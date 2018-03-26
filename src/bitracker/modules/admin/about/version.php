@@ -10,7 +10,7 @@
  * @source      https://github.com/GaalexxC/IPS-4.2-BitTracker
  * @Issue Trak  https://www.devcu.com/forums/devcu-tracker/ips4bt/
  * @Created     11 FEB 2018
- * @Updated     25 MAR 2018
+ * @Updated     26 MAR 2018
  *
  *                    GNU General Public License v3.0
  *    This program is free software: you can redistribute it and/or modify       
@@ -56,10 +56,10 @@ class _version extends \IPS\Dispatcher\Controller
 	{
 		\IPS\Dispatcher::i()->checkAcpPermission( 'overview_manage' );
 
-		$data = $this->_manageVersion();
+		$view = $this->_manageVersion();
 
 		\IPS\Output::i()->title = \IPS\Member::loggedIn()->language()->addToStack('head_about_version');
-		\IPS\Output::i()->output = $data;
+		\IPS\Output::i()->output = $view;
 }
 	/**
 	 * Version
@@ -69,7 +69,7 @@ class _version extends \IPS\Dispatcher\Controller
 	protected function _manageVersion()
 	{
 
-		return \IPS\Theme::i()->getTemplate( 'about', 'bitracker', 'admin' )->version($data);
+		return \IPS\Theme::i()->getTemplate( 'about', 'bitracker', 'admin' )->version();
 
 	}
 	
