@@ -119,6 +119,7 @@ class _general extends \IPS\Dispatcher\Controller
 
 
         $form->addTab( 'basic_settings' );
+		$form->addHeader( 'basic_settings' );
 		$form->add( new \IPS\Helpers\Form\Upload( 'bit_watermarkpath', \IPS\Settings::i()->bit_watermarkpath ? \IPS\File::get( 'core_Theme', \IPS\Settings::i()->bit_watermarkpath ) : NULL, FALSE, array( 'image' => TRUE, 'storageExtension' => 'core_Theme' ) ) );
 		$form->add( new \IPS\Helpers\Form\Stack( 'bit_link_blacklist', explode( ',', \IPS\Settings::i()->bit_link_blacklist ), FALSE, array( 'placeholder' => 'example.com' ) ) );
 		$form->add( new \IPS\Helpers\Form\YesNo( 'bit_antileech', \IPS\Settings::i()->bit_antileech ) );
