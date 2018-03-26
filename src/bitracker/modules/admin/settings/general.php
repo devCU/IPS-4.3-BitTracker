@@ -10,7 +10,7 @@
  * @source      https://github.com/GaalexxC/IPS-4.2-BitTracker
  * @Issue Trak  https://www.devcu.com/forums/devcu-tracker/ips4bt/
  * @Created     11 FEB 2018
- * @Updated     27 FEB 2018
+ * @Updated    26 MAR 2018
  *
  *                    GNU General Public License v3.0
  *    This program is free software: you can redistribute it and/or modify       
@@ -77,12 +77,21 @@ class _general extends \IPS\Dispatcher\Controller
 		$form = new \IPS\Helpers\Form;
 
         $form->addTab( 'bit_portal_general' );
-		$form->addHeader( 'featured_bitracker' );
+		$form->addHeader( 'head_portal_layout' );
+        $form->add( new \IPS\Helpers\Form\YesNo( 'bit_view_portal_switch', \IPS\Settings::i()->bit_view_portal_switch, FALSE, array('togglesOn' => array( 'bit_view_table_categories') ) ) );
+        $form->add( new \IPS\Helpers\Form\Number( 'bit_view_table_categories', \IPS\Settings::i()->bit_view_table_categories, FALSE, array(), NULL, NULL, NULL, 'bit_view_table_categories' ) );
 
-        $form->addTab( 'bit_links_general' );
-		$form->addHeader( 'featured_bitracker' );
+        $form->addTab( 'bit_customize_general' );
+		$form->addHeader( 'customized_bitracker' );
+		$form->add( new \IPS\Helpers\Form\Text( 'bit_application_name', \IPS\Settings::i()->bit_application_name, FALSE, array(), NULL, NULL, NULL, 'bit_application_name' ) );
+        $form->add( new \IPS\Helpers\Form\YesNo( 'bit_breadcrumb_name_enable', \IPS\Settings::i()->bit_breadcrumb_name_enable, FALSE, array( 'togglesOn' => array( 'bit_breadcrumb_name' ) ), NULL, NULL, NULL, 'bit_breadcrumb_name_enable' ) );
+		$form->add( new \IPS\Helpers\Form\Text( 'bit_breadcrumb_name', \IPS\Settings::i()->bit_breadcrumb_name, FALSE, array(), NULL, NULL, NULL, 'bit_breadcrumb_name' ) );
+        $form->add( new \IPS\Helpers\Form\YesNo( 'bit_cusmenu_name_enable', \IPS\Settings::i()->bit_cusmenu_name_enable, FALSE, array( 'togglesOn' => array( 'bit_cusmenu_name' ) ), NULL, NULL, NULL, 'bit_cusmenu_name_enable' ) );
+		$form->add( new \IPS\Helpers\Form\Text( 'bit_cusmenu_name', \IPS\Settings::i()->bit_cusmenu_name, FALSE, array(), NULL, NULL, NULL, 'bit_cusmenu_name' ) );
 
-		$form->addTab( 'bit_landing_general' );
+		$form->addTab( 'bit_feeds_general' );
+		$form->addHeader( 'rss_bitracker' );
+		$form->add( new \IPS\Helpers\Form\YesNo( 'bit_rss', \IPS\Settings::i()->bit_rss ) );
 		$form->addHeader( 'featured_bitracker' );
         $form->add( new \IPS\Helpers\Form\YesNo( 'bit_show_featured', \IPS\Settings::i()->bit_show_featured, FALSE, array( 'togglesOn' => array( 'bit_featured_count' ) ) ) );
         $form->add( new \IPS\Helpers\Form\Number( 'bit_featured_count', \IPS\Settings::i()->bit_featured_count, FALSE, array(), NULL, NULL, NULL, 'bit_featured_count' ) );
@@ -113,7 +122,6 @@ class _general extends \IPS\Dispatcher\Controller
 		$form->add( new \IPS\Helpers\Form\Upload( 'bit_watermarkpath', \IPS\Settings::i()->bit_watermarkpath ? \IPS\File::get( 'core_Theme', \IPS\Settings::i()->bit_watermarkpath ) : NULL, FALSE, array( 'image' => TRUE, 'storageExtension' => 'core_Theme' ) ) );
 		$form->add( new \IPS\Helpers\Form\Stack( 'bit_link_blacklist', explode( ',', \IPS\Settings::i()->bit_link_blacklist ), FALSE, array( 'placeholder' => 'example.com' ) ) );
 		$form->add( new \IPS\Helpers\Form\YesNo( 'bit_antileech', \IPS\Settings::i()->bit_antileech ) );
-		$form->add( new \IPS\Helpers\Form\YesNo( 'bit_rss', \IPS\Settings::i()->bit_rss ) );
 
 		if ( \IPS\Application::appIsEnabled( 'nexus' ) )
 		{
@@ -221,7 +229,7 @@ class _general extends \IPS\Dispatcher\Controller
 
 		}, function()
 		{
-			\IPS\Output::i()->redirect( \IPS\Http\Url::internal( 'app=bitracker&module=bitracker&controller=settings' ), 'completed' );
+			\IPS\Output::i()->redirect( \IPS\Http\Url::internal( 'app=bitracker&module=settings&controller=general' ), 'completed' );
 		} );
 	}
 }
