@@ -52,6 +52,10 @@
         "default": "1"
     },
     {
+        "key": "bit_security_ipenable",
+        "default": "0"
+    },
+    {
         "key": "bit_security_singleip",
         "default": "1"
     },
@@ -90,6 +94,30 @@
     {
         "key": "bit_filter_all_action",
         "default": "open"
+    },
+    {
+        "key": "bit_view_portal_switch",
+        "default": "0"
+    },
+    {
+        "key": "bit_application_name",
+        "default": "BitTracker"
+    },
+    {
+        "key": "bit_breadcrumb_name",
+        "default": "BitTracker"
+    },
+    {
+        "key": "bit_breadcrumb_name_enable",
+        "default": "0"
+    },
+    {
+        "key": "bit_cusmenu_name",
+        "default": "BitTracker"
+    },
+    {
+        "key": "bit_cusmenu_name_enable",
+        "default": "0"
     },
     {
         "key": "bit_antileech",
