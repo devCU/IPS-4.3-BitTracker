@@ -10,7 +10,7 @@
  * @source      https://github.com/GaalexxC/IPS-4.2-BitTracker
  * @Issue Trak  https://www.devcu.com/forums/devcu-tracker/ips4bt/
  * @Created     11 FEB 2018
- * @Updated     19 FEB 2018
+ * @Updated     26 MAR 2018
  *
  *                    GNU General Public License v3.0
  *    This program is free software: you can redistribute it and/or modify       
@@ -41,6 +41,29 @@ if ( !defined( '\IPS\SUITE_UNIQUE_KEY' ) )
  */
 class _browse extends \IPS\Dispatcher\Controller
 {
+
+	/**
+	 * Execute
+	 *
+	 * @return	void
+	 */
+	public function execute()
+	{
+
+		if( \IPS\Settings::i()->bit_breadcrumb_name_enable  )
+		{
+		\IPS\Output::i()->breadcrumb	= array();
+		\IPS\Output::i()->breadcrumb['module'] = array( \IPS\Http\Url::internal( 'app=bitracker&module=bitracker&controller=index', 'front', 'bitracker' ), \IPS\Settings::i()->bit_breadcrumb_name );
+        }
+       else
+        {
+		\IPS\Output::i()->breadcrumb	= array();
+		\IPS\Output::i()->breadcrumb['module'] = array( \IPS\Http\Url::internal( 'app=bitracker&module=bitracker&controller=index', 'front', 'bitracker' ), \IPS\Settings::i()->bit_application_name );
+        }
+
+		parent::execute();
+}
+
 	/**
 	 * Route
 	 *
@@ -186,7 +209,7 @@ class _browse extends \IPS\Dispatcher\Controller
 				unset( $table->sortOptions['num_comments'] );
 			}
 
-			if ( $table->sortBy === 'bitracker_files.file_title' )
+			if ( $table->sortBy === 'bitracker_torrents.file_title' )
 			{
 				$table->sortDirection = 'asc';
 			}
@@ -208,7 +231,7 @@ class _browse extends \IPS\Dispatcher\Controller
 		/* Output */
 		\IPS\Output::i()->title		= $category->_title;
 
-		\IPS\Output::i()->contextualSearchOptions[ \IPS\Member::loggedIn()->language()->addToStack( 'search_contextual_item_bitracker_categories' ) ] = array( 'type' => 'bitracker_file', 'nodes' => $category->_id );
+		\IPS\Output::i()->contextualSearchOptions[ \IPS\Member::loggedIn()->language()->addToStack( 'search_contextual_item_bitracker_categories' ) ] = array( 'type' => 'bitracker_torrent', 'nodes' => $category->_id );
 		\IPS\Output::i()->sidebar['contextual'] .= \IPS\Theme::i()->getTemplate( 'browse' )->indexSidebar( \IPS\bitracker\Category::canOnAny('add'), $category );
 		\IPS\Output::i()->output	= \IPS\Theme::i()->getTemplate( 'browse' )->category( $category, (string) $table );
 	}
