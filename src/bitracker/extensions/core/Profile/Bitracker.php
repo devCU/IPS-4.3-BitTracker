@@ -76,7 +76,7 @@ class _Bitracker
 	{
 	    /* Setup featured posts table */
         $table = new \IPS\Helpers\Table\Content( '\IPS\bitracker\Torrent', $this->member->url()->setQueryString( array( 'tab' => 'node_bitracker_Torrents' ) ) );
-        $table->rowsTemplate = array( \IPS\Theme::i()->getTemplate( 'browse', 'bitracker', 'front' ), 'bitrackerRow' );
+        $table->rowsTemplate = array( \IPS\Theme::i()->getTemplate( 'browse', 'bitracker', 'front' ), 'profileRow' );
         $table->where[] = array( 'file_submitter=? AND file_open=1', $this->member->member_id );
         $table->noModerate = TRUE;
         
