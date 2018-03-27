@@ -50,7 +50,7 @@ class _browse extends \IPS\Dispatcher\Controller
 	public function execute()
 	{
 
-		if( \IPS\Settings::i()->bit_breadcrumb_name_enable  )
+		if( \IPS\Settings::i()->bit_breadcrumb_name_enable )
 		{
 		\IPS\Output::i()->breadcrumb	= array();
 		\IPS\Output::i()->breadcrumb['module'] = array( \IPS\Http\Url::internal( 'app=bitracker&module=bitracker&controller=browse', 'front', 'bitracker' ), \IPS\Settings::i()->bit_breadcrumb_name );
