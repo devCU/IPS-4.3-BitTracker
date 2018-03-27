@@ -147,7 +147,7 @@ class _browse extends \IPS\Dispatcher\Controller
 		
 		/* Display */
 		\IPS\Output::i()->sidebar['contextual'] = \IPS\Theme::i()->getTemplate( 'browse' )->indexSidebar( \IPS\bitracker\Category::canOnAny('add') );
-		\IPS\Output::i()->title		= \IPS\Member::loggedIn()->language()->addToStack('bitracker');
+		\IPS\Output::i()->title		= \IPS\Settings::i()->bit_application_name;
 		\IPS\Output::i()->output	= \IPS\Theme::i()->getTemplate( 'browse' )->index( $featured, $new, $highestRated, $mostDownloaded );
 	}
 	
