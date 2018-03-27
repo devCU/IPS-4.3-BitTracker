@@ -91,6 +91,7 @@ class _profiles extends \IPS\Dispatcher\Controller
         /* Form Settings */
         $form->addTab( 'general_settings' );
         $form->addHeader( 'general_settings' );
+        $form->add( new \IPS\Helpers\Form\YesNo( 'bit_profile_enable', \IPS\Settings::i()->bit_profile_enable, FALSE, array( 'togglesOn' => array( 'bit_profile_name_enable' ) ), NULL, NULL, NULL, 'bit_profile_enable' ) );
         $form->add( new \IPS\Helpers\Form\YesNo( 'bit_profile_name_enable', \IPS\Settings::i()->bit_profile_name_enable, FALSE, array( 'togglesOn' => array( 'bit_profile_name' ) ), NULL, NULL, NULL, 'bit_profile_name_enable' ) );
 		$form->add( new \IPS\Helpers\Form\Text( 'bit_profile_name', \IPS\Settings::i()->bit_profile_name, FALSE, array(), NULL, NULL, NULL, 'bit_profile_name' ) );
 
