@@ -10,7 +10,7 @@
  * @source      https://github.com/GaalexxC/IPS-4.2-BitTracker
  * @Issue Trak  https://www.devcu.com/forums/devcu-tracker/ips4bt/
  * @Created     11 FEB 2018
- * @Updated     16 MAR 2018
+ * @Updated     26 MAR 2018
  *
  *                    GNU General Public License v3.0
  *    This program is free software: you can redistribute it and/or modify       
@@ -91,6 +91,8 @@ class _profiles extends \IPS\Dispatcher\Controller
         /* Form Settings */
         $form->addTab( 'general_settings' );
         $form->addHeader( 'general_settings' );
+        $form->add( new \IPS\Helpers\Form\YesNo( 'bit_profile_name_enable', \IPS\Settings::i()->bit_profile_name_enable, FALSE, array( 'togglesOn' => array( 'bit_profile_name' ) ), NULL, NULL, NULL, 'bit_profile_name_enable' ) );
+		$form->add( new \IPS\Helpers\Form\Text( 'bit_profile_name', \IPS\Settings::i()->bit_profile_name, FALSE, array(), NULL, NULL, NULL, 'bit_profile_name' ) );
 
         $form->addTab( 'advanced_settings' );  
         $form->addHeader( 'advanced_settings' );
