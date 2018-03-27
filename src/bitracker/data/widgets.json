@@ -16,7 +16,7 @@
         "embeddable": true
     },
     "bitrackerPeers": {
-        "class": "\\IPS\\Widget\\StaticCache",
+        "class": "\\IPS\\Widget\\PermissionCache",
         "restrict": [],
         "default_area": "",
         "allow_reuse": false,
