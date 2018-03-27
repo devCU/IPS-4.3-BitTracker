@@ -62,9 +62,9 @@
 
 GNU General Public License v3.0
 
-## Development / Contribute
+## Development / Contribute / Join Team
 
-Active Beta Testing
+Please! Contact Me
 
 ## Copyrights
 
