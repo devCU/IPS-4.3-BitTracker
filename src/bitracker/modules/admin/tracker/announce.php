@@ -10,7 +10,7 @@
  * @source      https://github.com/GaalexxC/IPS-4.2-BitTracker
  * @Issue Trak  https://www.devcu.com/forums/devcu-tracker/ips4bt/
  * @Created     11 FEB 2018
- * @Updated     01 MAR 2018
+ * @Updated     27 MAR 2018
  *
  *                    GNU General Public License v3.0
  *    This program is free software: you can redistribute it and/or modify       
@@ -90,11 +90,15 @@ class _announce extends \IPS\Dispatcher\Controller
 		$form = new \IPS\Helpers\Form;
 
         /* Form Settings */
+		if ( \IPS\Settings::i()->bit_torrents_enable )
+		{
+			\IPS\Output::i()->error( 'acp_private_error', '2A01', 403, '' );
+        } else {
         $form->addHeader( 'head_tracker_announce_configure' );
         $form->add( new \IPS\Helpers\Form\YesNo( 'bit_announce_enable', \IPS\Settings::i()->bit_announce_enable, FALSE, array( 'togglesOn' => array( 'bit_announce_url', 'bit_announce_scrape_interval' ) ) ) );
         $form->add( new \IPS\Helpers\Form\Text( 'bit_announce_url', \IPS\Settings::i()->bit_announce_url, FALSE, array(), NULL, NULL, NULL, 'bit_announce_url' ) );
         $form->add( new \IPS\Helpers\Form\Number( 'bit_announce_scrape_interval', \IPS\Settings::i()->bit_announce_scrape_interval, FALSE, array(), NULL, NULL, \IPS\Member::loggedIn()->language()->addToStack('minutes'), 'bit_announce_scrape_interval' ) );
-
+        }
 		/* Save values */
 		if ( $values = $form->values() )
 		{

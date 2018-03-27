@@ -10,7 +10,7 @@
  * @source      https://github.com/GaalexxC/IPS-4.2-BitTracker
  * @Issue Trak  https://www.devcu.com/forums/devcu-tracker/ips4bt/
  * @Created     11 FEB 2018
- * @Updated     03 MAR 2018
+ * @Updated     27 MAR 2018
  *
  *                    GNU General Public License v3.0
  *    This program is free software: you can redistribute it and/or modify       
@@ -90,8 +90,11 @@ class _torrents extends \IPS\Dispatcher\Controller
 		$form = new \IPS\Helpers\Form;
 
         /* Form Settings */
+		if ( \IPS\Settings::i()->bit_announce_enable )
+		{
+			\IPS\Output::i()->error( 'acp_public_error', '2T01', 403, '' );
+        } else {
         $form->addHeader( 'head_tracker_torrent_configure' );
-
         $form->add( new \IPS\Helpers\Form\YesNo( 'bit_torrents_enable', \IPS\Settings::i()->bit_torrents_enable, FALSE, array( 'togglesOn' => array( 'bit_tracker_filter_option', 'bit_filter_black_action', 'bit_filter_any_action', 'bit_filter_white_action' ) ) ) );
 		$form->add( new \IPS\Helpers\Form\Radio( 'bit_tracker_filter_option', \IPS\Settings::i()->bit_tracker_filter_option, FALSE, array(
 			'options' => array(
@@ -138,7 +141,7 @@ class _torrents extends \IPS\Dispatcher\Controller
 		 		'moderate'		=> 'bit_filter_any_moderate_desc'
 	 		)
  		), NULL, NULL, NULL, 'bit_filter_any_action' ) );
-
+        }
 
 		/* Save values */
 		if ( $values = $form->values() )

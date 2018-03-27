@@ -10,7 +10,7 @@
  * @source      https://github.com/GaalexxC/IPS-4.2-BitTracker
  * @Issue Trak  https://www.devcu.com/forums/devcu-tracker/ips4bt/
  * @Created     11 FEB 2018
- * @Updated     09 MAR 2018
+ * @Updated     27 MAR 2018
  *
  *                    GNU General Public License v3.0
  *    This program is free software: you can redistribute it and/or modify       
@@ -90,6 +90,10 @@ class _security extends \IPS\Dispatcher\Controller
 		$form = new \IPS\Helpers\Form;
 
         /* Form Settings */
+		if ( \IPS\Settings::i()->bit_torrents_enable )
+		{
+			\IPS\Output::i()->error( 'acp_private_error', '2S01', 403, '' );
+        } else {
         $form->addHeader( 'head_tracker_security_configure' );
         $form->add( new \IPS\Helpers\Form\YesNo( 'bit_security_forcessl', \IPS\Settings::i()->bit_security_forcessl, FALSE, array(), NULL, NULL, NULL, 'bit_security_forcessl' ) );
         $form->add( new \IPS\Helpers\Form\YesNo( 'bit_security_permkey', \IPS\Settings::i()->bit_security_permkey, FALSE, array(), NULL, NULL, NULL, 'bit_security_permkey' ) );
@@ -153,7 +157,7 @@ class _security extends \IPS\Dispatcher\Controller
 		 		'moderate'		=> 'bit_filter_all_moderate_desc'
 	 		)
  		), NULL, NULL, NULL, 'bit_filter_all_action' ) );
-
+        }
 		/* Save values */
 		if ( $values = $form->values() )
 		{
