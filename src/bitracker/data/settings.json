@@ -120,6 +120,14 @@
         "default": "0"
     },
     {
+        "key": "bit_profile_name",
+        "default": "Tracker"
+    },
+    {
+        "key": "bit_profile_name_enable",
+        "default": "0"
+    },
+    {
         "key": "bit_antileech",
         "default": "1"
     },
