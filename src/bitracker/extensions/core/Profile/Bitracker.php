@@ -10,7 +10,7 @@
  * @source      https://github.com/GaalexxC/IPS-4.2-BitTracker
  * @Issue Trak  https://www.devcu.com/forums/devcu-tracker/ips4bt/
  * @Created     11 FEB 2018
- * @Updated     27 FEB 2018
+ * @Updated     26 MAR 2018
  *
  *                    GNU General Public License v3.0
  *    This program is free software: you can redistribute it and/or modify       
@@ -64,7 +64,7 @@ class _Bitracker
 	 */
 	public function showTab()
 	{
-		return (bool) \IPS\Db::i()->select( 'COUNT(*)', 'bitracker_torrents', array( array( 'bitracker_author_id=? AND bitracker_status=1', $this->member->member_id ) ) )->first();
+		return (bool) \IPS\Db::i()->select( 'COUNT(*)', 'bitracker_torrents', array( array( 'file_submitter=? AND file_open=1', $this->member->member_id ) ) )->first();
 	}
 	
 	/**
@@ -77,7 +77,7 @@ class _Bitracker
 	    /* Setup featured posts table */
         $table = new \IPS\Helpers\Table\Content( '\IPS\bitracker\Torrent', $this->member->url()->setQueryString( array( 'tab' => 'node_bitracker_Torrents' ) ) );
         $table->rowsTemplate = array( \IPS\Theme::i()->getTemplate( 'browse', 'bitracker', 'front' ), 'bitrackerRow' );
-        $table->where[] = array( 'bitracker_author_id=? AND bitracker_status=1', $this->member->member_id );
+        $table->where[] = array( 'file_submitter=? AND file_open=1', $this->member->member_id );
         $table->noModerate = TRUE;
         
 		return (string) $table;
