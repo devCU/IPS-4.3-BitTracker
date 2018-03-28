@@ -10,7 +10,7 @@
  * @source      https://github.com/GaalexxC/IPS-4.2-BitTracker
  * @Issue Trak  https://www.devcu.com/forums/devcu-tracker/ips4bt/
  * @Created     11 FEB 2018
- * @Updated     27 MAR 2018
+ * @Updated     28 MAR 2018
  *
  *                    GNU General Public License v3.0
  *    This program is free software: you can redistribute it and/or modify       
@@ -37,10 +37,11 @@ if ( !defined( '\IPS\SUITE_UNIQUE_KEY' ) )
 }
 
 /**
- * members
+ * Members Settings
  */
 class _members extends \IPS\Dispatcher\Controller
 {
+
 	/**
 	 * Execute
 	 *
@@ -48,7 +49,7 @@ class _members extends \IPS\Dispatcher\Controller
 	 */
 	public function execute()
 	{
-		\IPS\Dispatcher::i()->checkAcpPermission( 'members_manage' );
+		\IPS\Dispatcher::i()->checkAcpPermission( 'profiles_manage' );
 		parent::execute();
 	}
     
@@ -73,7 +74,7 @@ class _members extends \IPS\Dispatcher\Controller
 			\IPS\Session::i()->log( 'acplogs__bitracker_settings' );
 		}
 
-		\IPS\Output::i()->title = \IPS\Member::loggedIn()->language()->addToStack('head_members_options');;
+		\IPS\Output::i()->title = \IPS\Member::loggedIn()->language()->addToStack('head_members_options');
 		\IPS\Output::i()->output = $form;
 }
 
@@ -92,7 +93,7 @@ class _members extends \IPS\Dispatcher\Controller
         $form->addTab( 'general_settings' );
         $form->addHeader( 'general_member_settings' );
         $form->add( new \IPS\Helpers\Form\YesNo( 'bit_member_ratio_enable', \IPS\Settings::i()->bit_member_ratio_enable, FALSE, array( 'togglesOn' => array( 'bit_member_ratio_rules' ) ), NULL, NULL, NULL, 'bit_member_ratio_enable' ) );
-        $form->add( new \IPS\Helpers\Form\YesNo( 'bit_member_ratio_rules', \IPS\Settings::i()->bit_member_ratio_rules, FALSE, array(), NULL, NULL, NULL, 'bit_member_ratio_rules' ) );
+		$form->add( new \IPS\Helpers\Form\Stack( 'bit_member_ratio_rules', \IPS\Settings::i()->bit_member_ratio_rules ? json_decode( \IPS\Settings::i()->bit_member_ratio_rules, true ) : array(), FALSE, array( 'stackFieldType' => '\IPS\bitracker\Form\RatioRules', 'maxItems' => 5, 'key' => array( 'decimals' => '2', 'min' => 0.01, 'max' => '1.00' ) ) ) );
 
         $form->addTab( 'advanced_settings' );  
         $form->addHeader( 'advanced_member_settings' );
@@ -100,6 +101,10 @@ class _members extends \IPS\Dispatcher\Controller
 		/* Save values */
 		if ( $values = $form->values() )
 		{
+
+			$values['bit_member_ratio_rules']	= json_encode( array_filter( $values['bit_member_ratio_rules'], function( $value ) {
+				return (bool) $value['key'];
+			} ) );
             
 			$form->saveAsSettings( $values );
 
