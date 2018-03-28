@@ -10,7 +10,7 @@
  * @source      https://github.com/GaalexxC/IPS-4.2-BitTracker
  * @Issue Trak  https://www.devcu.com/forums/devcu-tracker/ips4bt/
  * @Created     11 FEB 2018
- * @Updated     19 FEB 2018
+ * @Updated     28 MAR 2018
  *
  *                    GNU General Public License v3.0
  *    This program is free software: you can redistribute it and/or modify       
@@ -94,7 +94,7 @@ class _submitters extends \IPS\Dispatcher\Controller
 			$page = 1;
 		}
 
-		$select = \IPS\Db::i()->select( 'file_submitter, COUNT(*) as files', 'bitracker_files', $where, 'files DESC', array( ( $page - 1 ) * static::PER_PAGE, static::PER_PAGE ), 'file_submitter', NULL, \IPS\Db::SELECT_SQL_CALC_FOUND_ROWS )->join( 'core_members', 'core_members.member_id=bitracker_files.file_submitter' );
+		$select = \IPS\Db::i()->select( 'file_submitter, COUNT(*) as files', 'bitracker_torrents', $where, 'files DESC', array( ( $page - 1 ) * static::PER_PAGE, static::PER_PAGE ), 'file_submitter', NULL, \IPS\Db::SELECT_SQL_CALC_FOUND_ROWS )->join( 'core_members', 'core_members.member_id=bitracker_torrents.file_submitter' );
 		$mids = array();
 		
 		foreach( $select as $row )
