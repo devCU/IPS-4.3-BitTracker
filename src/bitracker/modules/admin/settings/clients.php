@@ -94,7 +94,7 @@ class _clients extends \IPS\Dispatcher\Controller
             
 			$form->saveAsSettings( $values );
 
-			\IPS\Output::i()->redirect( \IPS\Http\Url::internal( 'app=bitracker&module=members&controller=members' ), 'saved' );
+			\IPS\Output::i()->redirect( \IPS\Http\Url::internal( 'app=bitracker&module=settings&controller=clients' ), 'saved' );
 		}
 
 		return $form;
