@@ -132,6 +132,18 @@
         "default": "0"
     },
     {
+        "key": "bit_profile_adv_enable",
+        "default": "0"
+    },
+    {
+        "key": "bit_member_ratio_enable",
+        "default": "0"
+    },
+    {
+        "key": "bit_member_ratio_rules",
+        "default": "0"
+    },
+    {
         "key": "bit_antileech",
         "default": "1"
     },
