@@ -52,9 +52,9 @@
             "do": "",
             "restriction": "settings_manage"
         },
-        "topics": {
+        "clients": {
             "tab": "bitracker",
-            "controller": "topics",
+            "controller": "clients",
             "do": "",
             "restriction": "settings_manage"
         },
