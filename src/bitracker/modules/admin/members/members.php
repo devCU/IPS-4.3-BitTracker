@@ -91,6 +91,8 @@ class _members extends \IPS\Dispatcher\Controller
         /* Form Settings */
         $form->addTab( 'general_settings' );
         $form->addHeader( 'general_member_settings' );
+        $form->add( new \IPS\Helpers\Form\YesNo( 'bit_member_ratio_enable', \IPS\Settings::i()->bit_member_ratio_enable, FALSE, array( 'togglesOn' => array( 'bit_member_ratio_rules' ) ), NULL, NULL, NULL, 'bit_member_ratio_enable' ) );
+        $form->add( new \IPS\Helpers\Form\YesNo( 'bit_member_ratio_rules', \IPS\Settings::i()->bit_member_ratio_rules, FALSE, array(), NULL, NULL, NULL, 'bit_member_ratio_rules' ) );
 
         $form->addTab( 'advanced_settings' );  
         $form->addHeader( 'advanced_member_settings' );
