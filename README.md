@@ -14,6 +14,9 @@
 [![donate](https://www.devcu.com/images/donate.png)](https://www.devcu.com/forums/topic/739-help-support-our-work/)
 
 *** May 1st - Back from my well deserved vacation and I feel refreshed and ready to bang the rest of this out. I am hoping for a late May release at this point. backend is pretty much done, front end Id say 75% so not much more to go before we can start testing this and iron out any bugs or missing functions.
+
+*** This will be fully 4.3x compatible as the new IPS major version doesn't change anything to effect this app for 4.2x - 4.3x
+If wholesale changes are needed for the new IPS version I will split this release and create a 4.3x version but doesn't look necessary at this time. 
     
 # IPS 4.2 BitTracker
 
@@ -54,7 +57,7 @@
 
 [Info on beta build](https://www.devcu.com/forums/devcu-tracker/ips4bt/)
 
-- In development for late March | early April 2018 Release
+- In development for late May | early June 2018 Release
 
 [Release Time Line](https://www.devcu.com/forums/topic/754-new-timeline/)
 
