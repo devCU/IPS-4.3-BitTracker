@@ -13,7 +13,7 @@
 
 [![donate](https://www.devcu.com/images/donate.png)](https://www.devcu.com/forums/topic/739-help-support-our-work/)
 
-
+*** May 1st - Back from my well deserved vacation and I feel refreshed and ready to bang the rest of this out. I am hoping for a late May release at this point. backend is pretty much done, front end Id say 75% so not much more to go before we can start testing this and iron out any bugs or missing functions.
     
 # IPS 4.2 BitTracker
 
@@ -30,7 +30,7 @@
  * @source      https://github.com/GaalexxC/IPS-4.2-BitTracker
  * @Issue Trak  https://www.devcu.com/forums/devcu-tracker/ips4bt/
  * @Created     11 FEB 2018
- * @Updated     27 MAR 2018
+ * @Updated     01 MAY 2018
  *
  *                    GNU General Public License v3.0
  *    This program is free software: you can redistribute it and/or modify       
