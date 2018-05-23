@@ -3004,7 +3004,7 @@
 				"name": "seeder",
 				"type": "ENUM",
 				"unsigned": false,
-				"values": ['yes', 'no],
+				"values": ['yes', 'no'],
 				"zerofill": false
 			},
 			"last_action": {
@@ -3060,7 +3060,7 @@
 				"name": "connectable",
 				"type": "ENUM",
 				"unsigned": false,
-				"values": ['yes', 'no],
+				"values": ['yes', 'no'],
 				"zerofill": false
 			},
 			"finished": {
@@ -3074,7 +3074,7 @@
 				"name": "finished",
 				"type": "ENUM",
 				"unsigned": false,
-				"values": ['yes', 'no],
+				"values": ['yes', 'no'],
 				"zerofill": false
 			}
 		},
@@ -3462,7 +3462,7 @@
 				"name": "compact",
 				"type": "ENUM",
 				"unsigned": false,
-				"values": ['yes', 'no],
+				"values": ['yes', 'no'],
 				"zerofill": false
 			},
 			"peer_ip": {
@@ -3560,7 +3560,7 @@
 				"name": "seeder",
 				"type": "ENUM",
 				"unsigned": true,
-				"values": ['yes', 'no],
+				"values": ['yes', 'no'],
 				"zerofill": false
 			},
 			"started": {
@@ -3602,7 +3602,7 @@
 				"name": "connectable",
 				"type": "ENUM",
 				"unsigned": false,
-				"values": ['yes', 'no],
+				"values": ['yes', 'no'],
 				"zerofill": false
 			},
 			"client": {
