@@ -265,8 +265,8 @@
 				"auto_increment": false,
 				"binary": false,
 				"comment": "",
-				"decimals": 10,
-				"default": null,
+				"decimals": null,
+				"default": "0",
 				"length": 7,
 				"name": "torrentid",
 				"type": "INT",
@@ -437,7 +437,7 @@
 				"binary": false,
 				"comment": "JSON array of allowed file extensions or NULL for no restriction.",
 				"decimals": null,
-				"default": ["torrent", "nfo", "jpg", "png", "gif", "jpeg"],
+				"default": ['torrent', 'nfo', 'jpg', 'png', 'gif', 'jpeg'],
 				"length": 0,
 				"name": "ctypes",
 				"type": "TEXT",
@@ -3004,7 +3004,7 @@
 				"name": "seeder",
 				"type": "ENUM",
 				"unsigned": false,
-				"values": ["yes", "no"],
+				"values": ['yes', 'no],
 				"zerofill": false
 			},
 			"last_action": {
@@ -3060,7 +3060,7 @@
 				"name": "connectable",
 				"type": "ENUM",
 				"unsigned": false,
-				"values": ["yes", "no"],
+				"values": ['yes', 'no],
 				"zerofill": false
 			},
 			"finished": {
@@ -3074,7 +3074,7 @@
 				"name": "finished",
 				"type": "ENUM",
 				"unsigned": false,
-				"values": ["yes", "no"],
+				"values": ['yes', 'no],
 				"zerofill": false
 			}
 		},
@@ -3344,7 +3344,7 @@
 				"values": [],
 				"zerofill": false
 			},
-			"piece_s": {
+			"pieces": {
 				"allow_null": false,
 				"auto_increment": false,
 				"binary": false,
@@ -3381,9 +3381,7 @@
 					null
 				],
 				"columns": [
-					"torrent_id",
-					"torrent_infohash",
-					"torrent_post_key"
+					"torrent_id"
 				]
 			},
 			"torrent_infohash": {
@@ -3464,7 +3462,7 @@
 				"name": "compact",
 				"type": "ENUM",
 				"unsigned": false,
-				"values": ["yes", "no"],
+				"values": ['yes', 'no],
 				"zerofill": false
 			},
 			"peer_ip": {
@@ -3482,7 +3480,7 @@
 				"zerofill": false
 			},
 			"peer_ipv6": {
-				"allow_null": null,
+				"allow_null": true,
 				"auto_increment": false,
 				"binary": false,
 				"comment": "",
@@ -3562,7 +3560,7 @@
 				"name": "seeder",
 				"type": "ENUM",
 				"unsigned": true,
-				"values": ["yes", "no"],
+				"values": ['yes', 'no],
 				"zerofill": false
 			},
 			"started": {
@@ -3604,7 +3602,7 @@
 				"name": "connectable",
 				"type": "ENUM",
 				"unsigned": false,
-				"values": ["yes", "no"],
+				"values": ['yes', 'no],
 				"zerofill": false
 			},
 			"client": {
@@ -3813,7 +3811,7 @@
 				"name": "history_completed",
 				"type": "ENUM",
 				"unsigned": false,
-				"values": ["yes", "no"],
+				"values": ['yes','no'],
 				"zerofill": false
 			},
 			"history_date_completed": {
