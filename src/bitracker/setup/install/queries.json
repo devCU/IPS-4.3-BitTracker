@@ -185,8 +185,8 @@
                 "app": "bitracker",
                 "perm_type": "category",
                 "perm_type_id": 1,
-                "perm_view": "*",
-                "perm_2":  "*",
+                "perm_view": "<%NO_GUESTS%>",
+                "perm_3": "<%NO_GUESTS%>",
                 "perm_3": "<%NO_GUESTS%>",
                 "perm_4": "<%NO_GUESTS%>",
                 "perm_5": "<%NO_GUESTS%>",
@@ -202,7 +202,7 @@
                 "app": "bitracker",
                 "perm_type": "torrents",
                 "perm_type_id": 2,
-                "perm_view": "*",
+                "perm_view": "<%NO_GUESTS%>",
                 "perm_2": "<%NO_GUESTS%>",
                 "perm_3": "<%NO_GUESTS%>",
                 "perm_4": "<%NO_GUESTS%>",
@@ -402,8 +402,8 @@
                 "name": "bit_perm_key",
                 "type": "VARCHAR",
                 "length": 32,
-                "null": false,
-                "default": 0,
+                "null": true,
+                "default": null,
                 "unsigned": true
             }
         ]
