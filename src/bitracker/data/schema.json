@@ -648,31 +648,35 @@
 				]
 			}
 		},
-		"inserts": [{
-			"cid": "1",
-			"cparent": "0",
-			"copen": "1",
-			"cposition": "1",
-			"ccfields": null,
-			"cname_furl": "tracker",
-			"ctags_disabled": "0",
-			"ctags_noprefixes": "0",
-			"ctags_predefined": null,
-			"cbitoptions": "1",
-			"ctypes": null,
-			"csortorder": "updated",
-			"cmaxfile": null,
-			"cmaxss": "0",
-			"cmaxdims": "",
-			"cversioning": null,
-			"clog": "1",
-			"cforum_id": "0",
-			"ctopic_prefix": "",
-			"ctopic_suffix": "",
-			"clast_file_id": "0",
-			"clast_file_date": "0"
-		}]
-	},
+        "inserts": [
+            {
+                "cid": "1",
+                "cparent": "0",
+                "copen": "1",
+                "cposition": "1",
+                "ccfields": null,
+                "cname_furl": "tracker",
+                "ctags_disabled": "0",
+                "ctags_noprefixes": "0",
+                "ctags_predefined": null,
+                "cbitoptions": "1",
+                "ctypes": null,
+                "csortorder": "updated",
+                "cmaxfile": null,
+                "cmaxss": "0",
+                "cmaxdims": "",
+                "cversioning": null,
+                "clog": "1",
+                "cforum_id": "0",
+                "ctopic_prefix": "",
+                "ctopic_suffix": "",
+                "clast_file_id": "0",
+                "clast_file_date": "0"
+            }
+        ],
+        "comment": "",
+        "reporting": "count"
+    },
 	"bitracker_cfields": {
 		"name": "bitracker_cfields",
 		"columns": {
@@ -862,12 +866,14 @@
 				"length": [
 					null
 				],
-				"columns": [
-					"cf_position"
-				]
-			}
-		}
-	},
+                "columns": [
+                    "cf_position"
+                ]
+            }
+        },
+        "comment": "",
+        "reporting": "count"
+    },
 	"bitracker_torrents": {
 		"name": "bitracker_torrents",
 		"columns": {
@@ -1500,8 +1506,22 @@
 				"zerofill": false,
 				"auto_increment": false,
 				"binary": false
-			}
-		},
+            },
+            "file_purchasable": {
+                "name": "file_purchasable",
+                "type": "BIT",
+                "length": 1,
+                "decimals": null,
+                "values": null,
+                "allow_null": false,
+                "default": "1",
+                "comment": "",
+                "unsigned": false,
+                "zerofill": false,
+                "auto_increment": false,
+                "binary": false
+            }
+        },
 		"indexes": {
 			"PRIMARY": {
 				"type": "primary",
@@ -1609,12 +1629,14 @@
 				"columns": [
 					"file_ipaddress"
 				],
-				"length": [
-					null
-				]
-			}
-		}
-	},
+                "length": [
+                    null
+                ]
+            }
+        },
+        "comment": "",
+        "reporting": "count"
+    },
 	"bitracker_torrents_records": {
 		"name": "bitracker_torrents_records",
 		"columns": {
@@ -1730,20 +1752,20 @@
 				"values": [],
 				"zerofill": false
 			},
-			"record_size": {
-				"name": "record_size",
-				"type": "BIGINT",
-				"length": 20,
-				"decimals": null,
-				"values": [],
-				"allow_null": false,
-				"default": "0",
-				"comment": "",
-				"unsigned": false,
-				"zerofill": false,
-				"auto_increment": false,
-				"binary": false
-			},
+            "record_size": {
+                "allow_null": false,
+                "auto_increment": false,
+                "binary": false,
+                "comment": "",
+                "decimals": null,
+                "default": "0",
+                "length": 20,
+                "name": "record_size",
+                "type": "BIGINT",
+                "unsigned": false,
+                "values": [],
+                "zerofill": false
+            },
 			"record_backup": {
 				"allow_null": false,
 				"auto_increment": false,
@@ -1786,21 +1808,21 @@
 				"values": [],
 				"zerofill": false
 			},
-			"record_no_watermark": {
-				"name": "record_no_watermark",
-				"type": "TEXT",
-				"length": null,
-				"decimals": null,
-				"values": [],
-				"allow_null": true,
-				"default": null,
-				"comment": "If the record is for a screenshot, the URL to the un-watermarked version",
-				"unsigned": false,
-				"zerofill": false,
-				"auto_increment": false,
-				"binary": false
-			}
-		},
+            "record_no_watermark": {
+                "allow_null": true,
+                "auto_increment": false,
+                "binary": false,
+                "comment": "If the record is for a screenshot, the URL to the un-watermarked version",
+                "decimals": null,
+                "default": null,
+                "length": 0,
+                "name": "record_no_watermark",
+                "type": "TEXT",
+                "unsigned": false,
+                "values": [],
+                "zerofill": false
+            }
+        },
 		"indexes": {
 			"PRIMARY": {
 				"type": "primary",
@@ -1832,16 +1854,16 @@
 					"record_file_id"
 				]
 			},
-			"record_realname": {
-				"type": "key",
-				"name": "record_realname",
-				"columns": [
-					"record_realname"
-				],
-				"length": [
-					250
-				]
-			},
+            "record_realname": {
+                "type": "key",
+                "name": "record_realname",
+                "length": [
+                    191
+                ],
+                "columns": [
+                    "record_realname"
+                ]
+            },
 			"record_type": {
 				"type": "key",
 				"name": "record_type",
@@ -1850,14 +1872,17 @@
 					null,
 					null
 				],
-				"columns": [
-					"record_type",
-					"record_file_id",
-					"record_backup"
-				]
-			}
-		}
-	},
+                "columns": [
+                    "record_type",
+                    "record_file_id",
+                    "record_backup"
+                ]
+            }
+        },
+        "collation": "utf8mb4_unicode_ci",
+        "comment": "",
+        "reporting": "count"
+    },
 	"bitracker_comments": {
 		"name": "bitracker_comments",
 		"columns": {
@@ -2039,41 +2064,43 @@
 					"comment_date"
 				]
 			},
-			"comment_ip_address": {
-				"type": "key",
-				"name": "comment_ip_address",
-				"length": [
-					null
-				],
-				"columns": [
-					"comment_ip_address"
-				]
-			},
-			"comment_author": {
-				"type": "key",
-				"name": "comment_author",
-				"length": [
-					191
-				],
-				"columns": [
-					"comment_author"
-				]
-			},
-			"comment_approved": {
-				"type": "key",
-				"name": "comment_approved",
-				"columns": [
-					"comment_open",
-					"comment_date"
-				],
-				"length": [
-					null,
-					null
-				]
-			}
-		},
-		"collation": "utf8mb4_unicode_ci"
-	},
+            "comment_ip_address": {
+                "type": "key",
+                "name": "comment_ip_address",
+                "length": [
+                    null
+                ],
+                "columns": [
+                    "comment_ip_address"
+                ]
+            },
+            "comment_approved": {
+                "type": "key",
+                "name": "comment_approved",
+                "length": [
+                    null,
+                    null
+                ],
+                "columns": [
+                    "comment_open",
+                    "comment_date"
+                ]
+            },
+            "comment_mid": {
+                "type": "key",
+                "name": "comment_mid",
+                "columns": [
+                    "comment_mid",
+                    "comment_date"
+                ],
+                "length": [
+                    null,
+                    null
+                ]
+            }
+        },
+        "collation": "utf8mb4_unicode_ci"
+    },
 	"bitracker_reviews": {
 		"name": "bitracker_reviews",
 		"columns": {
@@ -2300,9 +2327,23 @@
 				"unsigned": false,
 				"values": [],
 				"zerofill": false
-			}
-		},
-		"indexes": {
+            },
+            "review_author_response": {
+                "name": "review_author_response",
+                "type": "MEDIUMTEXT",
+                "length": null,
+                "decimals": null,
+                "values": null,
+                "allow_null": true,
+                "default": null,
+                "comment": "",
+                "unsigned": false,
+                "zerofill": false,
+                "auto_increment": false,
+                "binary": false
+            }
+        },
+        "indexes": {
 			"PRIMARY": {
 				"type": "primary",
 				"name": "PRIMARY",
@@ -2323,16 +2364,18 @@
 					null
 				]
 			},
-			"review_mid": {
-				"type": "key",
-				"name": "review_mid",
-				"columns": [
-					"review_mid"
-				],
-				"length": [
-					null
-				]
-			},
+            "review_mid": {
+                "type": "key",
+                "name": "review_mid",
+                "columns": [
+                    "review_mid",
+                    "review_date"
+                ],
+                "length": [
+                    null,
+                    null
+                ]
+            },
 			"review_ip": {
 				"type": "key",
 				"name": "review_ip",
@@ -2350,13 +2393,15 @@
 					"review_approved",
 					"review_date"
 				],
-				"length": [
-					null,
-					null
-				]
-			}
-		}
-	},
+                "length": [
+                    null,
+                    null
+                ]
+            }
+        },
+        "comment": "",
+        "reporting": "count"
+    },
 	"bitracker_downloads": {
 		"name": "bitracker_downloads",
 		"columns": {
@@ -2520,19 +2565,29 @@
 					"dtime"
 				]
 			},
-			"dmid": {
-				"type": "key",
-				"name": "dmid",
-				"length": [
-					null
-				],
-				"columns": [
-					"dmid"
-				]
-			}
-		},
-		"collation": "utf8mb4_unicode_ci"
-	},
+            "dmid": {
+                "type": "key",
+                "name": "dmid",
+                "length": [
+                    null
+                ],
+                "columns": [
+                    "dmid"
+                ]
+            },
+            "dip": {
+                "type": "key",
+                "name": "dip",
+                "columns": [
+                    "dip"
+                ],
+                "length": [
+                    null
+                ]
+            }
+        },
+        "collation": "utf8mb4_unicode_ci"
+    },
 	"bitracker_filebackup": {
 		"name": "bitracker_filebackup",
 		"columns": {
@@ -2694,12 +2749,14 @@
 				"length": [
 					null
 				],
-				"columns": [
-					"b_fileid"
-				]
-			}
-		}
-	},
+                "columns": [
+                    "b_fileid"
+                ]
+            }
+        },
+        "comment": "",
+        "reporting": "count"
+    },
 	"bitracker_ccontent": {
 		"name": "bitracker_ccontent",
 		"columns": {
