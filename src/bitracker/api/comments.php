@@ -73,7 +73,7 @@ class _comments extends \IPS\Content\Api\CommentController
 	 *
 	 * @param		int		$id			ID Number
 	 * @throws		2D304/1	INVALID_ID	The comment ID does not exist or the authorized user does not have permission to view it
-	 * @return		\IPS\downloads\File\Comment
+	 * @return		\IPS\bitracker\File\Comment
 	 */
 	public function GETitem( $id )
 	{
