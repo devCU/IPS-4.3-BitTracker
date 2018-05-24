@@ -19,7 +19,7 @@
 		</div>
 	</td>
 </tr>]]></template_content_html><template_data>$comment, $email</template_data><template_content_plaintext><![CDATA[{$email->language->addToStack("x_commented_file", FALSE, array( 'sprintf' => array( $comment->author()->name ) ) )}: {$comment->item()->name} ({$comment->url()})
-]]></template_content_plaintext></template><template><template_app>bitracker</template_app><template_name>notification_new_file_version</template_name><template_content_html><![CDATA[
+]]></template_content_plaintext><template_pinned>0</template_pinned></template><template><template_app>bitracker</template_app><template_name>notification_new_file_version</template_name><template_content_html><![CDATA[
 {{if $content->author()->member_id}}
 {$email->language->addToStack("email_new_file_version", FALSE, array( 'sprintf' => array( $content->author()->url(), $content->author()->name, $content->indefiniteArticle( $email->language ) ) ) )} <a href='{$content->url()}'>{$content->mapped('title')}</a>
 {{else}}
@@ -101,7 +101,7 @@
 
 {$email->language->addToStack("go_to_this_x", FALSE, array( 'sprintf' => array( mb_strtolower( $email->language->addToStack( $content::$title, FALSE ) ) ) ) )}: {$content->url()}
 
--- {setting="board_name"}]]></template_content_plaintext></template><template><template_app>bitracker</template_app><template_name>digests__item</template_name><template_content_html><![CDATA[<tr style='border-bottom: 1px solid #eeeeee'>
+-- {setting="board_name"}]]></template_content_plaintext><template_pinned>0</template_pinned></template><template><template_app>bitracker</template_app><template_name>digests__item</template_name><template_content_html><![CDATA[<tr style='border-bottom: 1px solid #eeeeee'>
 	<td dir='{dir}' width='120' align='center' valign='top'>
 		{{if $file->primary_screenshot_thumb}}
 			<img src='{$file->primary_screenshot_thumb}' style='border: 1px solid #000; vertical-align: middle;' width='100' height='100'>
@@ -134,5 +134,5 @@
 			</strong>
 		</p>
 	</td>
-</tr>]]></template_content_html><template_data>$file, $email</template_data><template_content_plaintext><![CDATA[{$email->language->addToStack("x_created_torrent_in", FALSE, array( 'sprintf' => array( $file->author()->name, $file->container()->_title ) ) )}: {$file->title} ({$file->url()})
-]]></template_content_plaintext></template></emails>
+</tr>]]></template_content_html><template_data>$file, $email</template_data><template_content_plaintext><![CDATA[{$email->language->addToStack("x_created_file_in", FALSE, array( 'sprintf' => array( $file->author()->name, $file->container()->_title ) ) )}: {$file->title} ({$file->url()})
+]]></template_content_plaintext><template_pinned>0</template_pinned></template></emails>
