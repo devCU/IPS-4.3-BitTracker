@@ -26,8 +26,24 @@
         }
     },
     "front": {
+        "portal": {
+            "default_controller": "main",
+            "protected": 0
+        },
         "bitracker": {
             "default_controller": "browse",
+            "protected": 0
+        },
+        "client": {
+            "default_controller": "announce",
+            "protected": 0
+        },
+        "stats": {
+            "default_controller": "overview",
+            "protected": null
+        },
+        "submit": {
+            "default_controller": "submit",
             "protected": 0
         }
     }
