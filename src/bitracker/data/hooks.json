@@ -2,5 +2,9 @@
     "Forums": {
         "type": "C",
         "class": "\\IPS\\forums\\Forum"
+    },
+    "Forum": {
+        "type": "C",
+        "class": "\\IPS\\forums\\modules\\admin\\forums\\forums"
     }
 }
