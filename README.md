@@ -51,7 +51,12 @@ If wholesale changes are needed for the new IPS version I will split this releas
  */
 ```
 
-#### Full featured bit torrent tracker application for IPS 4.2x Community Suite
+#### Full featured bit torrent tracker application for IPS 4.2x/4.3x Community Suite
+
+- 05/24/18 entered Beta 2
+    - Upgrading for 4.3x compatibility
+    - Refactoring front module and controllers for better organization and expandability
+    - Making sure everything fills it purpose and is tied together for Beta 3 full testing
 
 - 02/11/18 finally got around to working on this
 
