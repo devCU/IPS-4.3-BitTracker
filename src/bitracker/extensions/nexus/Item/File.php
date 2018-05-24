@@ -4,13 +4,13 @@
  * @author      Gary Cornell for devCU Software Open Source Projects
  * @copyright   (c) <a href='https://www.devcu.com'>devCU Software Development</a>
  * @license     GNU General Public License v3.0
- * @package     Invision Community Suite 4.2x
+ * @package     Invision Community Suite 4.2x/4.3x
  * @subpackage	BitTracker
- * @version     1.0.0 Beta 1
+ * @version     1.0.0 Beta 2
  * @source      https://github.com/GaalexxC/IPS-4.2-BitTracker
  * @Issue Trak  https://www.devcu.com/forums/devcu-tracker/ips4bt/
  * @Created     11 FEB 2018
- * @Updated     27 FEB 2018
+ * @Updated     24 MAY 2018
  *
  *                    GNU General Public License v3.0
  *    This program is free software: you can redistribute it and/or modify       
@@ -174,5 +174,44 @@ class _File extends \IPS\nexus\Invoice\Item\Purchase
 		{
 			return NULL;
 		}
+	}
+
+	/**
+	 * Purchase can be renewed?
+	 *
+	 * @param	\IPS\nexus\Purchase $purchase	The purchase
+	 * @return	boolean
+	 */
+	public static function canBeRenewed( \IPS\nexus\Purchase $purchase )
+	{
+		try
+		{
+			$file = \IPS\downloads\File::load( $purchase->item_id );
+
+			if( $file->canView( \IPS\Member::load( $purchase->member_id ) ) )
+			{
+				return TRUE;
+			}
+		}
+		catch ( \OutOfRangeException $e ) {}
+
+		return FALSE;
+	}
+
+	/**
+	 * Can Renew Until
+	 *
+	 * @param	\IPS\nexus\Purchase	$purchase	The purchase
+	 * @param	bool					$admin		If TRUE, is for ACP. If FALSE, is for front-end.
+	 * @return	\IPS\DateTime|bool				TRUE means can renew as much as they like. FALSE means cannot renew at all. \IPS\DateTime means can renew until that date
+	 */
+	public static function canRenewUntil( \IPS\nexus\Purchase $purchase, $admin )
+	{
+		if( $admin )
+		{
+			return TRUE;
+		}
+
+		return static::canBeRenewed( $purchase );
 	}
 }
