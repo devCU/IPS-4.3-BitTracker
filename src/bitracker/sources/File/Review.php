@@ -4,13 +4,13 @@
  * @author      Gary Cornell for devCU Software Open Source Projects
  * @copyright   (c) <a href='https://www.devcu.com'>devCU Software Development</a>
  * @license     GNU General Public License v3.0
- * @package     Invision Community Suite 4.2x
+ * @package     Invision Community Suite 4.2x/4.3x
  * @subpackage	BitTracker
- * @version     1.0.0 Beta 1
+ * @version     1.0.0 Beta 2
  * @source      https://github.com/GaalexxC/IPS-4.2-BitTracker
  * @Issue Trak  https://www.devcu.com/forums/devcu-tracker/ips4bt/
  * @Created     11 FEB 2018
- * @Updated     27 FEB 2018
+ * @Updated     24 MAY 2018
  *
  *                    GNU General Public License v3.0
  *    This program is free software: you can redistribute it and/or modify       
@@ -39,9 +39,9 @@ if ( !defined( '\IPS\SUITE_UNIQUE_KEY' ) )
 /**
  * File Review Model
  */
-class _Review extends \IPS\Content\Review implements \IPS\Content\EditHistory, \IPS\Content\ReportCenter, \IPS\Content\Hideable, \IPS\Content\Searchable, \IPS\Content\Embeddable
+class _Review extends \IPS\Content\Review implements \IPS\Content\EditHistory, \IPS\Content\Hideable, \IPS\Content\Searchable, \IPS\Content\Embeddable
 {
-	use \IPS\Content\Reactable;
+	use \IPS\Content\Reactable, \IPS\Content\Reportable;
 	
 	/**
 	 * @brief	[ActiveRecord] Multiton Store
@@ -81,6 +81,7 @@ class _Review extends \IPS\Content\Review implements \IPS\Content\EditHistory, \
 		'votes_helpful'		=> 'votes_helpful',
 		'votes_data'		=> 'votes_data',
 		'approved'			=> 'approved',
+		'author_response'	=> 'author_response',
 	);
 	
 	/**
