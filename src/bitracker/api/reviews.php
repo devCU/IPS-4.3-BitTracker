@@ -73,7 +73,7 @@ class _reviews extends \IPS\Content\Api\CommentController
 	 *
 	 * @param		int		$id			ID Number
 	 * @throws		2D305/1	INVALID_ID	The review ID does not exist or the authorized user does not have permission to view it
-	 * @return		\IPS\downloads\File\Review
+	 * @return		\IPS\bitracker\File\Review
 	 */
 	public function GETitem( $id )
 	{
