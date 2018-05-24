@@ -18,7 +18,7 @@
 *** This will be fully 4.3x compatible as the new IPS major version doesn't change anything to effect this app for 4.2x - 4.3x
 If wholesale changes are needed for the new IPS version I will split this release and create a 4.3x version but doesn't look necessary at this time. 
     
-# IPS 4.2 BitTracker
+# IPS 4.2x/4.3x BitTracker
 
 ```
 <?php
