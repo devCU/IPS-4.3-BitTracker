@@ -4,13 +4,13 @@
  * @author      Gary Cornell for devCU Software Open Source Projects
  * @copyright   (c) <a href='https://www.devcu.com'>devCU Software Development</a>
  * @license     GNU General Public License v3.0
- * @package     Invision Community Suite 4.2x
+ * @package     Invision Community Suite 4.2x/4.3x
  * @subpackage	BitTracker
- * @version     1.0.0 Beta 1
+ * @version     1.0.0 Beta 2
  * @source      https://github.com/GaalexxC/IPS-4.2-BitTracker
  * @Issue Trak  https://www.devcu.com/forums/devcu-tracker/ips4bt/
  * @Created     11 FEB 2018
- * @Updated     27 FEB 2018
+ * @Updated     24 MAY 2018
  *
  *                    GNU General Public License v3.0
  *    This program is free software: you can redistribute it and/or modify       
@@ -596,10 +596,11 @@ class _Category extends \IPS\Node\Model implements \IPS\Node\Permissions
 	 *
 	 * @param	mixed								$permission		A key which has a value in static::$permissionMap['view'] matching a column ID in core_permission_index
 	 * @param	\IPS\Member|\IPS\Member\Group|NULL	$member			The member or group to check (NULL for currently logged in member)
+	 * @param	array								$where			Additional WHERE clause
 	 * @return	bool
 	 * @throws	\OutOfBoundsException	If $permission does not exist in static::$permissionMap
 	 */
-	public static function canOnAny( $permission, $member=NULL )
+	public static function canOnAny( $permission, $member=NULL, $where = array() )
 	{
 		$member	= ( $member === NULL ) ? \IPS\Member::loggedIn() : $member;
 
@@ -608,7 +609,7 @@ class _Category extends \IPS\Node\Model implements \IPS\Node\Permissions
 			return FALSE;
 		}
 
-		return parent::canOnAny( $permission, $member );
+		return parent::canOnAny( $permission, $member, $where );
 	}
 
 	/**
@@ -802,11 +803,30 @@ class _Category extends \IPS\Node\Model implements \IPS\Node\Permissions
 			$this->bitoptions[ $k ] = $values[ 'cbitoptions_' . $k ];
 		}
 		
-		$this->types = implode( ',', $values['ctypes'] );
+		if( isset( $values['ctypes'] ) )
+		{
+			$this->types = implode( ',', $values['ctypes'] );
+		}
 		
 		if ( $values['club_node_name'] )
 		{
 			$this->name_furl = \IPS\Http\Url\Friendly::seoTitle( $values['club_node_name'] );
 		}
+		
+		if ( !$this->_id )
+		{
+			$this->save();
+			\IPS\File::claimAttachments( 'downloads-new-cat', $this->id, NULL, 'description' );
+		}
+	}
+	
+	/**
+	 * Files in clubs the member can view
+	 *
+	 * @return	int
+	 */
+	public static function filesInClubNodes()
+	{
+		return \IPS\bitracker\File::getItemsWithPermission( array( array( static::$databasePrefix . static::clubIdColumn() . ' IS NOT NULL' ) ), NULL, 1, 'read', \IPS\Content\Hideable::FILTER_AUTOMATIC, 0, NULL, TRUE, FALSE, FALSE, TRUE );
 	}
 }
