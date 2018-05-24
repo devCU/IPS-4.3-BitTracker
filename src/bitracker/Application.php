@@ -4,13 +4,13 @@
  * @author      Gary Cornell for devCU Software Open Source Projects
  * @copyright   (c) <a href='https://www.devcu.com'>devCU Software Development</a>
  * @license     GNU General Public License v3.0
- * @package     Invision Community Suite 4.2x
+ * @package     Invision Community Suite 4.2x/4.3x
  * @subpackage	BitTracker
- * @version     1.0.0 Beta 1
+ * @version     1.0.0 Beta 2
  * @source      https://github.com/GaalexxC/IPS-4.2-BitTracker
  * @Issue Trak  https://www.devcu.com/forums/devcu-tracker/ips4bt/
  * @Created     11 FEB 2018
- * @Updated     26 MAR 2018
+ * @Updated     24 MAY 2018
  *
  *                    GNU General Public License v3.0
  *    This program is free software: you can redistribute it and/or modify       
@@ -34,7 +34,6 @@ namespace IPS\bitracker;
  */
 class _Application extends \IPS\Application
 {
-
 	/**
 	 * Init
 	 *
@@ -42,7 +41,7 @@ class _Application extends \IPS\Application
 	 */
 	public function init()
 	{
-		/* Can view bitracker app? */
+		/* If the viewing member cannot view the board (ex: guests must login first), then send a 404 Not Found header here, before the Login page shows in the dispatcher */
 		if ( !\IPS\Member::loggedIn()->group['g_view_board'] and ( \IPS\Request::i()->module == 'bitracker' and \IPS\Request::i()->controller == 'browse' and \IPS\Request::i()->do == 'rss' ) )
 		{
 			\IPS\Output::i()->error( 'node_error', '2D220/1', 404, '' );
@@ -54,7 +53,7 @@ class _Application extends \IPS\Application
 		{
 			\IPS\Output::i()->cssFiles = array_merge( \IPS\Output::i()->cssFiles, \IPS\Theme::i()->css( 'bitracker_responsive.css', 'bitracker', 'front' ) );
 		}
-	} 
+	}
 
 	/**
 	 * [Node] Get Icon for tree
@@ -98,5 +97,29 @@ class _Application extends \IPS\Application
 			'browseTabsEnd'	=> array(),
 			'activityTabs'	=> array()
 		);
+	}
+	
+	/**
+	 * Perform some legacy URL parameter conversions
+	 *
+	 * @return	void
+	 */
+	public function convertLegacyParameters()
+	{
+		if ( isset( \IPS\Request::i()->showfile ) AND is_numeric( \IPS\Request::i()->showfile ) )
+		{
+			try
+			{
+				$file = \IPS\downloads\File::loadAndCheckPerms( \IPS\Request::i()->showfile );
+				
+				\IPS\Output::i()->redirect( $file->url() );
+			}
+			catch( \OutOfRangeException $e ) {}
+		}
+
+		if ( isset( \IPS\Request::i()->module ) AND \IPS\Request::i()->module == 'post' AND isset( \IPS\Request::i()->controller ) AND \IPS\Request::i()->controller == 'submit' )
+		{
+			\IPS\Output::i()->redirect( \IPS\Http\Url::internal( "app=bitracker&module=bitracker&controller=submit", "front", "bitracker_submit" ) );
+		}
 	}
 }
