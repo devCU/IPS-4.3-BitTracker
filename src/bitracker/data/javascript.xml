@@ -1,78 +1,190 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <javascript app="bitracker">
- <file javascript_app="bitracker" javascript_location="front" javascript_path="controllers/submit" javascript_name="ips.submit.linkedScreenshots.js" javascript_type="controller" javascript_version="102042" javascript_position="1000050">/**&#13;
- * Invision Community&#13;
- * (c) Invision Power Services, Inc. - https://www.invisioncommunity.com&#13;
- *&#13;
- * ips.submit.linkedScreenshots.js - Controller to handle linked screenshots&#13;
- *&#13;
- * Author: Mark Wade&#13;
- */&#13;
-;( function($, _, undefined){&#13;
-	&quot;use strict&quot;;&#13;
-&#13;
-	ips.controller.register('bitracker.front.submit.linkedScreenshots', {&#13;
-&#13;
-		initialize: function () {&#13;
-			this.on( 'click', '[data-action=&quot;addField&quot;]', this.addFieldButton );&#13;
-			this.on( 'click', '[data-action=&quot;removeField&quot;]', this.removeField );&#13;
-			this.setup();&#13;
-		},&#13;
-&#13;
-		/**&#13;
-		 * Setup method&#13;
-		 *&#13;
-		 * @returns 	{void}&#13;
-		 */&#13;
-		setup: function () {&#13;
-			var initialValues = $.parseJSON( $(this.scope).attr('data-initialValue') );&#13;
-&#13;
-			if( initialValues == null )&#13;
-			{&#13;
-				return;&#13;
-			}&#13;
-&#13;
-			var i;&#13;
-			for ( i in initialValues.values ) {&#13;
-				this.addField( i, initialValues.values[i], i == initialValues.default );&#13;
-			}&#13;
-		},&#13;
-		&#13;
-		/**&#13;
-		 * Add a field&#13;
-		 *&#13;
-		 * @returns 	{void}&#13;
-		 */&#13;
-		addField: function ( id, value, isDefault ) {&#13;
-			$(this.scope).find('[data-role=&quot;fieldsArea&quot;]').append( ips.templates.render( 'bitracker.submit.linkedScreenshot', {&#13;
-				'name': $(this.scope).attr('data-name'),&#13;
-				'id': id,&#13;
-				'value': value,&#13;
-				'extra': isDefault ? 'checked' : ''&#13;
-			}) );&#13;
-		},&#13;
-		&#13;
-		/**&#13;
-		 * Remove a field&#13;
-		 *&#13;
-		 * @returns 	{void}&#13;
-		 */&#13;
-		removeField: function ( e ) {&#13;
-			e.preventDefault();&#13;
-			$(e.currentTarget).closest('li').remove();&#13;
-		},&#13;
-		&#13;
-		/**&#13;
-		 * Respond to add button&#13;
-		 *&#13;
-		 * @returns 	{void}&#13;
-		 */&#13;
-		addFieldButton: function () {&#13;
-			this.addField( 'linked_' + new Date().getTime(), '', false );&#13;
-		}&#13;
-	});&#13;
+ <file javascript_app="bitracker" javascript_location="front" javascript_path="controllers/bitracker" javascript_name="ips.bitracker.browse.js" javascript_type="controller" javascript_version="103011" javascript_position="1000200">/**
+ * Invision Community
+ * (c) Invision Power Services, Inc. - https://www.invisioncommunity.com
+ *
+ * ips.bitracker.browse.js - Handles general browsing controller needs
+ *
+ * Author: Brandon Farber
+ */
+;( function($, _, undefined){
+	&quot;use strict&quot;;
+
+	ips.controller.register('bitracker.front.bitracker.browse', {
+
+		initialize: function () {
+			this.on( 'click', '[data-action=&quot;markCategoryRead&quot;]', this.markCategoryRead );
+		},
+
+		/**
+		 * Marks all files in a category as read, triggering an event on the table
+		 *
+		 * @param 	{event} 	e 	Event object
+		 * @returns {void}
+		 */
+		markCategoryRead: function (e) {
+			e.preventDefault();
+
+			var self = this;
+
+			ips.ui.alert.show( {
+				type: 'confirm',
+				icon: 'question',
+				message: ips.getString('markCategoryAsReadConfirm'),
+				subText: '',
+				callbacks: {
+					ok: function () {
+						var url = $( e.currentTarget ).attr('href');
+
+						ips.getAjax()( url, {
+							showLoading: true,
+							bypassRedirect: true
+						})
+							.done( function () {
+								// Trigger event on the table to hide unread markets
+								self.triggerOn( 'core.global.core.table', 'markTableRead' );
+
+								// Hide the link we've just clicked
+								ips.utils.anim.go( 'fadeOut', $( e.currentTarget ) );
+
+								ips.ui.flashMsg.show( ips.getString('categoryMarkedRead') );
+							})
+							.fail( function (jqXHR, textStatus, errorThrown) {
+								window.location = url;
+							});
+					}
+				}
+			});
+		}
+	});
 }(jQuery, _));</file>
- <file javascript_app="bitracker" javascript_location="front" javascript_path="controllers/submit" javascript_name="ips.submit.main.js" javascript_type="controller" javascript_version="102042" javascript_position="1000050"><![CDATA[/**
+ <file javascript_app="bitracker" javascript_location="admin" javascript_path="controllers/settings" javascript_name="ips.settings.settings.js" javascript_type="controller" javascript_version="103011" javascript_position="1000050">/**
+ * Invision Community
+ * (c) Invision Power Services, Inc. - https://www.invisioncommunity.com
+ *
+ * ips.settings.settings.js
+ *
+ * Author: Stuart Silvester
+ */
+;( function($, _, undefined){
+	&quot;use strict&quot;;
+
+	ips.controller.register('bitracker.admin.settings.settings', {
+		alertOpen: false,
+
+		initialize: function () {
+			this.on( 'uploadComplete', '[data-ipsUploader]', this.promptRebuildPreference );
+			this.on( 'fileDeleted', this.promptRebuildPreference );
+		},
+
+		promptRebuildPreference: function (e) {
+
+			if( this.alertOpen )
+			{
+				return;
+			}
+
+			this.alertOpen = true;
+
+			/* Show Rebuild Prompt */
+			ips.ui.alert.show({
+				type: 'confirm',
+				message: ips.getString('bitrackerScreenshotsWatermark'),
+				subText: ips.getString('bitrackerScreenshotsWatermarkBlurb'),
+				icon: 'question',
+				buttons: {
+					ok: ips.getString('bitrackerScreenshotsWatermarkYes'),
+					cancel: ips.getString('bitrackerScreenshotsWatermarkNo')
+				},
+				callbacks: {
+					ok: function(){
+						$('input[name=rebuildWatermarkScreenshots]').val( 1 );
+						this.alertOpen = false;
+					},
+					cancel: function(){
+						$('input[name=rebuildWatermarkScreenshots]').val( 0 );
+						this.alertOpen = false;
+					}
+				}
+			});
+		}
+
+	});
+}(jQuery, _));</file>
+ <file javascript_app="bitracker" javascript_location="front" javascript_path="controllers/submit" javascript_name="ips.submit.linkedScreenshots.js" javascript_type="controller" javascript_version="103011" javascript_position="1000100">/**
+ * Invision Community
+ * (c) Invision Power Services, Inc. - https://www.invisioncommunity.com
+ *
+ * ips.submit.linkedScreenshots.js - Controller to handle linked screenshots
+ *
+ * Author: Mark Wade
+ */
+;( function($, _, undefined){
+	&quot;use strict&quot;;
+
+	ips.controller.register('bitracker.front.submit.linkedScreenshots', {
+
+		initialize: function () {
+			this.on( 'click', '[data-action=&quot;addField&quot;]', this.addFieldButton );
+			this.on( 'click', '[data-action=&quot;removeField&quot;]', this.removeField );
+			this.setup();
+		},
+
+		/**
+		 * Setup method
+		 *
+		 * @returns 	{void}
+		 */
+		setup: function () {
+			var initialValues = $.parseJSON( $(this.scope).attr('data-initialValue') );
+
+			if( initialValues == null )
+			{
+				return;
+			}
+
+			var i;
+			for ( i in initialValues.values ) {
+				this.addField( i, initialValues.values[i], i == initialValues.default );
+			}
+		},
+		
+		/**
+		 * Add a field
+		 *
+		 * @returns 	{void}
+		 */
+		addField: function ( id, value, isDefault ) {
+			$(this.scope).find('[data-role=&quot;fieldsArea&quot;]').append( ips.templates.render( 'bitracker.submit.linkedScreenshot', {
+				'name': $(this.scope).attr('data-name'),
+				'id': id,
+				'value': value,
+				'extra': isDefault ? 'checked' : ''
+			}) );
+		},
+		
+		/**
+		 * Remove a field
+		 *
+		 * @returns 	{void}
+		 */
+		removeField: function ( e ) {
+			e.preventDefault();
+			$(e.currentTarget).closest('li').remove();
+		},
+		
+		/**
+		 * Respond to add button
+		 *
+		 * @returns 	{void}
+		 */
+		addFieldButton: function () {
+			this.addField( 'linked_' + new Date().getTime(), '', false );
+		}
+	});
+}(jQuery, _));</file>
+ <file javascript_app="bitracker" javascript_location="front" javascript_path="controllers/submit" javascript_name="ips.submit.main.js" javascript_type="controller" javascript_version="103011" javascript_position="1000100"><![CDATA[/**
  * Invision Community
  * (c) Invision Power Services, Inc. - https://www.invisioncommunity.com
  *
@@ -475,7 +587,7 @@
 		}
 	});
 }(jQuery, _));]]></file>
- <file javascript_app="bitracker" javascript_location="front" javascript_path="controllers/view" javascript_name="ips.view.changeLog.js" javascript_type="controller" javascript_version="102042" javascript_position="1000100"><![CDATA[/**
+ <file javascript_app="bitracker" javascript_location="front" javascript_path="controllers/view" javascript_name="ips.view.changeLog.js" javascript_type="controller" javascript_version="103011" javascript_position="1000150"><![CDATA[/**
  * Invision Community
  * (c) Invision Power Services, Inc. - https://www.invisioncommunity.com
  *
@@ -596,134 +708,134 @@
 		
 	});
 }(jQuery, _));]]></file>
- <file javascript_app="bitracker" javascript_location="front" javascript_path="controllers/view" javascript_name="ips.view.tracker.js" javascript_type="controller" javascript_version="102042" javascript_position="1000100">/**&#13;
- * Invision Community&#13;
- * (c) Invision Power Services, Inc. - https://www.invisioncommunity.com&#13;
- *&#13;
- * ips.view.tracker.js - Bitracker popup controller&#13;
- *&#13;
- * Author: Rikki Tissier&#13;
- */&#13;
-;( function($, _, undefined){&#13;
-	&quot;use strict&quot;;&#13;
-&#13;
-	ips.controller.register('bitracker.front.view.tracker', {&#13;
-&#13;
-		initialize: function () {&#13;
-			this.on( 'click', '[data-action=&quot;dialogClose&quot;]', this.closeDialog );&#13;
-			this.on( 'click', '[data-action=&quot;selectFile&quot;]', this.selectFile );&#13;
-			this.on( 'click', '[data-action=&quot;download&quot;]', this.doBitrack );&#13;
-		},&#13;
-&#13;
-		/**&#13;
-		 * Agree to the terms and update the display to show the list&#13;
-		 *&#13;
-		 * @param 		{event} 	e 		Event object&#13;
-		 * @returns 	{void}&#13;
-		 */&#13;
-		selectFile: function (e) {&#13;
-			var url = $( e.currentTarget ).attr('href');&#13;
-			var self = this;&#13;
-&#13;
-			e.preventDefault();&#13;
-&#13;
-			// Load the download page&#13;
-			this.scope&#13;
-				.html('')&#13;
-				.css({&#13;
-					height: '250px'&#13;
-				})&#13;
-				.addClass('ipsLoading');&#13;
-&#13;
-			ips.getAjax()( url )&#13;
-				.done( function (response) {&#13;
-					self.scope&#13;
-						.html( response )&#13;
-						.css({&#13;
-							height: 'auto'&#13;
-						})&#13;
-						.removeClass('ipsLoading');&#13;
-				})&#13;
-				.fail( function (jqXHR, textStatus, errorThrown) {&#13;
-					window.location = url;&#13;
-				});&#13;
-		},&#13;
-		&#13;
-		/**&#13;
-		 * Event handler for the 'cancel' link&#13;
-		 *&#13;
-		 * @param 		{event} 	e 		Event object&#13;
-		 * @returns 	{void}&#13;
-		 */&#13;
-		closeDialog: function (e) {&#13;
-			e.preventDefault();&#13;
-			this._closeDialog( $( e.currentTarget ).attr('href') );&#13;
-		},&#13;
-&#13;
-		/**&#13;
-		 * Closes the dialog&#13;
-		 *&#13;
-		 * @param 		{string} 	href 	Href to redirect to if not in a dialog&#13;
-		 * @returns 	{void}&#13;
-		 */&#13;
-		_closeDialog: function (href) {&#13;
-			if( this.scope.closest('.ipsDialog').length ){&#13;
-				this.scope.closest('.ipsDialog').trigger('closeDialog');&#13;
-			} else {&#13;
-				window.location = href;&#13;
-			}&#13;
-		},&#13;
-&#13;
-		/**&#13;
-		 * Initiate the actual download&#13;
-		 *&#13;
-		 * @param 		{event} 	e 		Event object&#13;
-		 * @returns 	{void}&#13;
-		 */&#13;
-		doBitrack: function (e) {&#13;
-			var that = this;&#13;
-			if ( $( e.currentTarget ).attr('data-wait') ) {&#13;
-				e.preventDefault();&#13;
-				&#13;
-				ips.getAjax()( $( e.currentTarget ).attr('href') )&#13;
-					.done( function (response) {&#13;
-						var secondsRemaining = response.tracker - response.currentTime;&#13;
-						&#13;
-						$( e.currentTarget )&#13;
-							.hide()&#13;
-							.siblings()&#13;
-								.find('[data-role=&quot;bitrackCounter&quot;]')&#13;
-									.html( secondsRemaining )&#13;
-								.end()&#13;
-							.end()&#13;
-							.siblings('[data-role=&quot;bitrackCounterContainer&quot;]')&#13;
-								.removeClass('ipsHide');&#13;
-						&#13;
-						var interval = setInterval( function () {&#13;
-							secondsRemaining--;&#13;
-							$( e.currentTarget ).siblings().find('[data-role=&quot;bitrackCounter&quot;]').html( secondsRemaining );&#13;
-							if ( secondsRemaining === 0 ) {&#13;
-								clearInterval(interval);&#13;
-								window.location = $( e.currentTarget ).attr('href');&#13;
-                                that.scope.closest('.ipsDialog').trigger('closeDialog');&#13;
-							}&#13;
-						}, 1000 );						&#13;
-					})&#13;
-					.fail( function () {&#13;
-						window.location = $(e.currentTarget).attr('href');&#13;
-					})&#13;
-			}&#13;
-			else&#13;
-			{&#13;
-                this.scope.closest('.ipsDialog').trigger('closeDialog');&#13;
-			}&#13;
-		}&#13;
-		&#13;
-	});&#13;
+ <file javascript_app="bitracker" javascript_location="front" javascript_path="controllers/view" javascript_name="ips.view.tracker.js" javascript_type="controller" javascript_version="103011" javascript_position="1000150">/**
+ * Invision Community
+ * (c) Invision Power Services, Inc. - https://www.invisioncommunity.com
+ *
+ * ips.view.tracker.js - Download popup controller
+ *
+ * Author: Rikki Tissier
+ */
+;( function($, _, undefined){
+	&quot;use strict&quot;;
+
+	ips.controller.register('bitracker.front.view.tracker', {
+
+		initialize: function () {
+			this.on( 'click', '[data-action=&quot;dialogClose&quot;]', this.closeDialog );
+			this.on( 'click', '[data-action=&quot;selectFile&quot;]', this.selectFile );
+			this.on( 'click', '[data-action=&quot;download&quot;]', this.doBitrack );
+		},
+
+		/**
+		 * Agree to the terms and update the display to show the list
+		 *
+		 * @param 		{event} 	e 		Event object
+		 * @returns 	{void}
+		 */
+		selectFile: function (e) {
+			var url = $( e.currentTarget ).attr('href');
+			var self = this;
+
+			e.preventDefault();
+
+			// Load the download page
+			this.scope
+				.html('')
+				.css({
+					height: '250px'
+				})
+				.addClass('ipsLoading');
+
+			ips.getAjax()( url )
+				.done( function (response) {
+					self.scope
+						.html( response )
+						.css({
+							height: 'auto'
+						})
+						.removeClass('ipsLoading');
+				})
+				.fail( function (jqXHR, textStatus, errorThrown) {
+					window.location = url;
+				});
+		},
+		
+		/**
+		 * Event handler for the 'cancel' link
+		 *
+		 * @param 		{event} 	e 		Event object
+		 * @returns 	{void}
+		 */
+		closeDialog: function (e) {
+			e.preventDefault();
+			this._closeDialog( $( e.currentTarget ).attr('href') );
+		},
+
+		/**
+		 * Closes the dialog
+		 *
+		 * @param 		{string} 	href 	Href to redirect to if not in a dialog
+		 * @returns 	{void}
+		 */
+		_closeDialog: function (href) {
+			if( this.scope.closest('.ipsDialog').length ){
+				this.scope.closest('.ipsDialog').trigger('closeDialog');
+			} else {
+				window.location = href;
+			}
+		},
+
+		/**
+		 * Initiate the actual download
+		 *
+		 * @param 		{event} 	e 		Event object
+		 * @returns 	{void}
+		 */
+		doBitrack: function (e) {
+			var that = this;
+			if ( $( e.currentTarget ).attr('data-wait') ) {
+				e.preventDefault();
+				
+				ips.getAjax()( $( e.currentTarget ).attr('href') )
+					.done( function (response) {
+						var secondsRemaining = response.download - response.currentTime;
+						
+						$( e.currentTarget )
+							.hide()
+							.siblings()
+								.find('[data-role=&quot;downloadCounter&quot;]')
+									.html( secondsRemaining )
+								.end()
+							.end()
+							.siblings('[data-role=&quot;downloadCounterContainer&quot;]')
+								.removeClass('ipsHide');
+						
+						var interval = setInterval( function () {
+							secondsRemaining--;
+							$( e.currentTarget ).siblings().find('[data-role=&quot;downloadCounter&quot;]').html( secondsRemaining );
+							if ( secondsRemaining === 0 ) {
+								clearInterval(interval);
+								window.location = $( e.currentTarget ).attr('href');
+                                that.scope.closest('.ipsDialog').trigger('closeDialog');
+							}
+						}, 1000 );						
+					})
+					.fail( function () {
+						window.location = $(e.currentTarget).attr('href');
+					})
+			}
+			else
+			{
+                this.scope.closest('.ipsDialog').trigger('closeDialog');
+			}
+		}
+		
+	});
 }(jQuery, _));</file>
- <file javascript_app="bitracker" javascript_location="front" javascript_path="templates" javascript_name="ips.templates.submit.js" javascript_type="template" javascript_version="102042" javascript_position="1000150"><![CDATA[/* VIEW TEMPLATES */
+ <file javascript_app="bitracker" javascript_location="front" javascript_path="templates" javascript_name="ips.templates.submit.js" javascript_type="template" javascript_version="103011" javascript_position="1000050"><![CDATA[/* VIEW TEMPLATES */
 ips.templates.set('bitracker.submit.screenshot', " \
-	<div class='ipsGrid_span3 ipsAttach ipsImageAttach ipsPad_half ipsAreaBackground_light' id='{{id}}' data-role='file' data-fileid='{{id}}' data-fullsizeurl='{{imagesrc}}' data-thumbnailurl='{{thumbnail}}' data-isImage='1'>\
+	<div class='ipsGrid_span3 ipsAttach ipsImageAttach ipsPad_half ipsAreaBackground_light' id='{{id}}' data-role='file' data-fileid='{{id}}' data-fullsizeurl='{{imagesrc}}' data-thumbnailurl='{{thumbnail}}' data-fileType='image'>\
 		<ul class='ipsList_inline ipsImageAttach_controls'>\
 			<li><input type='radio' name='{{field_name}}_primary_screenshot' id='{{field_name}}_primary_screenshot_{{id}}' value='{{id}}' title='{{#lang}}makePrimaryScreenshot{{/lang}}' {{#default}}checked{{/default}}></li>\
 			<li class='ipsPos_right' data-role='deleteFileWrapper'>\
@@ -762,21 +874,21 @@ ips.templates.set('bitracker.submit.linkedScreenshot', " \
 		</div>\
 	</li>\
 ");]]></file>
- <order app="global" path="/dev/js//framework/">templates&#13;
-common/ips.loader.js&#13;
-common/ui&#13;
-common/utils&#13;
-common&#13;
+ <order app="global" path="/dev/js//framework/">templates
+common/ips.loader.js
+common/ui
+common/utils
+common
 controllers</order>
- <order app="global" path="/dev/js//library/">underscore&#13;
-jquery&#13;
-mustache&#13;
-jstz&#13;
-Debug.js&#13;
+ <order app="global" path="/dev/js//library/">underscore
+jquery
+mustache
+jstz
+Debug.js
 app.js</order>
- <order app="global" path="/dev/js//library//jquery">jquery.js&#13;
-jquery.history.js&#13;
+ <order app="global" path="/dev/js//library//jquery">jquery.js
+jquery.history.js
 jquery.transform.js</order>
- <order app="global" path="/dev/js//library//linkify">linkify.min.js&#13;
+ <order app="global" path="/dev/js//library//linkify">linkify.min.js
 linkify-jquery.min.js</order>
 </javascript>
