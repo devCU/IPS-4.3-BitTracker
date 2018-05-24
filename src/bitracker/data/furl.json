@@ -33,6 +33,10 @@
 		    "real": "app=bitracker&module=bitracker&controller=browse",
 		    "verify": "\\IPS\\bitracker\\Category"
 	    },
+	    "bitracker_clubs": {
+		    "friendly": "category/clubs",
+		    "real": "app=bitracker&module=bitracker&controller=browse&id=clubs"
+	    },
 	    "bitracker_categories": {
 		    "friendly": "categories",
 		    "real": "app=bitracker&module=bitracker&controller=browse&do=categories"
