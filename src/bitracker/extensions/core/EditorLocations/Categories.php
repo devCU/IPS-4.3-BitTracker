@@ -4,13 +4,13 @@
  * @author      Gary Cornell for devCU Software Open Source Projects
  * @copyright   (c) <a href='https://www.devcu.com'>devCU Software Development</a>
  * @license     GNU General Public License v3.0
- * @package     Invision Community Suite 4.2x
+ * @package     Invision Community Suite 4.2x/4.3x
  * @subpackage	BitTracker
- * @version     1.0.0 Beta 1
+ * @version     1.0.0 Beta 2
  * @source      https://github.com/GaalexxC/IPS-4.2-BitTracker
  * @Issue Trak  https://www.devcu.com/forums/devcu-tracker/ips4bt/
  * @Created     11 FEB 2018
- * @Updated     27 FEB 2018
+ * @Updated     25 MAY 2018
  *
  *                    GNU General Public License v3.0
  *    This program is free software: you can redistribute it and/or modify       
@@ -67,14 +67,15 @@ class _Categories
 	/**
 	 * Permission check for attachments
 	 *
-	 * @param	\IPS\Member	$member	The member
-	 * @param	int|null	$id1	Primary ID
-	 * @param	int|null	$id2	Secondary ID
-	 * @param	string|null	$id3	Arbitrary data
+	 * @param	\IPS\Member	$member		The member
+	 * @param	int|null	$id1		Primary ID
+	 * @param	int|null	$id2		Secondary ID
+	 * @param	string|null	$id3		Arbitrary data
 	 * @param	array		$attachment	The attachment data
+	 * @param	bool		$viewOnly	If true, just check if the user can see the attachment rather than download it
 	 * @return	bool
 	 */
-	public function attachmentPermissionCheck( $member, $id1, $id2, $id3, $attachment )
+	public function attachmentPermissionCheck( $member, $id1, $id2, $id3, $attachment, $viewOnly=FALSE )
 	{
 		try
 		{
