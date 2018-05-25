@@ -4,13 +4,13 @@
  * @author      Gary Cornell for devCU Software Open Source Projects
  * @copyright   (c) <a href='https://www.devcu.com'>devCU Software Development</a>
  * @license     GNU General Public License v3.0
- * @package     Invision Community Suite 4.2x
+ * @package     Invision Community Suite 4.2x/4.3x
  * @subpackage	BitTracker
- * @version     1.0.0 Beta 1
+ * @version     1.0.0 Beta 2
  * @source      https://github.com/GaalexxC/IPS-4.2-BitTracker
  * @Issue Trak  https://www.devcu.com/forums/devcu-tracker/ips4bt/
  * @Created     11 FEB 2018
- * @Updated     27 FEB 2018
+ * @Updated     25 MAY 2018
  *
  *                    GNU General Public License v3.0
  *    This program is free software: you can redistribute it and/or modify       
@@ -48,15 +48,26 @@ class _File
 	 */
 	public function getItems()
 	{		
-		if ( \IPS\bitracker\Category::canOnAny( 'add' ) )
+		if ( \IPS\bitracker\Category::canOnAny( 'add', NULL, \IPS\Settings::i()->club_nodes_in_apps ? array() : array( array( 'cclub_id IS NULL' ) ) ) )
 		{
-			return array(
-				'file_bitrack' => array(
-					'link' 		=> \IPS\Http\Url::internal( "app=bitracker&module=bitracker&controller=submit&_new=1", 'front', 'bitracker_submit' ),
-					'title' 	=> 'select_category',
-					'extraData'	=> array( 'data-ipsDialog' => true, 'data-ipsDialog-size' => "narrow" )
-				)
-			);
+			if ( !\IPS\Settings::i()->club_nodes_in_apps and $theOnlyNode = \IPS\bitracker\Category::theOnlyNode() AND !\IPS\Member::loggedIn()->group['bit_bulk_submit'] )
+			{
+				return array(
+					'file_bitrack' => array(
+						'link' 	=> \IPS\Http\Url::internal( "app=bitracker&module=bitracker&controller=submit&do=submit&_new=1&category=" . $theOnlyNode->_id, 'front', 'bitracker_submit' ),
+					)
+				);
+			}
+			else
+			{
+				return array(
+					'file_bitrack' => array(
+						'link' 		=> \IPS\Http\Url::internal( "app=bitracker&module=bitracker&controller=submit&_new=1", 'front', 'bitracker_submit' ),
+						'title' 	=> 'select_category',
+						'extraData'	=> array( 'data-ipsDialog' => true, 'data-ipsDialog-size' => "narrow" )
+					)
+				);
+			}
 		}
 		
 		
