@@ -13,9 +13,7 @@
 
 [![donate](https://www.devcu.com/images/donate.png)](https://www.devcu.com/forums/topic/739-help-support-our-work/)
 
-*** May 1st - Back from my well deserved vacation and I feel refreshed and ready to bang the rest of this out. I am hoping for a late May release at this point. backend is pretty much done, front end Id say 75% so not much more to go before we can start testing this and iron out any bugs or missing functions.
-
-*** This will be fully 4.3x compatible as the new IPS major version doesn't change anything to effect this app for 4.2x - 4.3x
+*** This will be fully 4.3x compatible as the new IPS major version doesn't change much to effect this app for 4.2x >> 4.3x
 If wholesale changes are needed for the new IPS version I will split this release and create a 4.3x version but doesn't look necessary at this time. 
     
 # IPS 4.2x/4.3x BitTracker
@@ -33,7 +31,7 @@ If wholesale changes are needed for the new IPS version I will split this releas
  * @source      https://github.com/GaalexxC/IPS-4.2-BitTracker
  * @Issue Trak  https://www.devcu.com/forums/devcu-tracker/ips4bt/
  * @Created     11 FEB 2018
- * @Updated     24 MAY 2018
+ * @Updated     25 MAY 2018
  *
  *                    GNU General Public License v3.0
  *    This program is free software: you can redistribute it and/or modify       
@@ -56,7 +54,7 @@ If wholesale changes are needed for the new IPS version I will split this releas
 - 05/24/18 entered Beta 2
     - Upgrading for 4.3x compatibility
     - Refactoring front module and controllers for better organization and expandability
-    - Making sure everything fills it purpose and is tied together for Beta 3 full testing
+    - Making sure everything fills it purpose and is tied together for Beta 3 internal testing
 
 - 02/11/18 finally got around to working on this
 
