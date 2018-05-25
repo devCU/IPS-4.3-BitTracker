@@ -49,7 +49,7 @@ class _Categories
 	/**
 	 * @brief	Controller classes
 	 */
-	public static $controllers = array( "IPS\\downloads\\modules\\front\\bitracker\\browse" );
+	public static $controllers = array( "IPS\\bitracker\\modules\\front\\bitracker\\browse" );
 	
 	/**
 	 * Get Setting Field
