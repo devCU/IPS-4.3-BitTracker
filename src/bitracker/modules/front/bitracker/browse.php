@@ -4,13 +4,13 @@
  * @author      Gary Cornell for devCU Software Open Source Projects
  * @copyright   (c) <a href='https://www.devcu.com'>devCU Software Development</a>
  * @license     GNU General Public License v3.0
- * @package     Invision Community Suite 4.2x
+ * @package     Invision Community Suite 4.2x/4.3x
  * @subpackage	BitTracker
- * @version     1.0.0 Beta 1
+ * @version     1.0.0 Beta 2
  * @source      https://github.com/GaalexxC/IPS-4.2-BitTracker
  * @Issue Trak  https://www.devcu.com/forums/devcu-tracker/ips4bt/
  * @Created     11 FEB 2018
- * @Updated     26 MAR 2018
+ * @Updated     26 MAY 2018
  *
  *                    GNU General Public License v3.0
  *    This program is free software: you can redistribute it and/or modify       
@@ -41,28 +41,29 @@ if ( !defined( '\IPS\SUITE_UNIQUE_KEY' ) )
  */
 class _browse extends \IPS\Dispatcher\Controller
 {
-
+	
 	/**
-	 * Execute
+	 * Mark Read
 	 *
 	 * @return	void
 	 */
-	public function execute()
+	protected function markRead()
 	{
-
-		if( \IPS\Settings::i()->bit_breadcrumb_name_enable )
+		\IPS\Session::i()->csrfCheck();
+		
+		try
 		{
-		\IPS\Output::i()->breadcrumb	= array();
-		\IPS\Output::i()->breadcrumb['module'] = array( \IPS\Http\Url::internal( 'app=bitracker&module=bitracker&controller=browse', 'front', 'bitracker' ), \IPS\Settings::i()->bit_breadcrumb_name );
-        }
-       else
-        {
-		\IPS\Output::i()->breadcrumb	= array();
-		\IPS\Output::i()->breadcrumb['module'] = array( \IPS\Http\Url::internal( 'app=bitracker&module=bitracker&controller=browse', 'front', 'bitracker' ), \IPS\Settings::i()->bit_application_name );
-        }
+			$category	= \IPS\bitracker\Category::load( \IPS\Request::i()->id );
 
-		parent::execute();
-}
+			\IPS\bitracker\File::markContainerRead( $category, NULL, FALSE );
+
+			\IPS\Output::i()->redirect( $category->url() );
+		}
+		catch ( \OutOfRangeException $e )
+		{
+			\IPS\Output::i()->error( 'no_module_permission', '2D175/3', 403, 'no_module_permission_guest' );
+		}
+	}
 
 	/**
 	 * Route
@@ -78,13 +79,24 @@ class _browse extends \IPS\Dispatcher\Controller
 		
 		if ( isset( \IPS\Request::i()->id ) )
 		{
-			try
+			if ( \IPS\Request::i()->id == 'clubs' and \IPS\Settings::i()->club_nodes_in_apps )
 			{
-				$this->_category( \IPS\bitracker\Category::loadAndCheckPerms( \IPS\Request::i()->id, 'read' ) );
+				\IPS\Session::i()->setLocation( \IPS\Http\Url::internal( 'app=bitracker&module=bitracker&controller=browse&do=categories', 'front', 'bitracker_categories' ), array(), 'loc_torrents_browsing_categories' );
+				\IPS\Output::i()->breadcrumb[] = array( \IPS\Http\Url::internal( 'app=bitracker&module=bitracker&controller=browse&do=categories', 'front', 'bitracker_categories' ), \IPS\Member::loggedIn()->language()->addToStack('bitracker_categories') );
+				\IPS\Output::i()->breadcrumb[] = array( \IPS\Http\Url::internal( 'app=bitracker&module=bitracker&controller=browse&id=clubs', 'front', 'bitracker_clubs' ), \IPS\Member::loggedIn()->language()->addToStack('club_node_torrents') );
+				\IPS\Output::i()->title		= \IPS\Member::loggedIn()->language()->addToStack('club_node_torrents');
+				\IPS\Output::i()->output	= \IPS\Theme::i()->getTemplate( 'browse' )->categories( TRUE );
 			}
-			catch ( \OutOfRangeException $e )
+			else
 			{
-				\IPS\Output::i()->error( 'node_error', '2D175/1', 404, '' );
+				try
+				{
+					$this->_category( \IPS\bitracker\Category::loadAndCheckPerms( \IPS\Request::i()->id, 'read' ) );
+				}
+				catch ( \OutOfRangeException $e )
+				{
+					\IPS\Output::i()->error( 'node_error', '2D175/1', 404, '' );
+				}
 			}
 		}
 		else
@@ -107,7 +119,7 @@ class _browse extends \IPS\Dispatcher\Controller
 		}
 		
 		/* Get stuff */
-		$featured = (\IPS\Settings::i()->bit_show_featured) ? iterator_to_array(\IPS\bitracker\File::featured(\IPS\Settings::i()->bit_featured_count, '_rand')) : array();
+		$featured = \IPS\Settings::i()->bit_show_featured ? iterator_to_array( \IPS\bitracker\File::featured( \IPS\Settings::i()->bit_featured_count, '_rand' ) ) : array();
 
 		if ( \IPS\Settings::i()->bit_newest_categories )
 		{
@@ -116,6 +128,10 @@ class _browse extends \IPS\Dispatcher\Controller
 		else
 		{
 			$newestWhere = array( array( 'bitracker_categories.copen=1' ) );
+		}
+		if ( !\IPS\Settings::i()->club_nodes_in_apps )
+		{
+			$newestWhere[] = array( 'bitracker_categories.cclub_id IS NULL' );
 		}
 
         $new = ( \IPS\Settings::i()->bit_show_newest) ? \IPS\bitracker\File::getItemsWithPermission( $newestWhere, NULL, 14, 'read', \IPS\Content\Hideable::FILTER_AUTOMATIC, 0, NULL, TRUE ) : array();
@@ -129,6 +145,10 @@ class _browse extends \IPS\Dispatcher\Controller
 			$highestWhere = array( array( 'bitracker_categories.copen=1' ) );
 		}
 		$highestWhere[] = array( 'file_rating > ?', 0 );
+		if ( !\IPS\Settings::i()->club_nodes_in_apps )
+		{
+			$highestWhere[] = array( 'bitracker_categories.cclub_id IS NULL' );
+		}
 		$highestRated = ( \IPS\Settings::i()->bit_show_highest_rated ) ? \IPS\bitracker\File::getItemsWithPermission( $highestWhere, 'file_rating DESC, file_reviews DESC', 14, 'read', \IPS\Content\Hideable::FILTER_AUTOMATIC, 0, NULL, TRUE ) : array();
 
 		if (\IPS\Settings::i()->bit_show_most_downloaded_categories )
@@ -139,15 +159,19 @@ class _browse extends \IPS\Dispatcher\Controller
 		{
 			$mostDownloadedWhere = array( array( 'bitracker_categories.copen=1' ) );
 		}
-		$mostDownloadedWhere[] = array( 'bitracker_categories.copen=1 and file_bitracker > ?', 0 );
-		$mostDownloaded = ( \IPS\Settings::i()->bit_show_most_downloaded ) ? \IPS\bitracker\File::getItemsWithPermission( $mostDownloadedWhere, 'file_bitracker DESC', 14, 'read', \IPS\Content\Hideable::FILTER_AUTOMATIC, 0, NULL, TRUE ) : array();
+		$mostDownloadedWhere[] = array( 'bitracker_categories.copen=1 and file_downloads > ?', 0 );
+		if ( !\IPS\Settings::i()->club_nodes_in_apps )
+		{
+			$mostDownloadedWhere[] = array( 'bitracker_categories.cclub_id IS NULL' );
+		}
+		$mostDownloaded = ( \IPS\Settings::i()->bit_show_most_downloaded ) ? \IPS\bitracker\File::getItemsWithPermission( $mostDownloadedWhere, 'file_downloads DESC', 14, 'read', \IPS\Content\Hideable::FILTER_AUTOMATIC, 0, NULL, TRUE ) : array();
 		
 		/* Online User Location */
 		\IPS\Session::i()->setLocation( \IPS\Http\Url::internal( 'app=bitracker', 'front', 'bitracker' ), array(), 'loc_bitracker_browsing' );
 		
 		/* Display */
 		\IPS\Output::i()->sidebar['contextual'] = \IPS\Theme::i()->getTemplate( 'browse' )->indexSidebar( \IPS\bitracker\Category::canOnAny('add') );
-		\IPS\Output::i()->title		= \IPS\Settings::i()->bit_application_name;
+		\IPS\Output::i()->title		= \IPS\Member::loggedIn()->language()->addToStack('torrents');
 		\IPS\Output::i()->output	= \IPS\Theme::i()->getTemplate( 'browse' )->index( $featured, $new, $highestRated, $mostDownloaded );
 	}
 	
@@ -246,8 +270,9 @@ class _browse extends \IPS\Dispatcher\Controller
 		/* Online User Location */
 		\IPS\Session::i()->setLocation( \IPS\Http\Url::internal( 'app=bitracker&module=bitracker&controller=browse&do=categories', 'front', 'bitracker_categories' ), array(), 'loc_bitracker_browsing_categories' );
 		
-		\IPS\Output::i()->title		= \IPS\Member::loggedIn()->language()->addToStack('bitracker_categories_pagetitle');
-		\IPS\Output::i()->output	= \IPS\Theme::i()->getTemplate( 'browse' )->categories();
+		\IPS\Output::i()->title = \IPS\Member::loggedIn()->language()->addToStack('bitracker_categories_pagetitle');
+		\IPS\Output::i()->breadcrumb[] = array( \IPS\Http\Url::internal( 'app=bitracker&module=bitracker&controller=browse&do=categories', 'front', 'bitracker_categories' ), \IPS\Member::loggedIn()->language()->addToStack('bitracker_categories') );
+		\IPS\Output::i()->output = \IPS\Theme::i()->getTemplate( 'browse' )->categories();
 	}
 	
 	/**
