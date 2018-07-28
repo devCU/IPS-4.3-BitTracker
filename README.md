@@ -31,7 +31,7 @@ If wholesale changes are needed for the new IPS version I will split this releas
  * @source      https://github.com/GaalexxC/IPS-4.2-BitTracker
  * @Issue Trak  https://www.devcu.com/forums/devcu-tracker/ips4bt/
  * @Created     11 FEB 2018
- * @Updated     25 MAY 2018
+ * @Updated     29 JULY 2018
  *
  *                    GNU General Public License v3.0
  *    This program is free software: you can redistribute it and/or modify       
@@ -50,6 +50,10 @@ If wholesale changes are needed for the new IPS version I will split this releas
 ```
 
 #### Full featured bit torrent tracker application for IPS 4.2x/4.3x Community Suite
+
+- 07/29/18
+    - Back from Vacation, moving forward on this project. 
+	- Looking at a test on my board next week so we are close but lots to do so stay tuned
 
 - 05/24/18 entered Beta 2
     - Upgrading for 4.3x compatibility
