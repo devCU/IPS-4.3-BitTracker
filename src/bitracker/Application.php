@@ -10,7 +10,7 @@
  * @source      https://github.com/GaalexxC/IPS-4.2-BitTracker
  * @Issue Trak  https://www.devcu.com/forums/devcu-tracker/ips4bt/
  * @Created     11 FEB 2018
- * @Updated     24 MAY 2018
+ * @Updated     28 JULY 2018
  *
  *                    GNU General Public License v3.0
  *    This program is free software: you can redistribute it and/or modify       
@@ -110,7 +110,7 @@ class _Application extends \IPS\Application
 		{
 			try
 			{
-				$file = \IPS\downloads\File::loadAndCheckPerms( \IPS\Request::i()->showfile );
+				$file = \IPS\bitracker\File::loadAndCheckPerms( \IPS\Request::i()->showfile );
 				
 				\IPS\Output::i()->redirect( $file->url() );
 			}
