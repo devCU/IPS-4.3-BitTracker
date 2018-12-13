@@ -51,10 +51,12 @@ If wholesale changes are needed for the new IPS version I will split this releas
 
 #### Full featured bit torrent tracker application for IPS 4.2x/4.3x Community Suite
 
-- 12/13/18
+## ** Beta 3 **
 
-Very Close ** Beta 3** Announce tests are in progress at test site and looking very good
-Work on user front end commencing
+12/13/18
+
+- Very Close - Announce tests are in progress at test site and looking very good
+- Work on user front end wrapping up soon
 
 [Info on beta build](https://www.devcu.com/forums/devcu-tracker/ips4bt/)
 
