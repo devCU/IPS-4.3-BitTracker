@@ -45,6 +45,10 @@
         "submit": {
             "default_controller": "submit",
             "protected": 0
+        },
+        "system": {
+            "default_controller": "settings",
+            "protected": 0
         }
     }
 }
