@@ -27,7 +27,7 @@ If wholesale changes are needed for the new IPS version I will split this releas
  * @license     GNU General Public License v3.0
  * @package     Invision Community Suite 4.2x/4.3x
  * @subpackage	BitTracker
- * @version     1.0.0 Beta 2
+ * @version     1.0.0 Beta 3
  * @source      https://github.com/GaalexxC/IPS-4.2-BitTracker
  * @Issue Trak  https://www.devcu.com/forums/devcu-tracker/ips4bt/
  * @Created     11 FEB 2018
@@ -52,7 +52,9 @@ If wholesale changes are needed for the new IPS version I will split this releas
 #### Full featured bit torrent tracker application for IPS 4.2x/4.3x Community Suite
 
 - 12/13/18
-Very Close- Announce tests are in progress at test site and looking good
+
+Very Close ** Beta 3** Announce tests are in progress at test site and looking very good
+Work on user front end commencing
 
 [Info on beta build](https://www.devcu.com/forums/devcu-tracker/ips4bt/)
 
