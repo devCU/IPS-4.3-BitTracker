@@ -56,7 +56,7 @@ Very Close- Announce tests are in progress at test site and looking good
 
 [Info on beta build](https://www.devcu.com/forums/devcu-tracker/ips4bt/)
 
-- In development for late May | early June 2018 Release
+- In development for 2019 Release
 
 [Release Time Line](https://www.devcu.com/forums/topic/754-new-timeline/)
 
