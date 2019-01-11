@@ -53,7 +53,7 @@ If wholesale changes are needed for the new IPS version I will split this releas
 
 ## ** RC1 **
 
-01/01/19
+01/10/19
 
 - Moving the Application into the IPS DEV MODE this weekend
 - Will update and finalie all DATA files in DEV MODE
