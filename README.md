@@ -1,7 +1,7 @@
 ![devCUHead](https://www.devcu.com/assets/images/githubhead_2.gif?V=1.3)
 
 [![License](https://img.shields.io/badge/License-GNUv3-blue.svg)](https://github.com/GaalexxC/IPS-4.2-BitTracker/blob/master/LICENSE) [![Version](https://img.shields.io/badge/Version-1.0.0-blue.svg)](https://www.devcu.com/forums/devcu-tracker/ips4bt/)
-    [![Build](https://img.shields.io/badge/Build-Beta2-lightgrey.svg)](https://www.devcu.com/forums/devcu-tracker/ips4bt/)
+    [![Build](https://img.shields.io/badge/Build-RC1-lightgrey.svg)](https://www.devcu.com/forums/devcu-tracker/ips4bt/)
     [![Status](https://img.shields.io/badge/Status-Current-green.svg)](https://www.devcu.com/forums/devcu-tracker/ips4bt/)
     [![Development](https://img.shields.io/badge/Development-Active-blue.svg)](https://www.devcu.com/forums/devcu-tracker/ips4bt/)
 
@@ -31,7 +31,7 @@ If wholesale changes are needed for the new IPS version I will split this releas
  * @source      https://github.com/GaalexxC/IPS-4.2-BitTracker
  * @Issue Trak  https://www.devcu.com/forums/devcu-tracker/ips4bt/
  * @Created     11 FEB 2018
- * @Updated     13 DEC 2018
+ * @Updated     10 JAB 2019
  *
  *                    GNU General Public License v3.0
  *    This program is free software: you can redistribute it and/or modify       
@@ -51,12 +51,12 @@ If wholesale changes are needed for the new IPS version I will split this releas
 
 #### Full featured bit torrent tracker application for IPS 4.2x/4.3x Community Suite
 
-## ** Beta 3 **
+## ** RC1 **
 
-12/13/18
+01/01/19
 
-- Very Close - Announce tests are in progress at test site and looking very good
-- Work on user front end wrapping up soon
+- Moving the Application into the IPS DEV MODE this weekend
+- Will update and finalie all DATA files in DEV MODE
 
 [Info on beta build](https://www.devcu.com/forums/devcu-tracker/ips4bt/)
 
