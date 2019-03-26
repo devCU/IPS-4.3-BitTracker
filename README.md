@@ -8,7 +8,7 @@
 
 **Please support our Open Source Projects**
 
-[![donate](https://www.devcu.com/images/donate.png)](https://www.devcu.com/forums/topic/739-help-support-our-work/)
+[![donate](https://www.devcu.com/forums/topic/739-help-support-our-work/)
 
     
 # IPS 4.3x BitTracker
