@@ -14,7 +14,7 @@
 # IPS 4.3x BitTracker
 
 
-#### Full featured bit torrent tracker application for IPS 4.2x/4.3x Community Suite
+#### Full featured bit torrent tracker application for IPS 4.2x/4.3x Community Suite with focus on privacy anbd security
 
 ## ** Beta Release **
 
