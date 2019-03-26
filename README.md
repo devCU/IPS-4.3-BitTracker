@@ -18,11 +18,11 @@
 
 ## ** Beta Release **
 
-03/26/19
+03/25/19
 
-- Will be removing the current files and uplaoding the development directory for those who want continue thi IPS 4.3 branch
-- Will do a release compiles .tar file for IPS 4.3 installations
-- Have already begun work on the IPS 4.4 version and should be a quick refactor and release.
+- Removed the current files/directories and instead will be uploading the development directory for those who want continue this application for the IPS 4.3 branch
+- Will do a release of compiled source in IPS .tar file format for import installations
+- Have already begun work on the [![IPS 4.4x version](https://github.com/GaalexxC/IPS-4.4-BitTracker/) and should be a quick refactor and release.
 
 
 ## License
