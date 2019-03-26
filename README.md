@@ -8,7 +8,7 @@
 
 **Please support our Open Source Projects**
 
-[![donate](https://www.devcu.com/forums/topic/739-help-support-our-work/)
+[![donate](https://www.devcu.com/images/donate.png)](https://www.devcu.com/forums/topic/739-help-support-our-work/)
 
     
 # IPS 4.3x BitTracker
@@ -23,7 +23,7 @@
 - Should have a fully working Beta by end of month, lets say April fools day.
 - Removed the current files/directories and instead will be uploading the development directory for those who want continue this application for the IPS 4.3 branch
 - Will do a release of compiled source in IPS .tar file format for import installations
-- Have already begun work on the [![IPS 4.4x version](https://github.com/GaalexxC/IPS-4.4-BitTracker/) and should be a quick refactor and release.
+- Have already begun work on the [IPS 4.4x version](https://github.com/GaalexxC/IPS-4.4-BitTracker/) and should be a quick refactor and release.
 
 
 ## License
