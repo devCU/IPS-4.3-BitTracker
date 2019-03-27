@@ -13,6 +13,20 @@
     
 # IPS 4.3x BitTracker
 
+<pre>
+    .-"^`\                                        /`^"-.
+  .'   ___\                                      /___   `.
+ /    /.---.                                    .---.\    \
+|    //     '-.  ___________________________ .-'     \\    |
+|   ;|         \/--------------------------//         |;   |
+\   ||       |\_)      devCU Software      (_/|       ||   /
+ \  | \  . \ ;  |   Open Source Projects   || ; / .  / |  /
+  '\_\ \\ \ \ \ |                          ||/ / / // /_/'
+        \\ \ \ \|    IPS 4.3x BitTracker   |/ / / //
+         `'-\_\_\         v 1.0.0        /_/_/-'`
+                '--------------------------'
+</pre>
+
 
 #### Full featured bit torrent tracker application for IPS 4.3x Community Suite focusing on privacy and security
 
@@ -20,7 +34,7 @@
 
 03/25/19
 
-- Should have a fully working Beta by end of month, lets say April fools day for good measure. :)
+- April 1st 2019 Public Beta
 - Added bitracker_devsrc and will be uploading the development files for those who want continue this application for the IPS 4.3 branch
 - Will do a release of compiled source in IPS .tar file format for import installations
 - Have already begun work on the [IPS 4.4x version](https://github.com/GaalexxC/IPS-4.4-BitTracker/) and should be a quick refactor and release.
