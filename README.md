@@ -14,13 +14,6 @@
 
 [![donate](https://www.devcu.net/mediasrc/become_a_patron_button.png)](https://www.patreon.com/devcu/)
 
-    
-# IPS 4.3x BitTracker
-
-```diff
-- WARNING!! THIS IS AN INCOMPLETE DEVELOPMENT VERSION AND SHOULD NOT BE USED IN A PRODUCTION ENVIRONMENT!
-```
-
 <pre>
     .-"^`\                                        /`^"-.
   .'   ___\                                      /___   `.
@@ -35,6 +28,11 @@
                 '--------------------------'
 </pre>
 
+```diff
+- WARNING!! THIS IS AN INCOMPLETE DEVELOPMENT VERSION AND SHOULD NOT BE USED IN A PRODUCTION ENVIRONMENT!
+```
+
+# IPS 4.3x BitTracker
 
 #### Full featured bit torrent tracker application for IPS 4.3x Community Suite focusing on privacy and security
 
