@@ -4,13 +4,13 @@
  * @author      Gary Cornell for devCU Software Open Source Projects
  * @copyright   (c) <a href='https://www.devcu.com'>devCU Software Development</a>
  * @license     GNU General Public License v3.0
- * @package     Invision Community Suite 4.2x
+ * @package     Invision Community Suite 4.2x/4.3x
  * @subpackage	BitTracker
- * @version     1.0.0 Beta 1
+ * @version     1.0.2 Beta 3
  * @source      https://github.com/GaalexxC/IPS-4.2-BitTracker
  * @Issue Trak  https://www.devcu.com/forums/devcu-tracker/ips4bt/
  * @Created     11 FEB 2018
- * @Updated    26 MAR 2018
+ * @Updated    31 MAR 2019
  *
  *                    GNU General Public License v3.0
  *    This program is free software: you can redistribute it and/or modify       
@@ -50,7 +50,7 @@ class _general extends \IPS\Dispatcher\Controller
 	{
 		\IPS\Dispatcher::i()->checkAcpPermission( 'settings_manage' );
 
-		$form = $this->getForm();
+		$form = $this->_manageSettings();
 
 		if ( $values = $form->values( TRUE ) )
 		{
@@ -72,14 +72,15 @@ class _general extends \IPS\Dispatcher\Controller
 	 * @note	Abstracted to allow third party devs to extend easier
 	 * @return	\IPS\Helpers\Form
 	 */
-	protected function getForm()
+	protected function _manageSettings()
 	{
 		$form = new \IPS\Helpers\Form;
 
         $form->addTab( 'bit_portal_general' );
 		$form->addHeader( 'head_portal_layout' );
-        $form->add( new \IPS\Helpers\Form\YesNo( 'bit_view_portal_switch', \IPS\Settings::i()->bit_view_portal_switch, FALSE, array('togglesOn' => array( 'bit_view_table_categories') ) ) );
+        $form->add( new \IPS\Helpers\Form\YesNo( 'bit_view_portal_switch', \IPS\Settings::i()->bit_view_portal_switch, FALSE, array('togglesOn' => array( 'bit_view_table_categories', 'bit_view_table_torrents') ) ) );
         $form->add( new \IPS\Helpers\Form\Number( 'bit_view_table_categories', \IPS\Settings::i()->bit_view_table_categories, FALSE, array(), NULL, NULL, NULL, 'bit_view_table_categories' ) );
+        $form->add( new \IPS\Helpers\Form\Number( 'bit_view_table_torrents', \IPS\Settings::i()->bit_view_table_torrents, FALSE, array(), NULL, NULL, NULL, 'bit_view_table_torrents' ) );
 
         $form->addTab( 'bit_customize_general' );
 		$form->addHeader( 'customized_bitracker' );
@@ -121,7 +122,7 @@ class _general extends \IPS\Dispatcher\Controller
         $form->addTab( 'basic_settings' );
 		$form->addHeader( 'basic_settings' );
 		$form->add( new \IPS\Helpers\Form\Upload( 'bit_watermarkpath', \IPS\Settings::i()->bit_watermarkpath ? \IPS\File::get( 'core_Theme', \IPS\Settings::i()->bit_watermarkpath ) : NULL, FALSE, array( 'image' => TRUE, 'storageExtension' => 'core_Theme' ) ) );
-		$form->add( new \IPS\Helpers\Form\Stack( 'bit_link_blacklist', explode( ',', \IPS\Settings::i()->bit_link_blacklist ), FALSE, array( 'placeholder' => 'example.com' ) ) );
+		$form->add( new \IPS\Helpers\Form\Stack( 'bit_link_blacklist', explode( ',', '\IPS\Settings::i()->bit_link_blacklist' ), FALSE, array( 'placeholder' => 'example.com' ) ) );
 		$form->add( new \IPS\Helpers\Form\YesNo( 'bit_antileech', \IPS\Settings::i()->bit_antileech ) );
 
 		if ( \IPS\Application::appIsEnabled( 'nexus' ) )
@@ -130,29 +131,20 @@ class _general extends \IPS\Dispatcher\Controller
 			$form->add( new \IPS\Helpers\Form\YesNo( 'bit_nexus_on', \IPS\Settings::i()->bit_nexus_on, FALSE, array( 'togglesOn' => array( 'bit_nexus_tax', 'bit_nexus_percent', 'bit_nexus_transfee' ) ) ) );
 			$form->add( new \IPS\Helpers\Form\Node( 'bit_nexus_tax', \IPS\Settings::i()->bit_nexus_tax ?:0, FALSE, array( 'class' => '\IPS\nexus\Tax', 'zeroVal' => 'do_not_tax' ), NULL, NULL, NULL, 'bit_nexus_tax' ) );
 			$form->add( new \IPS\Helpers\Form\Number( 'bit_nexus_percent', \IPS\Settings::i()->bit_nexus_percent, FALSE, array( 'min' => 0, 'max' => 100 ), NULL, NULL, '%', 'bit_nexus_percent' ) );
-			$form->add( new \IPS\nexus\Form\Money( 'bit_nexus_transfee', json_decode( \IPS\Settings::i()->bit_nexus_transfee, TRUE ), FALSE, array(), NULL, NULL, NULL, 'bit_nexus_transfee' ) );
+			$form->add( new \IPS\nexus\Form\Money( 'bit_nexus_transfee', json_decode( '\IPS\Settings::i()->bit_nexus_transfee', TRUE ), FALSE, array(), NULL, NULL, NULL, 'bit_nexus_transfee' ) );
 			$form->add( new \IPS\Helpers\Form\Node( 'bit_nexus_gateways', ( \IPS\Settings::i()->bit_nexus_gateways ) ? explode( ',', \IPS\Settings::i()->bit_nexus_gateways ) : 0, FALSE, array( 'class' => '\IPS\nexus\Gateway', 'zeroVal' => 'no_restriction', 'multiple' => TRUE ), NULL, NULL, NULL, 'bit_nexus_gateways' ) );
-			$form->add( new \IPS\Helpers\Form\CheckboxSet( 'bit_nexus_display', explode( ',', \IPS\Settings::i()->bit_nexus_display ), FALSE, array( 'options' => array( 'purchases' => 'bit_purchases', 'bitracker' => 'bitracker' ) ) ) );
+			$form->add( new \IPS\Helpers\Form\CheckboxSet( 'bit_nexus_display', explode( ',', '\IPS\Settings::i()->bit_nexus_display' ), FALSE, array( 'options' => array( 'purchases' => 'bit_purchases', 'downloads' => 'bit_downloads' ) ) ) );
+        }
+		/* Save values - Nexus values refactored */
+		if ( $values = $form->values() )
+		{
+
+			$form->saveAsSettings( $values );
+
+			\IPS\Output::i()->redirect( \IPS\Http\Url::internal( 'app=bitracker&module=settings&controller=general' ), 'saved' );
 		}
 
 		return $form;
-	}
-
-	/**
-	 * Save the settings form
-	 *
-	 * @param \IPS\Helpers\Form 	$form		The Form Object
-	 * @param array 				$values		Values
-	 */
-	protected function saveSettingsForm( \IPS\Helpers\Form $form, array $values )
-	{
-		/* We can't store '' for bit_nexus_display as it will fall back to the default */
-		if ( ! $values['bit_nexus_display'] )
-		{
-			$values['bit_nexus_display'] = 'none';
-		}
-
-		$form->saveAsSettings( $values );
 	}
 
 	/**
@@ -165,7 +157,7 @@ class _general extends \IPS\Dispatcher\Controller
 		$perGo = 1;
 		$watermark = \IPS\Settings::i()->bit_watermarkpath ? \IPS\Image::create( \IPS\File::get( 'core_Theme', \IPS\Settings::i()->bit_watermarkpath )->contents() ) : NULL;
 
-		\IPS\Output::i()->output = new \IPS\Helpers\MultipleRedirect( \IPS\Http\Url::internal( 'app=bitracker&module=bitracker&controller=settings&do=rebuildWatermarks' ), function( $doneSoFar ) use( $watermark, $perGo )
+		\IPS\Output::i()->output = new \IPS\Helpers\MultipleRedirect( \IPS\Http\Url::internal( 'app=bitracker&module=settings&controller=general&do=rebuildWatermarks' ), function( $doneSoFar ) use( $watermark, $perGo )
 		{
 			$doneSoFar = intval( $doneSoFar );
 
