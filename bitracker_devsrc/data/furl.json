@@ -3,7 +3,7 @@
 	"pages": {
 		"bitracker_submit": {
 			"friendly": "submit",
-			"real": "app=bitracker&module=bitracker&controller=submit"
+			"real": "app=bitracker&module=submit&controller=submit"
 		},
 	    "bitracker_cat": {
 		    "friendly": "category/{#id}-{?}",
@@ -20,7 +20,7 @@
 		},
 		"bitracker_torrent": {
 			"friendly": "file/{#id}-{?}",
-			"real": "app=bitracker&module=bitracker&controller=view",
+			"real": "app=bitracker&module=portal&controller=view",
 			"verify": "\\IPS\\bitracker\\File"
 		},
 		"bitracker_rss": {
