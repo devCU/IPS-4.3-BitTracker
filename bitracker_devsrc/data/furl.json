@@ -1,0 +1,57 @@
+{
+	"topLevel": "tracker",
+	"pages": {
+		"bitracker_submit": {
+			"friendly": "submit",
+			"real": "app=bitracker&module=bitracker&controller=submit"
+		},
+	    "bitracker_cat": {
+		    "friendly": "category/{#id}-{?}",
+		    "real": "app=bitracker&module=portal&controller=main",
+		    "verify": "\\IPS\\bitracker\\Category"
+	    },
+		"bitracker_clubs": {
+			"friendly": "category/clubs",
+			"real": "app=bitracker&module=portal&controller=main&id=clubs"
+		},
+		"bitracker_categories": {
+			"friendly": "categories",
+			"real": "app=bitracker&module=portal&controller=main&do=categories"
+		},
+		"bitracker_torrent": {
+			"friendly": "file/{#id}-{?}",
+			"real": "app=bitracker&module=bitracker&controller=view",
+			"verify": "\\IPS\\bitracker\\File"
+		},
+		"bitracker_rss": {
+			"friendly": "files.xml",
+			"real": "app=bitracker&module=portal&controller=main&do=rss"
+		},
+
+	    /* User Dash Settings */
+	    "bitracker_settings": {
+	        "friendly": "settings",
+	        "real": "app=bitracker&module=system&controller=settings"
+	    },
+	    "bitracker_overview": {
+	        "friendly": "overview",
+	        "real": "app=bitracker&module=system&controller=settings&area=overview"
+	    },
+	    "bitracker_configure": {
+	        "friendly": "configure",
+	        "real": "app=bitracker&module=system&controller=settings&area=configure"
+	    },
+	    "bitracker_security": {
+	        "friendly": "security",
+	        "real": "app=bitracker&module=system&controller=settings&area=security"
+	    },
+	    "bitracker_privacy": {
+	        "friendly": "privacy",
+	        "real": "app=bitracker&module=system&controller=settings&area=privacy"
+	    },
+		"bitracker": {
+			"friendly": "",
+			"real": "app=bitracker&module=portal&controller=main"
+		}
+	}
+}
