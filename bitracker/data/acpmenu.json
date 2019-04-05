@@ -1,17 +1,13 @@
 {
-    "tracker": {
+    "dashboard": {
         "overview": {
             "tab": "bitracker",
             "controller": "overview",
             "do": "",
             "restriction": "overview_manage"
-        },
-        "torrents": {
-            "tab": "bitracker",
-            "controller": "torrents",
-            "do": "",
-            "restriction": "torrents_manage"
-        },
+        }
+    },
+    "tracker": {
         "announce": {
             "tab": "bitracker",
             "controller": "announce",
@@ -23,6 +19,12 @@
             "controller": "security",
             "do": "",
             "restriction": "security_manage"
+        },
+        "torrents": {
+            "tab": "bitracker",
+            "controller": "torrents",
+            "do": "",
+            "restriction": "torrents_manage"
         }
     },
     "configure": {
