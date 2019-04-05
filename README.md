@@ -24,7 +24,7 @@
  \  | \  . \ ;  |   Open Source Projects   || ; / .  / |  /
   '\_\ \\ \ \ \ |                          ||/ / / // /_/'
         \\ \ \ \|    IPS 4.3x BitTracker   |/ / / //
-         `'-\_\_\         v 1.0.0        /_/_/-'`
+         `'-\_\_\          v 1.0.0         /_/_/-'`
                 '--------------------------'
 </pre>
 
@@ -38,8 +38,9 @@
 
 ## ** Updated Notes **
 
-03/28/19
+04/05/19
 
+- Stable 1.0.3 files for release version
 - Release April 7th for Patrons
 - Release April 14th for Public
 - Added bitracker_devsrc development files for those who want continue work after 4.3 EOL in September
