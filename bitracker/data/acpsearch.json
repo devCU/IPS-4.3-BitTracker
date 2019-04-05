@@ -664,7 +664,7 @@
             "search type"
         ]
     },
-    "app=bitracker&module=bitracker&controller=settings": {
+    "app=bitracker&module=settings&controller=general": {
         "lang_key": "menu__bitracker_bitracker_settings",
         "restriction": "settings_manage",
         "keywords": [
@@ -673,7 +673,7 @@
             "files"
         ]
     },
-    "app=bitracker&module=bitracker&controller=settings&searchResult=form_bit_antileech": {
+    "app=bitracker&module=settings&controller=general&searchResult=form_bit_antileech": {
         "lang_key": "bit_antileech",
         "restriction": "settings_manage",
         "keywords": [
@@ -685,7 +685,7 @@
             "prevent direct linking"
         ]
     },
-    "app=bitracker&module=bitracker&controller=settings&searchResult=form_bit_link_blacklist": {
+    "app=bitracker&module=settings&controller=general&searchResult=form_bit_link_blacklist": {
         "lang_key": "bit_link_blacklist",
         "restriction": "settings_manage",
         "keywords": [
@@ -695,7 +695,7 @@
             "url"
         ]
     },
-    "app=bitracker&module=bitracker&controller=settings&searchResult=form_bit_nexus_display": {
+    "app=bitracker&module=settings&controller=general&searchResult=form_bit_nexus_display": {
         "lang_key": "bit_nexus_display",
         "restriction": "settings_manage",
         "keywords": [
@@ -703,7 +703,7 @@
             "statistics"
         ]
     },
-    "app=bitracker&module=bitracker&controller=settings&searchResult=form_bit_nexus_on": {
+    "app=bitracker&module=settings&controller=general&searchResult=form_bit_nexus_on": {
         "lang_key": "bit_nexus_on",
         "restriction": "settings_manage",
         "keywords": [
@@ -714,7 +714,7 @@
             "paid files"
         ]
     },
-    "app=bitracker&module=bitracker&controller=settings&searchResult=form_bit_rss": {
+    "app=bitracker&module=settings&controller=general&searchResult=form_bit_rss": {
         "lang_key": "bit_rss",
         "restriction": "settings_manage",
         "keywords": [
@@ -723,28 +723,28 @@
             "rss export"
         ]
     },
-    "app=bitracker&module=bitracker&controller=settings&searchResult=form_bit_show_featured": {
+    "app=bitracker&module=settings&controller=general&searchResult=form_bit_show_featured": {
         "lang_key": "bit_show_featured",
         "restriction": "settings_manage",
         "keywords": [
             "featured"
         ]
     },
-    "app=bitracker&module=bitracker&controller=settings&searchResult=form_bit_show_highest_rated": {
+    "app=bitracker&module=settings&controller=general&searchResult=form_bit_show_highest_rated": {
         "lang_key": "bit_show_highest_rated",
         "restriction": "settings_manage",
         "keywords": [
             "highest rated"
         ]
     },
-    "app=bitracker&module=bitracker&controller=settings&searchResult=form_bit_show_most_downloaded": {
+    "app=bitracker&module=settings&controller=general&searchResult=form_bit_show_most_downloaded": {
         "lang_key": "bit_show_most_downloaded",
         "restriction": "settings_manage",
         "keywords": [
             "most downloaded"
         ]
     },
-    "app=bitracker&module=bitracker&controller=settings&searchResult=form_bit_show_newest": {
+    "app=bitracker&module=settings&controller=general&searchResult=form_bit_show_newest": {
         "lang_key": "bit_show_newest",
         "restriction": "settings_manage",
         "keywords": [
@@ -752,7 +752,7 @@
             "what's new"
         ]
     },
-    "app=bitracker&module=bitracker&controller=settings&searchResult=form_bit_watermarkpath": {
+    "app=bitracker&module=settings&controller=general&searchResult=form_bit_watermarkpath": {
         "lang_key": "bit_watermarkpath",
         "restriction": "settings_manage",
         "keywords": [
@@ -760,28 +760,28 @@
             "watermark"
         ]
     },
-    "app=bitracker&module=bitracker&controller=settings&searchResult=bit_nexus_gateways": {
+    "app=bitracker&module=settings&controller=general&searchResult=bit_nexus_gateways": {
         "lang_key": "bit_nexus_gateways",
         "restriction": "settings_manage",
         "keywords": [
             "payment methods"
         ]
     },
-    "app=bitracker&module=bitracker&controller=settings&searchResult=bit_nexus_percent": {
+    "app=bitracker&module=settings&controller=general&searchResult=bit_nexus_percent": {
         "lang_key": "bit_nexus_percent",
         "restriction": "settings_manage",
         "keywords": [
             "commission"
         ]
     },
-    "app=bitracker&module=bitracker&controller=settings&searchResult=bit_nexus_tax": {
+    "app=bitracker&module=settings&controller=general&searchResult=bit_nexus_tax": {
         "lang_key": "bit_nexus_tax",
         "restriction": "settings_manage",
         "keywords": [
             "tax"
         ]
     },
-    "app=bitracker&module=bitracker&controller=settings&searchResult=bit_nexus_transfee": {
+    "app=bitracker&module=settings&controller=general&searchResult=bit_nexus_transfee": {
         "lang_key": "bit_nexus_transfee",
         "restriction": "settings_manage",
         "keywords": [
