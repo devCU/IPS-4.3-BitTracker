@@ -37,7 +37,7 @@ if ( !defined( '\IPS\SUITE_UNIQUE_KEY' ) )
 }
 
 /**
- * Members Settings
+ * Members Options
  */
 class _members extends \IPS\Dispatcher\Controller
 {
