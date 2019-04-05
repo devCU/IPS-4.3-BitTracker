@@ -1,5 +1,9 @@
 {
     "admin": {
+        "dashboard": {
+            "default_controller": "overview",
+            "protected": 0
+        },
         "tracker": {
             "default_controller": "tracker",
             "protected": 0
@@ -30,17 +34,13 @@
             "default_controller": "main",
             "protected": 0
         },
-        "bitracker": {
-            "default_controller": "browse",
-            "protected": 0
-        },
         "client": {
             "default_controller": "announce",
             "protected": 0
         },
         "stats": {
             "default_controller": "overview",
-            "protected": null
+            "protected": 0
         },
         "submit": {
             "default_controller": "submit",
@@ -48,7 +48,7 @@
         },
         "system": {
             "default_controller": "settings",
-            "protected": 0
+            "protected": false
         }
     }
 }
