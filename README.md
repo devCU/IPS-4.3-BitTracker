@@ -36,6 +36,9 @@
 
 #### Full featured bit torrent tracker application for IPS 4.3x Community Suite focusing on privacy and security
 
+![UserSettings](https://www.devcu.net/mediasrc/userSettings.PNG?V=1.3)
+
+
 ## ** Updated Notes **
 
 04/05/19
