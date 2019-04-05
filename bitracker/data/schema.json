@@ -3493,7 +3493,7 @@
                 "binary": false,
                 "comment": "",
                 "decimals": null,
-                "default": "0",
+                "default": null,
                 "length": 11,
                 "name": "id",
                 "type": "INT",
@@ -3536,7 +3536,7 @@
                 "comment": "",
                 "decimals": null,
                 "default": "no",
-                "length": 40,
+                "length": 0,
                 "name": "compact",
                 "type": "ENUM",
                 "unsigned": false,
@@ -3640,7 +3640,7 @@
                 "length": 0,
                 "name": "seeder",
                 "type": "ENUM",
-                "unsigned": true,
+                "unsigned": false,
                 "values": [
                     "yes",
                     "no"
@@ -3653,7 +3653,7 @@
                 "binary": false,
                 "comment": "",
                 "decimals": null,
-                "default": "",
+                "default": "0",
                 "length": 10,
                 "name": "started",
                 "type": "INT",
@@ -3667,7 +3667,7 @@
                 "binary": false,
                 "comment": "",
                 "decimals": null,
-                "default": "",
+                "default": "0",
                 "length": 10,
                 "name": "last_action",
                 "type": "INT",
@@ -3763,14 +3763,15 @@
             "mem_id": {
                 "type": "key",
                 "name": "mem_id",
-                "columns": [
-                    "mem_id"
-                ],
                 "length": [
                     null
+                ],
+                "columns": [
+                    "mem_id"
                 ]
             }
-        }
+        },
+        "collation": "utf8mb4_unicode_ci"
     },
     "bitracker_torrent_peers_history": {
         "name": "bitracker_torrent_peers_history",
@@ -3781,7 +3782,7 @@
                 "binary": false,
                 "comment": "",
                 "decimals": null,
-                "default": "0",
+                "default": null,
                 "length": 10,
                 "name": "id",
                 "type": "INT",
@@ -3879,7 +3880,7 @@
                 "binary": false,
                 "comment": "",
                 "decimals": null,
-                "default": "",
+                "default": "0",
                 "length": 10,
                 "name": "last_updated",
                 "type": "INT",
@@ -3894,7 +3895,7 @@
                 "comment": "",
                 "decimals": null,
                 "default": "no",
-                "length": 10,
+                "length": 0,
                 "name": "history_completed",
                 "type": "ENUM",
                 "unsigned": false,
@@ -3910,7 +3911,7 @@
                 "binary": false,
                 "comment": "",
                 "decimals": null,
-                "default": "",
+                "default": "0",
                 "length": 10,
                 "name": "history_date_completed",
                 "type": "INT",
@@ -3930,7 +3931,8 @@
                     "id"
                 ]
             }
-        }
+        },
+        "collation": "utf8mb4_unicode_ci"
     },
     "bitracker_scrape": {
         "name": "bitracker_scrape",
@@ -3955,7 +3957,7 @@
                 "binary": false,
                 "comment": "",
                 "decimals": null,
-                "default": null,
+                "default": "",
                 "length": 40,
                 "name": "info_hash",
                 "type": "VARBINARY",
@@ -3969,7 +3971,7 @@
                 "binary": false,
                 "comment": "",
                 "decimals": null,
-                "default": null,
+                "default": "",
                 "length": 40,
                 "name": "url",
                 "type": "VARCHAR",
@@ -3983,7 +3985,7 @@
                 "binary": false,
                 "comment": "",
                 "decimals": null,
-                "default": null,
+                "default": "",
                 "length": 10,
                 "name": "seeders",
                 "type": "INT",
@@ -3997,7 +3999,7 @@
                 "binary": false,
                 "comment": "",
                 "decimals": null,
-                "default": null,
+                "default": "",
                 "length": 10,
                 "name": "leechers",
                 "type": "INT",
@@ -4011,7 +4013,7 @@
                 "binary": false,
                 "comment": "",
                 "decimals": null,
-                "default": null,
+                "default": "",
                 "length": 10,
                 "name": "completed",
                 "type": "INT",
@@ -4029,9 +4031,8 @@
                 "length": 0,
                 "name": "last_update",
                 "type": "TIMESTAMP",
-                "unsigned": true,
+                "unsigned": false,
                 "values": [],
-                "current_timestamp": true,
                 "zerofill": false
             },
             "state": {
@@ -4044,7 +4045,7 @@
                 "length": 0,
                 "name": "state",
                 "type": "ENUM",
-                "unsigned": true,
+                "unsigned": false,
                 "values": [
                     "ok",
                     "error"
@@ -4061,7 +4062,7 @@
                 "length": 100,
                 "name": "error",
                 "type": "VARCHAR",
-                "unsigned": true,
+                "unsigned": false,
                 "values": [],
                 "zerofill": false
             }
@@ -4071,6 +4072,7 @@
                 "type": "primary",
                 "name": "PRIMARY",
                 "length": [
+                    null,
                     null
                 ],
                 "columns": [
@@ -4081,14 +4083,15 @@
             "tid": {
                 "type": "key",
                 "name": "tid",
-                "columns": [
-                    "tid"
-                ],
                 "length": [
                     null
+                ],
+                "columns": [
+                    "tid"
                 ]
             }
-        }
+        },
+        "collation": "utf8mb4_unicode_ci"
     },
     "bitracker_sites": {
         "name": "bitracker_sites",
