@@ -121,6 +121,7 @@ class _main extends \IPS\Dispatcher\Controller
 			catch ( \OutOfRangeException $e )
 			{
 				\IPS\Output::i()->error( 'node_error', '2D175/1', 404, '' );
+				}
 			}
 		}
 		else
@@ -191,7 +192,7 @@ class _main extends \IPS\Dispatcher\Controller
 		$mostDownloaded = ( \IPS\Settings::i()->bit_show_most_downloaded ) ? \IPS\bitracker\File::getItemsWithPermission( $mostDownloadedWhere, 'file_bitracker DESC', 14, 'read', \IPS\Content\Hideable::FILTER_AUTOMATIC, 0, NULL, TRUE ) : array();
 		
 		/* Online User Location */
-		\IPS\Session::i()->setLocation( \IPS\Http\Url::internal( 'app=bitracker', 'front', 'portal' ), array(), 'loc_bitracker_browsing' );
+		\IPS\Session::i()->setLocation( \IPS\Http\Url::internal( 'app=bitracker', 'front', 'bitracker' ), array(), 'loc_bitracker_browsing' );
 		
 		/* Display */
 		\IPS\Output::i()->sidebar['contextual'] = \IPS\Theme::i()->getTemplate( 'browse' )->indexSidebar( \IPS\downloads\Category::canOnAny('add') );
