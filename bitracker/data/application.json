@@ -1,8 +1,8 @@
 {
-    "application_title": "BitTracker",
-    "app_author": "devCU Software",
+    "application_title": "DCU BitTracker",
+    "app_author": "G Cornell for devCU",
     "app_directory": "bitracker",
     "app_protected": 0,
-    "app_website": "http:\/\/www.devcu.com",
-    "app_update_check": "http:\/\/www.devcu.com\/sources\/updateCheck.php?app=ips4bt"
+    "app_website": "https:\/\/devcu.com",
+    "app_update_check": "https:\/\/devcu.com"
 }
