@@ -473,13 +473,27 @@
                 "values": [],
                 "zerofill": false
             },
+            "cmaxnfo": {
+                "allow_null": true,
+                "auto_increment": false,
+                "binary": false,
+                "comment": "Maximum nfo size",
+                "decimals": null,
+                "default": "512000",
+                "length": 10,
+                "name": "cmaxnfo",
+                "type": "INT",
+                "unsigned": true,
+                "values": [],
+                "zerofill": false
+            },
             "cmaxss": {
                 "allow_null": true,
                 "auto_increment": false,
                 "binary": false,
                 "comment": "Maximum screenshot size",
                 "decimals": null,
-                "default": "512",
+                "default": "512000",
                 "length": 10,
                 "name": "cmaxss",
                 "type": "INT",
