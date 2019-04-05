@@ -138,7 +138,7 @@ class _Bitracker extends \IPS\core\MemberACPProfile\Block
 					},
 					'dip'	=> function( $val )
 					{
-						return \IPS\Theme::i()->getTemplate( 'global', 'core', 'global' )->basicUrl( \IPS\Http\Url::internal( "app=core&module=members&controller=ip&ip={$val}&tab=bitracker_DownloadLog" ), FALSE, $val );
+						return \IPS\Theme::i()->getTemplate( 'global', 'core', 'global' )->basicUrl( \IPS\Http\Url::internal( "app=core&module=members&controller=ip&ip={$val}&tab=bitracker_TorrentLog" ), FALSE, $val );
 					}
 				);
 				$downloadsChart->addSeries( \IPS\Member::loggedIn()->language()->addToStack('downloads'), 'number', 'COUNT(*)', FALSE );
