@@ -297,6 +297,25 @@ class _torrents extends \IPS\Content\Api\ItemController
 				throw new \IPS\Api\Exception( 'BAD_FILE_SIZE', '1S303/J', 400 );
 			}
 		}
+
+		if ( $category->bitoptions['allownfo'] )
+		{
+			if ( isset( \IPS\Request::i()->nfo ) and \IPS\Request::i()->nfo )
+			{
+				foreach ( \IPS\Request::i()->nfo as $name => $content )
+				{
+					if ( $category->maxnfo and \strlen( $content ) > ( $category->maxnfo * 1024 ) )
+					{
+						throw new \IPS\Api\Exception( 'BAD_NFO_SIZE', '1S303/L', 400 );
+					}
+				}
+			}
+			elseif ( $category->bitoptions['reqnfo'] )
+			{
+				throw new \IPS\Api\Exception( 'NO_NFO', '1S303/N', 400 );
+			}
+		}
+	}
 		
 		if ( $category->bitoptions['allowss'] )
 		{
