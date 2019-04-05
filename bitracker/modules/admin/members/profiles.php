@@ -37,7 +37,7 @@ if ( !defined( '\IPS\SUITE_UNIQUE_KEY' ) )
 }
 
 /**
- * profiles
+ * Profile Options
  */
 class _profiles extends \IPS\Dispatcher\Controller
 {
