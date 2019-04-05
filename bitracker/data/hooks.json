@@ -6,5 +6,9 @@
     "Forum": {
         "type": "C",
         "class": "\\IPS\\forums\\modules\\admin\\forums\\forums"
+    },
+    "BitMemberSettingsMenu": {
+        "type": "S",
+        "class": "\\IPS\\Theme\\class_core_front_global"
     }
 }
