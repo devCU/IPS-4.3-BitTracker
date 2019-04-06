@@ -9,6 +9,7 @@
 	ips.controller.register('bitracker.front.submit.main', {
 
 		_progressbarTimeout: null,
+		_requireNfo: false,
 		_requireScreenshots: false,
 		_bulkUpload: false,
 		_ui: {},
@@ -22,6 +23,7 @@
 			this.on( 'fileDeleted', this.fileDeleted );
 			this.on( 'click', '[data-action="confirmUrls"]', this.confirmURLs );
 			this.on( 'click', '[data-action="confirmImports"]', this.confirmImports );
+			this.on( 'click', '[data-action="confirmNfoUrls"]', this.confirmNfo );
 			this.on( 'click', '[data-action="confirmScreenshotUrls"]', this.confirmScreenshots );
 			this.on( 'click', '[data-action="uploadMore"]', this.uploadMore );
 
@@ -36,6 +38,10 @@
 		setup: function () {
 			var self = this;
 
+			if( this.scope.attr('data-nfoReq') ){
+				this._requireNfo = true;
+			}
+
 			if( this.scope.attr('data-screenshotsReq') ){
 				this._requireScreenshots = true;
 			}
@@ -46,6 +52,7 @@
 
 			this._ui = {
 				progressBar: this.scope.find('#elBitrackerSubmit_progress'),
+				nfo: this.scope.find('#elBitrackerSubmit_nfo'),
 				screenshots: this.scope.find('#elBitrackerSubmit_screenshots'),
 				fileInfo: this.scope.find('#elBitrackerSubmit_otherinfo')
 			};
@@ -64,6 +71,7 @@
 			// Are there any existing files?
 			if( !this._hasExistingFiles() ){
 				hideProgressBar();
+				this._ui.nfo.hide();
 				this._ui.screenshots.hide();
 				this._ui.fileInfo.hide();
 				this.scope.find('[data-role="submitForm"]').prop( 'disabled', true );
@@ -74,6 +82,11 @@
 					this.scope.find('#elBitrackerSubmit_uploader .ipsAttachment_dropZone').hide();
 					this.scope.find('#elBitrackerSubmit_uploader [data-action="uploadMore"]').show();
 					this._hiddenUploader = true;
+				}
+
+				if( !this._hasExistingNfo() && this._requireNfo ){
+					this._ui.fileInfo.hide();
+					this.scope.find('[data-role="submitForm"]').prop( 'disabled', true );
 				}
 
 				if( !this._hasExistingScreenshots() && this._requireScreenshots ){
@@ -121,6 +134,22 @@
 		 * @param 		{event} 	e 		Event object
 		 * @returns 	{void}
 		 */
+		confirmNfo: function (e) {
+			e.preventDefault();
+
+			var gotURLs = this._confirmMenu( 'url_nfo', 'elURLNfo' );
+
+			if( gotURLs ){
+				this._doneNfoStep();
+			}
+		},
+
+		/**
+		 * Responds to clicking Confirm in the Import Files popup. If there's files, we show the next steps
+		 *
+		 * @param 		{event} 	e 		Event object
+		 * @returns 	{void}
+		 */
 		confirmScreenshots: function (e) {
 			e.preventDefault();
 
@@ -157,6 +186,8 @@
 			if( !this._bulkUpload ){
 				if( data.uploader == 'files' ){
 					this._doneUploadStep();
+				} else if( data.uploader == 'nfo' ){
+					this._doneNfoStep();
 				} else if( data.uploader == 'screenshots' ){
 					this._doneScreenshotStep();
 				}
@@ -311,6 +342,35 @@
 		},
 
 		/**
+		 * Returns true if there are existing nfos on the form (from upload, url or file path)
+		 *
+		 * @returns 	{boolean}	Returns true if there are existing files
+		 */
+		_hasExistingNfo: function () {
+			if( this.scope.find('input[name^="nfo_existing"]').length ){
+				return true;
+			}
+
+			var hasURL = [];
+
+			if( this.scope.find('input[name^="url_nfo"]').length ){
+				hasURL = _.filter( this.scope.find('input[name^="url_nfo"]'), function (item) {
+					if( $.trim( $( item ).val() ) != '' ){
+						return true;
+					}
+
+					return false;
+				});
+
+				if( hasURL.length ){
+					return true;
+				}
+			}
+
+			return false;
+		},
+
+		/**
 		 * Returns true if there are existing screenshots on the form (from upload or url)
 		 *
 		 * @returns 	{boolean}	Returns true if there are existing screenshots
@@ -366,6 +426,23 @@
 				this.scope.find('[data-role="submitForm"]').prop( 'disabled', false );
 			}
 		},
+
+		/**
+		 * Shows the next relevant steps of the upload process
+		 *
+		 * @returns 	{void}
+		 */
+		_doneNfoStep: function () {
+			var self = this;
+			
+			ips.utils.anim.go( 'fadeIn', this._ui.fileInfo )
+				.done( function () {
+					$( document ).trigger('contentChange', [ self._ui.fileInfo ] );
+				});
+
+			this.scope.find('[data-role="submitForm"]').prop( 'disabled', false );
+		},
+
 
 		/**
 		 * Shows the next relevant steps of the upload process
