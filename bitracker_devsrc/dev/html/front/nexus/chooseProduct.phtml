@@ -1,0 +1,33 @@
+<ips:template parameters="$products" />
+
+<div class='ipsPad'>
+	<br>
+	<h2 class='ipsType_veryLarge ipsType_center ipsType_reset'>{lang="choose_file_nexus_title"}</h2>
+	<p class='ipsType_large ipsType_center ipsType_light'>
+		{lang="choose_file_nexus_blurb"}
+	</p>
+	<br>
+
+	<section data-controller='nexus.front.store.register'>
+		<div class='ipsBox ipsSpacer_bottom ipsPad_half'>
+			<div class='ipsCarousel ipsClearfix' data-ipsCarousel data-ipsCarousel-showDots data-role='productCarousel'>
+				<div class='ipsCarousel_inner'>
+					<ul class='cNexusCarousel cNexusCategory_grid ipsClearfix' data-role="carouselItems">
+						{{foreach $products as $package}}
+							{template="packageBlock" app="nexus" group="store" params="$package, TRUE, TRUE, TRUE"}
+						{{endforeach}}
+					</ul>
+				</div>
+				<span class='ipsCarousel_shadow ipsCarousel_shadowLeft'></span>
+				<span class='ipsCarousel_shadow ipsCarousel_shadowRight'></span>
+				<a href='#' class='ipsCarousel_nav ipsHide' data-action='prev'><i class='fa fa-chevron-left'></i></a>
+				<a href='#' class='ipsCarousel_nav ipsHide' data-action='next'><i class='fa fa-chevron-right'></i></a>
+			</div>
+		</div>
+
+		<div data-role='productInformationWrapper' class='ipsHide ipsAreaBackground_light ipsPad cNexusRegister_info'>
+			<a href='#' class='cNexusRegister_close ipsHide' data-action='closeInfo'>&times;</a>
+			<div data-role='productInformation'></div>
+		</div>
+	</section>
+</div>

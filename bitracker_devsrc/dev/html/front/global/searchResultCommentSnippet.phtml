@@ -1,0 +1,35 @@
+<ips:template parameters="$indexData, $screenshot, $url, $reviewRating, $condensed" />
+
+{{if $condensed}}
+	{{if $screenshot}}
+		<span class='ipsThumb_bg ipsThumb_small ipsPos_left' style='background-image: url("{file="$screenshot" extension="bitracker_Screenshots"}")'>
+			<img src='{file="$screenshot" extension="bitracker_Screenshots"}' alt='' class="">
+		</span>
+	{{else}}
+		<span class='ipsNoThumb ipsThumb_small ipsPos_left'></span>
+	{{endif}}
+{{else}}
+	<div class='ipsColumns ipsColumns_collapsePhone ipsColumns_noSpacing'>
+		<div class='ipsColumn ipsColumn_narrow'>
+			<a href='{$url}'>
+				{{if $screenshot}}
+					{template="thumbImage" group="global" app="core" location="front" params="$screenshot, $indexData['index_title'], 'medium', '', 'view_this', NULL, 'bitracker_Screenshots'"}
+				{{else}}
+					<div class='ipsNoThumb ipsNoThumb_file ipsThumb_medium'></div>
+				{{endif}}
+			</a>
+		</div>
+		<div class='ipsColumn ipsColumn_fluid'>
+			<div class='ipsStream_comment ipsPad'>
+				{{if $reviewRating !== NULL}}
+					{template="rating" app="core" params="'medium', $reviewRating, \IPS\Settings::i()->reviews_rating_out_of" group="global"}
+				{{endif}}
+				{{if trim( $indexData['index_content'] ) !== ''}}
+					<div class='ipsType_richText ipsType_break ipsType_medium' {{if !( \IPS\Dispatcher::i()->application->directory == 'core' and \IPS\Dispatcher::i()->module and \IPS\Dispatcher::i()->module->key == 'search' )}}data-ipsTruncate data-ipsTruncate-type='remove' data-ipsTruncate-size='3 lines' data-ipsTruncate-watch='false'{{else}}data-searchable data-findTerm{{endif}}>
+						{expression="\IPS\Content\Search\Result::preDisplay( $indexData['index_content'] )" raw="true"}
+					</div>
+				{{endif}}
+			</div>
+		</div>
+	</div>
+{{endif}}

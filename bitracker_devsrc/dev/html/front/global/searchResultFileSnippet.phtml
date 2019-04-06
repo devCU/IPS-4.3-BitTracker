@@ -1,0 +1,48 @@
+<ips:template parameters="$indexData, $itemData, $screenshot, $url, $price, $condensed" />
+
+{{if $condensed}}
+	{{if $screenshot}}
+		<span class='ipsThumb_bg ipsThumb_small ipsPos_left' style='background-image: url("{file="$screenshot" extension="bitracker_Screenshots"}")'>
+			<img src='{file="$screenshot" extension="bitracker_Screenshots"}' alt='{lang="bit_screenshot_for" sprintf="$indexData['index_title']"}' class="">
+		</span>
+	{{else}}
+		<span class='ipsNoThumb ipsThumb_small ipsPos_left'></span>
+	{{endif}}
+{{else}}
+	<div class='ipsColumns ipsColumns_collapsePhone'>
+		<div class='ipsColumn ipsColumn_medium'>
+			<a href='{$url}'>
+				{{if $screenshot}}
+					{template="thumbImage" group="global" app="core" location="front" params="$screenshot, $indexData['index_title'], 'large', '', 'view_this', NULL, 'bitracker_Screenshots'"}
+				{{else}}
+					<div class='ipsNoThumb ipsThumb_small'></div>
+				{{endif}}
+			</a>
+		</div>
+		<div class='ipsColumn ipsColumn_fluid ipsStream_snippetInfo'>
+			<p class='ipsType_reset ipsType_light ipsType_normal'>{lang="version"} {$itemData['file_version']}</p>
+			{{if !$price or in_array( 'bitracker', explode( ',', settings.bit_nexus_display ) ) }}
+				<p class='ipsType_reset ipsType_normal'><i class='fa fa-download'></i> {lang="num_bitracker" pluralize="$itemData['file_bitracker']"}</p>
+			{{endif}}
+
+			
+			{{if trim( $indexData['index_content'] ) !== ''}}
+				<div class='ipsSpacer_top ipsSpacer_half ipsType_richText ipsType_break ipsType_medium' {{if !( \IPS\Dispatcher::i()->application->directory == 'core' and \IPS\Dispatcher::i()->module and \IPS\Dispatcher::i()->module->key == 'search' )}}data-ipsTruncate data-ipsTruncate-type='remove' data-ipsTruncate-size='2 lines' data-ipsTruncate-watch='false'{{else}}data-searchable data-findTerm{{endif}}>
+					{expression="\IPS\Content\Search\Result::preDisplay( $indexData['index_content'] )" raw="true"}
+				</div>
+			{{endif}}
+			
+			{{if \IPS\Application::appIsEnabled( 'nexus' ) and settings.bit_nexus_on}}
+				<p class='ipsType_large ipsType_reset ipsSpacer_top ipsSpacer_half'>
+					<span class='ipsStream_price'>
+						{{if $price}}
+							{$price|raw}
+						{{else}}
+							{lang="file_free"}
+						{{endif}}
+					</span>
+				</p>
+			{{endif}}
+		</div>
+	</div>
+{{endif}}
