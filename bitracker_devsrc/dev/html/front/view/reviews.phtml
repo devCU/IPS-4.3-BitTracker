@@ -1,0 +1,72 @@
+<ips:template parameters="$file" />
+
+<div data-controller='core.front.core.commentFeed' {{if settings.auto_polling_enabled}}data-autoPoll{{endif}} data-commentsType='reviews' data-baseURL='{$file->url()}' {{if $file->isLastPage('reviews')}}data-lastPage{{endif}} data-feedID='file-{$file->id}-reviews' id='reviews'>
+	{{if $file->reviewForm()}}
+		{{if $file->locked()}}
+			<strong class='ipsType_warning'><i class='fa fa-info-circle'></i> {lang="item_locked_can_review"}</strong>
+		{{endif}}
+		<div id='elFileReviewForm'>
+			{$file->reviewForm()|raw}
+		</div>
+	{{else}}
+		{{if $file->hasReviewed()}}
+			<!-- Already reviewed -->
+		{{elseif $file->locked()}}
+			{template="commentUnavailable" group="forms" location="front" app="core" params="'item_locked_cannot_review'"}
+		{{elseif \IPS\Member::loggedin()->restrict_post}}
+			{{if \IPS\Member::loggedIn()->restrict_post == -1}}
+				{template="reviewUnavailable" group="forms" location="front" app="core" params="'restricted_cannot_comment'"}
+			{{else}}
+				{template="reviewUnavailable" group="forms" location="front" app="core" params="'restricted_cannot_comment', \IPS\Member::loggedIn()->warnings(5,NULL,'rpa'), \IPS\Member::loggedIn()->restrict_post"}
+			{{endif}}
+		{{elseif $file->mustDownloadBeforeReview()}}
+			<p class='ipsType_reset ipsType_light ipsType_normal'>{lang="no_download_review"}</p>
+		{{elseif \IPS\Member::loggedIn()->members_bitoptions['unacknowledged_warnings']}}
+			{template="reviewUnavailable" group="forms" location="front" app="core" params="'unacknowledged_warning_cannot_post', \IPS\Member::loggedIn()->warnings( 1, FALSE )"}
+		{{endif}}
+	{{endif}}
+	{{if count( $file->reviews( NULL, NULL, NULL, 'desc', NULL, NULL, NULL, NULL, isset( \IPS\Request::i()->showDeleted ) ) )}}
+		{{if !$file->hasReviewed()}}<hr class='ipsHr'>{{endif}}
+		<div class="ipsClearfix ipsSpacer_bottom">
+			{template="commentMultimodHeader" app="core" group="global" params="$file, '#reviews', 'review'"}
+			{{if $file->reviewPageCount() > 1}}
+				<div class="ipsPos_left ipsResponsive_noFloat">
+					{$file->reviewPagination( array( 'tab', 'sort' ) )|raw}
+				</div>
+			{{endif}}
+			<div class="ipsClearfix ipsPos_right ipsResponsive_hidePhone">
+				<ul class="ipsButtonRow ipsClearfix">
+					<li data-action="tableFilter">
+						<a href="{$file->url()->setQueryString( array( 'tab' => 'reviews', 'page' => 1, 'sort' => 'helpful' ) )}" class="{{if !isset( request.sort ) or request.sort != 'newest'}}ipsButtonRow_active{{endif}}" data-action="filterClick">{lang="most_helpful"}</a>
+					</li>
+					<li data-action="tableFilter">
+						<a href="{$file->url()->setQueryString( array( 'tab' => 'reviews', 'page' => 1, 'sort' => 'newest' ) )}" class="{{if isset( request.sort ) and request.sort == 'newest'}}ipsButtonRow_active{{endif}}" data-action="filterClick">{lang="newest"}</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+		
+		<div data-role='commentFeed' data-controller='core.front.core.moderation'>
+			<form action="{$file->url()->csrf()->setQueryString( 'do', 'multimodReview' )}" method="post" data-ipsPageAction data-role='moderationTools'>
+				{{$reviewCount=0; $timeLastRead = $file->timeLastRead(); $lined = FALSE;}}
+				{{foreach $file->reviews( NULL, NULL, NULL, 'desc', NULL, NULL, NULL, NULL, isset( \IPS\Request::i()->showDeleted ) ) as $review}}
+					{{if !$lined and $timeLastRead and $timeLastRead->getTimestamp() < $review->mapped('date')}}
+						{{if $lined = TRUE and $reviewCount}}
+							<hr class="ipsCommentUnreadSeperator">
+						{{endif}}
+					{{endif}}
+					{{$reviewCount++;}}
+					{$review->html()|raw}
+				{{endforeach}}
+				{template="commentMultimod" app="core" group="global" params="$file, 'review'"}
+			</form>
+		</div>
+		{{if $file->reviewPageCount() > 1}}
+			<div>
+				{$file->reviewPagination( array( 'tab', 'sort' ) )|raw}
+			</div>
+		{{endif}}
+	{{elseif !$file->canReview()}}
+		<p class="ipsType_normal ipsType_light ipsType_reset" data-role="noReviews">{lang="no_reviews"}</p>
+	{{endif}}
+</div>

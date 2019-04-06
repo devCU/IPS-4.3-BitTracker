@@ -1,0 +1,38 @@
+<ips:template parameters="$files, $title, $orientation='vertical'" />
+
+<h3 class='ipsType_reset ipsWidget_title'>{$title}</h3>
+<div class='ipsWidget_inner'>
+	{{if $orientation == 'vertical'}}
+		<div class='ipsPad_half'>
+			{{if count( $files )}}
+				<ul class='ipsDataList ipsDataList_reducedSpacing'>
+					{{foreach $files as $file}}
+						{template="fileRow" group="widgets" app="bitracker" params="$file, $orientation"}
+					{{endforeach}}
+				</ul>
+			{{else}}
+				<p class='ipsType_reset'>{lang="no_new_files"}</p>
+			{{endif}}
+		</div>
+	{{else}}
+		{{if count( $files )}}
+    <div class='ipsPad'>
+        <div class='ipsCarousel ipsClearfix' data-ipsCarousel data-ipsCarousel-showDots>
+        	<div class='ipsCarousel_inner'>
+				<ul class='cBitrackerCarousel' data-role="carouselItems">
+					{{foreach $files as $idx => $file}}
+						{template="indexBlock" group="browse" app="bitracker" params="$file"}
+					{{endforeach}}
+				</ul>
+			</div>
+            <span class='ipsCarousel_shadow ipsCarousel_shadowLeft'></span>
+            <span class='ipsCarousel_shadow ipsCarousel_shadowRight'></span>
+            <a href='#' class='ipsCarousel_nav ipsHide' data-action='prev'><i class='fa fa-chevron-left'></i></a>
+            <a href='#' class='ipsCarousel_nav ipsHide' data-action='next'><i class='fa fa-chevron-right'></i></a>
+        </div>
+    </div>
+		{{else}}
+			<p class='ipsType_reset'>{lang="no_new_files"}</p>
+		{{endif}}
+	{{endif}}
+</div>
