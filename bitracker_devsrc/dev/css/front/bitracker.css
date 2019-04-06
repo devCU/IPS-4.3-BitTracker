@@ -1,0 +1,131 @@
+﻿#elTorrentsFeatured .ipsCarousel_item {
+	height: 205px;
+	position: relative;
+}
+
+	#elTorrentsFeatured .ipsCarousel_item .ipsType_richText {
+		max-height: 3em;
+		overflow: hidden;
+	}
+	
+#elTorrentsFeatured .ipsRating {
+	margin-top: 0;
+}
+
+#elTorrentsCategories .ipsBadge {
+	margin-top: 2px;
+}
+
+.cFilePrice {
+	color: {theme="price"};
+	text-transform: uppercase;
+	font-weight: 500;
+}
+
+.cBitrackerCarouselItem {
+	width: 170px;
+	min-height: 240px;
+}
+	
+	html[dir="ltr"] .cBitrackerCarouselItem {
+		margin-right: 6px !important;
+	}
+	html[dir="rtl"] .cBitrackerCarouselItem {
+		margin-left: 6px !important;
+	}
+
+	.cBitrackerCarouselItem .ipsThumb {
+		max-width: 100%;
+		max-height: 100%;
+		width: 155px;
+		height: 155px;
+	}
+
+	.cBitrackerCarouselItem .cFilePrice {
+		display: block;
+		padding: 5px 0 0;
+		margin: 5px 0 0 0;
+		border-top: 1px solid rgba(0,0,0,0.1);
+	}
+
+.cBitrackerCarouselItem_info {
+	line-height: 2;
+}
+
+#elTorrentsStats .ipsDataItem_main,
+#elTorrentsStats .ipsDataItem_stats {
+	padding: 5px 5px;
+}
+
+html[dir="ltr"] #elDownloadStatsLatest > .ipsWidget_latestItem {
+	margin-left: 85px;
+}
+html[dir="rtl"] #elDownloadStatsLatest > .ipsWidget_latestItem {
+	margin-right: 85px;
+}
+
+.cFileInfoData {
+	max-width: 155px;
+}
+
+/* Submission */
+#elTorrentsSubmit_progress > .ipsProgressBar {
+	margin: 15px 0 5px 0;
+	width: 100%;
+	height: 32px;
+}
+
+#elTorrentsSubmit_progress.ipsSticky {
+	background: #fff;
+	padding: 0px 15px 15px 15px;
+}
+
+#elTorrentsSubmit .ipsAttachment_dropZone {
+	background: #fff;
+	border: 3px dashed rgba(0,0,0,0.1);
+	margin-top: 7px;
+}
+
+.cBitrackerSubmit_step {
+	display: block;
+	width: 40px;
+	height: 40px;
+	text-align: center;
+	line-height: 40px;
+	font-size: 24px;
+	color: #fff;
+	border-radius: 40px;
+	background: {theme="step_background"};
+}
+
+#elURLFiles, #elImportFiles, #elURLScreenshots {
+	position: relative;
+}
+
+.cBitrackerLinkedScreenshotItem {
+	margin-bottom: 5px;
+}
+	.cBitrackerLinkedScreenshotItem_block {
+		display: inline-block;
+		width: 20px;
+		text-align: center;
+	}
+		html[dir="ltr"] .cBitrackerLinkedScreenshotItem_block {
+			margin-left: 5px;
+		}
+		html[dir="rtl"] .cBitrackerLinkedScreenshotItem_block {
+			margin-right: 5px;
+		}
+		.cBitrackerLinkedScreenshotItem_block i {
+			position: relative;
+			top: 1px;
+		}
+
+.ann:active {
+  background-color: green;
+  color: #fff;
+}
+.copied {
+	color: green;
+	display: none;
+}
