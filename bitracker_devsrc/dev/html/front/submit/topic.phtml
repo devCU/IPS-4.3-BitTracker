@@ -1,0 +1,70 @@
+<ips:template parameters="$file" />
+
+<div class='ipsAreaBackground_light ipsPad'>
+{{if $file->container()->bitoptions['topic_screenshot'] and $file->primary_screenshot}}
+	<div class='ipsColumns ipsColumns_collapsePhone'>
+		<div class='ipsColumn ipsColumn_medium ipsType_center'>
+			<a href="{$file->url()}">
+				{{$image = ( $file->primary_screenshot instanceof \IPS\File ) ? (string) $file->primary_screenshot->url : $file->primary_screenshot;}}
+				<img src='{file="$image" extension="bitracker_Screenshots"}' alt='{$file->name}'>
+			</a>
+			<br><br>
+			<a href="{$file->url()}" class='ipsButton ipsButton_primary ipsButton_fullWidth ipsButton_small'>
+				{lang="view_file"}
+			</a>
+		</div>
+		<div class='ipsColumn_fluid'>
+{{endif}}
+			<h3 class='ipsType_sectionHead'>{$file->name}</h3>
+			{{if !$file->container()->bitoptions['topic_screenshot'] or !$file->primary_screenshot}}
+				<a href="{$file->url()}" class='ipsButton ipsButton_primary ipsButton_fullWidth ipsButton_small'>
+					{lang="view_file"}
+				</a>
+			{{endif}}
+			<hr class='ipsHr'>
+			<div class='ipsType_normal ipsType_richText ipsContained ipsType_break'>
+				{$file->desc|raw}
+			</div>
+			<hr class='ipsHr'>
+			<ul class='ipsDataList ipsDataList_reducedSpacing ipsDataList_collapsePhone'>
+				<li class='ipsDataItem'>
+					<div class='ipsDataItem_generic ipsDataItem_size5'>
+						<strong>{lang="file_submitter"}</strong>
+					</div>
+					<div class='ipsDataItem_main'>
+						{$file->author()->link()|raw}
+					</div>
+				</li>
+				<li class='ipsDataItem'>
+					<div class='ipsDataItem_generic ipsDataItem_size5'>
+						<strong>{lang="file_submitted"}</strong>
+					</div>
+					<div class='ipsDataItem_main'>
+						{expression="\IPS\DateTime::ts( $file->submitted )->localeDate()"}
+					</div>
+				</li>
+				<li class='ipsDataItem'>
+					<div class='ipsDataItem_generic ipsDataItem_size5'>
+						<strong>{lang="file_cat"}</strong>
+					</div>
+					<div class='ipsDataItem_main'>
+						<a href="{$file->container()->url()}">{$file->container()->_title}</a>
+					</div>
+				</li>
+				{{foreach $file->customFields( TRUE ) as $k => $v}}
+					<li class='ipsDataItem'>
+						<div class='ipsDataItem_generic ipsDataItem_size5'>
+							<strong>{lang="bitracker_{$k}"}</strong>
+						</div>
+						<div class='ipsDataItem_main'>
+							{$v|raw}
+						</div>
+					</li>
+				{{endforeach}}
+			</ul>
+{{if $file->container()->bitoptions['topic_screenshot'] and $file->primary_screenshot}}
+		</div>
+	</div>
+{{endif}}
+</div>
+<p>&nbsp;</p>

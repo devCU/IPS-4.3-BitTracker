@@ -1,0 +1,13 @@
+<ips:template parameters="$form, $versioning" />
+
+<div class='ipsPageHeader ipsSpacer_bottom'>
+	<h1 class='ipsType_pageTitle'>{lang="upload_new_version"}</h1>
+	{{if $versioning and !member.group['bit_bypass_revision']}}
+		<div class='ipsLayout_contentSection ipsType_textBlock ipsType_normal'>
+			{lang="new_version_versioning"}
+		</div>
+		<br>
+	{{endif}}
+</div>
+
+{$form|raw}

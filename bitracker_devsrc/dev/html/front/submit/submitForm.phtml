@@ -1,0 +1,229 @@
+<ips:template parameters="$form, $category, $terms, $bulk=0" />
+
+{{$nonInfoFields = array('files', 'import_files', 'url_files', 'nfo', 'url_nfo', 'screenshots', 'url_screenshots');}}
+{{$step = 1;}}
+
+{{if $bulk}}
+	{template="pageHeader" group="global" app="core" params="\IPS\Member::loggedIn()->language()->addToStack( 'submit_form_desc_bulk', TRUE, array( 'sprintf' => $category->_title ) )"}
+{{else}}
+	{template="pageHeader" group="global" app="core" params="\IPS\Member::loggedIn()->language()->addToStack( 'submit_form_desc', TRUE, array( 'sprintf' => $category->_title ) )"}
+{{endif}}
+<hr class='ipsHr'>
+
+{{if $form->error}}
+	<div class="ipsMessage ipsMessage_error">
+		{$form->error}
+	</div>
+	<br>
+{{endif}}
+
+
+<form accept-charset='utf-8' method="post" action="{$form->action}" id='elTorrentsSubmit' enctype="multipart/form-data" {{if $category->bitoptions['allowss'] AND $category->bitoptions['reqss']}}data-screenshotsReq='1'{{endif}} {{if $category->bitoptions['allownfo'] AND $category->bitoptions['reqnfo']}}data-nfoReq='1'{{endif}} {{if $bulk}}data-bulkUpload='1'{{endif}} data-ipsForm data-ipsFormSubmit data-controller='bitracker.front.submit.main'>
+	<input type="hidden" name="{$form->id}_submitted" value="1">
+	{{foreach $form->hiddenValues as $k => $v}}
+		<input type="hidden" name="{$k}" value="{$v}">
+	{{endforeach}}
+
+	<div class='ipsColumns ipsColumns_collapsePhone'>
+		<div class='ipsColumn ipsColumn_veryNarrow ipsType_center'>
+			<span class='cBitrackerSubmit_step'>{$step}{{$step++;}}</span>
+		</div>
+		<div class='ipsColumn ipsColumn_fluid'>
+			<div class='ipsBox'>
+				<h3 class='ipsType_sectionTitle ipsType_reset'>{lang="select_your_files"}</h3>
+				<div class='ipsAreaBackground ipsPad ipsClearfix'>
+					{{if isset( $form->elements['']['import_files'] ) || isset( $form->elements['']['url_files'] )}}
+						<ul class='ipsList_inline ipsClearfix ipsType_right'>
+							{{if isset( $form->elements['']['url_files'] )}}
+								<li>
+									<a href='#' class='ipsButton ipsButton_veryLight ipsButton_verySmall' id='elURLFiles' data-ipsMenu data-ipsMenu-closeOnClick='false' data-ipsMenu-appendTo='#elTorrentsSubmit'>
+										<i class='fa fa-globe'></i>&nbsp; {lang="add_torrents_by_url"} <i class='fa fa-caret-down'></i>
+										<span class='ipsNotificationCount {{if !count( $form->elements['']['url_files']->value )}}ipsHide{{endif}}' data-role='fileCount'>{expression="count( $form->elements['']['url_files']->value )"}</span>
+									</a>
+									<div id='elURLFiles_menu' class='ipsMenu ipsMenu_normal ipsHide ipsPad'>
+										<ul class='ipsFieldRow_fullWidth'>
+											{$form->elements['']['url_files']|raw}
+										</ul>
+										<hr class='ipsHr'>
+										<a href='#' class='ipsButton ipsButton_fullWidth ipsButton_important' data-action='confirmUrls'>{lang="submit_menu_confirm"}</a>
+									</div>
+								</li>
+							{{endif}}
+							{{if isset( $form->elements['']['import_files'] )}}
+								<li>
+									<a href='#' class='ipsButton ipsButton_veryLight ipsButton_verySmall' id='elImportFiles' data-ipsMenu data-ipsMenu-closeOnClick='false' data-ipsMenu-appendTo='#elTorrentsSubmit'>
+										<i class='fa fa-folder'></i>&nbsp; {lang="add_torrents_by_path"} <i class='fa fa-caret-down'></i>
+										<span class='ipsNotificationCount {{if !count( $form->elements['']['import_files']->value )}}ipsHide{{endif}}' data-role='fileCount'>{expression="count( $form->elements['']['import_files']->value )"}</span>
+									</a>
+									<div id='elImportFiles_menu' class='ipsMenu ipsMenu_normal ipsHide ipsPad'>
+										<ul class='ipsFieldRow_fullWidth'>
+											{$form->elements['']['import_files']|raw}
+										</ul>
+										<hr class='ipsHr'>
+										<a href='#' class='ipsButton ipsButton_fullWidth ipsButton_important' data-action='confirmImports'>{lang="submit_menu_confirm"}</a>
+									</div>
+								</li>
+							{{endif}}
+						</ul>
+					{{endif}}
+					<div id='elTorrentsSubmit_progress' class='ipsClear' data-ipsSticky>
+						<div class='ipsProgressBar ipsProgressBar_animated ipsClear' >
+							<div class='ipsProgressBar_progress' data-progress='0%'></div>
+						</div>
+					</div>
+					<div id='elTorrentsSubmit_uploader' class='ipsClear'>
+						{$form->elements['']['files']->html( $form )|raw}
+						<button type='button' class='ipsButton ipsButton_veryLight ipsButton_verySmall ipsHide' data-action='uploadMore'>{lang="upload_more_files"}</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	{{if !$bulk }}
+
+		{{if $category->bitoptions['allownfo'] }}
+			<div id='elTorrentsSubmit_nfo'>
+				<br><br>
+				<div class='ipsColumns ipsColumns_collapsePhone'>
+					<div class='ipsColumn ipsColumn_veryNarrow ipsType_center'>
+						<span class='cBitrackerSubmit_step'>{$step}{{$step++;}}</span>
+					</div>
+					<div class='ipsColumn ipsColumn_fluid'>
+						<div class='ipsBox'>
+							<h3 class='ipsType_sectionTitle ipsType_reset'>{lang="add_nfo"}</h3>
+							<div class='ipsAreaBackground ipsPad_half'>
+								{{if isset( $form->elements['']['url_nfo'] )}}
+									<ul class='ipsList_inline ipsClearfix ipsType_right'>
+										<li>
+											<a href='#' class='ipsButton ipsButton_veryLight ipsButton_verySmall' id='elURLScreenshots' data-ipsMenu data-ipsMenu-closeOnClick='false' data-ipsMenu-appendTo='#elTorrentsSubmit_nfo'>
+												<i class='fa fa-globe'></i>&nbsp; {lang="add_nfo_by_url"} <i class='fa fa-caret-down'></i>
+												<span class='ipsNotificationCount {{if !count( $form->elements['']['url_nfo']->value )}}ipsHide{{endif}}' data-role='fileCount'>{expression="count( $form->elements['']['url_nfo']->value )"}</span>
+											</a>
+											<div id='elURLNfo_menu' class='ipsMenu ipsMenu_wide ipsHide ipsPad'>
+												<ul class='ipsFieldRow_fullWidth'>
+													{$form->elements['']['url_nfo']|raw}
+												</ul>
+												<hr class='ipsHr'>
+												<a href='#' class='ipsButton ipsButton_fullWidth ipsButton_important' data-action='confirmNfoUrls'>{lang="submit_menu_confirm"}</a>
+											</div>
+										</li>
+									</ul>
+								{{endif}}
+								{{if isset( $form->elements['']['nfo'] )}}
+								<div id='elTorrentsSubmit_nfo'>
+									{$form->elements['']['nfo']->html( $form )|raw}
+								</div>
+								{{endif}}
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		{{endif}}
+
+		{{if $category->bitoptions['allowss'] }}
+			<div id='elTorrentsSubmit_screenshots'>
+				<br><br>
+				<div class='ipsColumns ipsColumns_collapsePhone'>
+					<div class='ipsColumn ipsColumn_veryNarrow ipsType_center'>
+						<span class='cBitrackerSubmit_step'>{$step}{{$step++;}}</span>
+					</div>
+					<div class='ipsColumn ipsColumn_fluid'>
+						<div class='ipsBox'>
+							<h3 class='ipsType_sectionTitle ipsType_reset'>{lang="add_screenshots"}</h3>
+							<div class='ipsAreaBackground ipsPad_half'>
+								{{if isset( $form->elements['']['url_screenshots'] )}}
+									<ul class='ipsList_inline ipsClearfix ipsType_right'>
+										<li>
+											<a href='#' class='ipsButton ipsButton_veryLight ipsButton_verySmall' id='elURLScreenshots' data-ipsMenu data-ipsMenu-closeOnClick='false' data-ipsMenu-appendTo='#elTorrentsSubmit_screenshots'>
+												<i class='fa fa-globe'></i>&nbsp; {lang="add_screenshots_by_url"} <i class='fa fa-caret-down'></i>
+												<span class='ipsNotificationCount {{if !count( $form->elements['']['url_screenshots']->value )}}ipsHide{{endif}}' data-role='fileCount'>{expression="count( $form->elements['']['url_screenshots']->value )"}</span>
+											</a>
+											<div id='elURLScreenshots_menu' class='ipsMenu ipsMenu_wide ipsHide ipsPad'>
+												<ul class='ipsFieldRow_fullWidth'>
+													{$form->elements['']['url_screenshots']|raw}
+												</ul>
+												<hr class='ipsHr'>
+												<a href='#' class='ipsButton ipsButton_fullWidth ipsButton_important' data-action='confirmScreenshotUrls'>{lang="submit_menu_confirm"}</a>
+											</div>
+										</li>
+									</ul>
+								{{endif}}
+								{{if isset( $form->elements['']['screenshots'] )}}
+								<div id='elTorrentsSubmit_screenshots'>
+									{$form->elements['']['screenshots']->html( $form )|raw}
+								</div>
+								{{endif}}
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		{{endif}}
+
+		<div id='elTorrentsSubmit_otherinfo'>
+			<br><br>
+			<div class='ipsColumns ipsColumns_collapsePhone'>
+				<div class='ipsColumn ipsColumn_veryNarrow ipsType_center'>
+					<span class='cBitrackerSubmit_step'>{$step}{{$step++;}}</span>
+				</div>
+				<div class='ipsColumn ipsColumn_fluid'>
+					<div class='ipsBox'>
+						<h3 class='ipsType_sectionTitle ipsType_reset'>{lang="submit_file_information"}</h3>
+						<div class='ipsPad'>
+							<ul class='ipsForm ipsForm_vertical'>
+								{{foreach $form->elements as $collection}}
+									{{foreach $collection as $fieldName => $input}}
+										{{if !in_array( $fieldName, $nonInfoFields )}}
+											{$input|raw}
+										{{endif}}
+									{{endforeach}}
+								{{endforeach}}
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			{{if $terms}}
+				<br><br>
+				<div class='ipsColumns ipsColumns_collapsePhone'>
+					<div class='ipsColumn ipsColumn_veryNarrow ipsType_center'>
+						<span class='cBitrackerSubmit_step'>{$step}{{$step++;}}</span>
+					</div>
+					<div class='ipsColumn ipsColumn_fluid'>
+						<div class='ipsBox ipsPad'>
+							<h3 class='ipsType_sectionHead'>{lang="csubmissionterms_placeholder"}</h3>
+							<br><br>
+							<div class='ipsType_richText'>
+								{$terms|raw}
+							</div>
+						</div>
+					</div>
+				</div>
+			{{endif}}
+		</div>
+	{{elseif $terms}}
+		<br>
+		<div class='ipsColumns ipsColumns_collapsePhone'>
+			<div class='ipsColumn ipsColumn_veryNarrow ipsType_center'>
+				<span class='cBitrackerSubmit_step'>{$step}{{$step++;}}</span>
+			</div>
+			<div class='ipsColumn ipsColumn_fluid'>
+				<div class='ipsBox ipsPad'>
+					<h3 class='ipsType_sectionHead'>{lang="csubmissionterms_placeholder"}</h3>
+					<br><br>
+					<div class='ipsType_richText'>
+						{$terms|raw}
+					</div>
+				</div>
+			</div>
+		</div>
+	{{endif}}
+
+	<hr class='ipsHr'>
+	<div class='ipsType_right'>
+		<button type='submit' class='ipsButton ipsButton_large ipsButton_primary' data-role='submitForm'>{{if $bulk}}{lang="continue"}{{else}}{lang="save_and_submit_files"}{{endif}}</button>
+	</div>
+</form>
