@@ -1,0 +1,29 @@
+<ips:template parameters="$data" />
+
+<ul class="ipsDataList">
+	{{foreach $data as $k => $v}}
+		<li class="ipsDataItem">
+			<span class="ipsDataItem_generic ipsDataItem_size6">
+				<strong>{lang="$k"}</strong>
+			</span>
+			<span class="ipsDataItem_generic">
+				{{if in_array( $k, array( 'total_disk_spaced', 'total_bandwidth', 'current_month_bandwidth' ) )}}
+					{filesize="$v"}
+				{{elseif $k === 'largest_file'}}
+					<a href='{$v->url()}' target='_blank'>{$v->name}</a> <span class="ipsType_light">({filesize="$v->filesize()"})</span>
+				{{elseif $k === 'most_viewed_file'}}
+					<a href='{$v->url()}' target='_blank'>{$v->name}</a> <span class="ipsType_light">({lang="num_views_with_number" pluralize="$v->views"})</span>
+				{{elseif $k === 'most_downloaded_file'}}
+					<a href='{$v->url()}' target='_blank'>{$v->name}</a> <span class="ipsType_light">({lang="num_bitracker" pluralize="$v->bitracker"})</span>
+				{{elseif $k === 'total_files' OR $k === 'total_views' OR $k === 'total_bitracker'}}
+					{number="$v"}
+				{{else}}
+					{$v}
+				{{endif}}
+			</span>
+		</li>
+	{{endforeach}}
+</ul>
+<div class="ipsPad_half ipsType_light">
+	{lang="download_stats_disclaimer"}
+</div>
