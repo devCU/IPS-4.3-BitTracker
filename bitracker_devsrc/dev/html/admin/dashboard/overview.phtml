@@ -6,16 +6,18 @@
 <p>
 	 
 </p> -->
+
 <div class="ipsAreaBackground_light ipsPad">
 	<div class="ipsGrid ipsGrid_collapsePhone">
 		<div class="ipsGrid_span3 ipsPad" style="height:125px;background: #006666;">
 			<span style="color: #fff; font-size:25px;"><i class="fas fa-random"></i> Transfer</span><br><br><br>
 			<span style="color: #fff; font-size:45px;"> 0 </span>
 		</div>
-
 		<div class="ipsGrid_span3 ipsPad" style="height:125px;background: #6f4e77;">
 			<span style="color: #fff; font-size:25px;"><i class="fas fa-cloud-download-alt"></i> Torrents</span><br><br><br>
-			<span style="color: #fff; font-size:45px;"> 0 </span>
+			<span style="color: #fff; font-size:45px;">	{{foreach $data as $k => $v}}{{if $k === 'total_files' OR $k === 'total_views' OR $k === 'total_bitracker'}}
+					{number="$v"}
+				{{endif}}	{{endforeach}} </span>
 		</div>
 
 		<div class="ipsGrid_span3 ipsPad" style="height:125px;background: #bf2e50;">
@@ -34,39 +36,88 @@
 	<div class="ipsGrid ipsGrid_collapsePhone">
 	 <div class="ipsColumns">
 		<div class="ipsColumn ipsColumn_fluid ipsGrid_span12 ipsPad" style="background: #D24625; color: #fff;">
-			<span style="color: #fff; font-size:20px;"><i class="fas fa-shipping-fast"></i> Active Files</span>
+			<span style="color: #fff; font-size:20px;"><i class="far fa-folder-open"></i> Largest Torrents</span>
 		</div>
 	</div>
+<table id="torrentable">
+  <tr>
+    <th>File Name</th>
+    <th>File Size</th>
+    <th>Date Submitted</th>
+    <th>Submitter</th>
+  </tr>
+	{{foreach $data as $k => $v}}
+     {{if $k === 'largest_file'}}
+  <tr>
+    <td><a href='{$v->url()}' target='_blank'>{$v->name}</a></td>
+    <td><span class="ipsType_light">{filesize="$v->filesize()"}</span></td>
+    <td>{$v->file_submitted}</td>
+    <td>{$v->file_submitted}</td>
+  </tr>
+				{{endif}}
+	{{endforeach}}
+</table>
   </div>
 </div>
 
-	<p class="ipsPad ipsPos_center">{lang="no_results"}</p>
 
 <div class="ipsAreaBackground_light ipsPad">
 	<div class="ipsGrid ipsGrid_collapsePhone">
 	 <div class="ipsColumns">
 		<div class="ipsColumn ipsColumn_fluid ipsGrid_span12 ipsPad" style="background: #2E3D49; color: #fff;">
-			<span style="color: #fff; font-size:20px;"><i class="fas fa-user-check"></i> Active Members</span>
+			<span style="color: #fff; font-size:20px;"><i class="far fa-eye"></i> Most Viewed Torrents</span>
 		</div>
 	</div>
+<table id="torrentable">
+  <tr>
+    <th>File Name</th>
+    <th>File Size</th>
+    <th>Date Submitted</th>
+    <th>Submitter</th>
+  </tr>
+	{{foreach $data as $k => $v}}
+     {{if $k === 'most_viewed_file'}}
+  <tr>
+    <td><a href='{$v->url()}' target='_blank'>{$v->name}</a></td>
+    <td><span class="ipsType_light">{lang="num_views_with_number" pluralize="$v->views"}</span></td>
+    <td>{$v->file_submitted}</td>
+    <td>{$v->file_submitted}</td>
+  </tr>
+				{{endif}}
+	{{endforeach}}
+</table>
   </div>
 </div>
-
-	<p class="ipsPad ipsPos_center">{lang="no_results"}</p>
 
 <div class="ipsAreaBackground_light ipsPad">
 	<div class="ipsGrid ipsGrid_collapsePhone">
 	 <div class="ipsColumns">
 		<div class="ipsColumn ipsColumn_fluid ipsGrid_span12 ipsPad" style="background: #3B6C99; color: #fff;">
-			<span style="color: #fff; font-size:20px;"><i class="fas fa-broadcast-tower"></i> Bandwidth Usage</span>
+			<span style="color: #fff; font-size:20px;"><i class="fas fa-medal"></i> Most Downlaoded Torrents</span>
 		</div>
 	</div>
+<table id="torrentable">
+  <tr>
+    <th>File Name</th>
+    <th>File Size</th>
+    <th>Date Submitted</th>
+    <th>Submitter</th>
+  </tr>
+	{{foreach $data as $k => $v}}
+     {{if $k === 'most_downloaded_file'}}
+  <tr>
+    <td><a href='{$v->url()}' target='_blank'>{$v->name}</a></td>
+    <td><span class="ipsType_light">{lang="num_bitracker" pluralize="$v->bitracker"}</span></td>
+    <td>{$v->file_submitted}</td>
+    <td>{$v->file_submitted}</td>
+  </tr>
+				{{endif}}
+	{{endforeach}}
+</table>
   </div>
 </div>
 
-	<p class="ipsPad ipsPos_center">{lang="no_results"}</p>
-
-<!-- <ul class="ipsDataList">
+ <!-- <ul class="ipsDataList">
 	{{foreach $data as $k => $v}}
 		<li class="ipsDataItem">
 			<span class="ipsDataItem_generic ipsDataItem_size6">
