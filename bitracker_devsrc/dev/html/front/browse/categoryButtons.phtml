@@ -1,0 +1,26 @@
+<ips:template parameters="$canSubmitFiles, $currentCategory=NULL" />
+
+{{if $canSubmitFiles}}
+<li class='ipsToolList_primaryAction'>
+	{{if $currentCategory OR $currentCategory = \IPS\bitracker\Category::theOnlyNode()}}
+		{{if \IPS\Member::loggedIn()->group['bit_bulk_submit']}}
+			<a class="ipsButton ipsButton_medium ipsButton_important ipsButton_fullWidth" href="{url="app=bitracker&module=submit&controller=submit&category={$currentCategory->id}&_new=1" seoTemplate="bitracker_submit"}" data-ipsDialog data-ipsDialog-title='{lang="submit_a_file"}' data-ipsDialog-size='narrow'>
+				{lang="submit_a_file"}
+			</a>
+		{{else}}
+			<a class="ipsButton ipsButton_medium ipsButton_important ipsButton_fullWidth" href="{url="app=bitracker&module=submit&controller=submit&category={$currentCategory->id}&_new=1&do=submit" seoTemplate="bitracker_submit"}">
+				{lang="submit_a_file"}
+			</a>
+		{{endif}}
+	{{else}}
+		<a class="ipsButton ipsButton_medium ipsButton_important ipsButton_fullWidth" href="{url="app=bitracker&module=submit&controller=submit&_new=1" seoTemplate="bitracker_submit"}" data-ipsDialog data-ipsDialog-title='{lang="submit_a_file"}' data-ipsDialog-size='narrow'>
+			{lang="submit_a_file"}
+		</a>
+	{{endif}}
+</li>
+{{endif}}
+{{if $currentCategory AND $currentCategory->last_file_id AND \IPS\Member::loggedIn()->member_id}}
+	<li>
+		<a href="{$currentCategory->url()->setQueryString( array( 'do' => 'markRead' ) )->csrf()}" title='{lang="mark_category_read_title"}' class='ipsButton ipsButton_medium ipsButton_fullWidth ipsButton_link' data-action='markCategoryRead'><i class="fa fa-check"></i> {lang="mark_category_read"}</a>
+	</li>
+{{endif}}

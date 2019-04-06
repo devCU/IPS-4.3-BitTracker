@@ -1,0 +1,54 @@
+<ips:template parameters="$file" />
+
+<li class='ipsAreaBackground_reset ipsType_blendLinks ipsClearfix cBitrackerCarouselItem ipsPad_half ipsCarousel_item'>
+	<a href='{$file->url()}' title='{lang="view_this_file" sprintf="$file->name"}'>
+		{template="thumbImage" group="global" app="core" params="$file->primary_screenshot_thumb, $file->name"}
+    </a>
+		<div class='cBitrackerCarouselItem_info ipsSpacer_top ipsSpacer_half'>
+			<h3 class='ipsType_normal ipsType_reset ipsTruncate ipsTruncate_line'>
+				{{if $file->unread()}}
+					<span class='ipsItemStatus ipsItemStatus_small' data-ipsTooltip title='{{if $file->unread() === -1}}{lang="new"}{{else}}{lang="updated"}{{endif}}'><i class="fa fa-circle"></i></span>&nbsp;
+				{{endif}}
+				{{if $file->mapped('pinned') || $file->hidden() === -1 || $file->hidden() === 1}}
+					{{if $file->hidden() === -1}}
+						<span class="ipsBadge ipsBadge_small ipsBadge_icon ipsBadge_warning" data-ipsTooltip title='{$file->hiddenBlurb()}'><i class='fa fa-eye-slash'></i></span>
+					{{elseif $file->hidden() === 1}}
+						<span class="ipsBadge ipsBadge_small ipsBadge_icon ipsBadge_warning" data-ipsTooltip title='{lang="pending_approval"}'><i class='fa fa-warning'></i></span>
+					{{endif}}
+					{{if $file->mapped('pinned')}}
+						<span class="ipsBadge ipsBadge_small ipsBadge_icon ipsBadge_positive" data-ipsTooltip title='{lang="pinned"}'><i class='fa fa-thumb-tack'></i></span>
+					{{endif}}
+				{{endif}}
+				<a href='{$file->url()}' title='{lang="view_this_file" sprintf="$file->name"}'>{$file->name}</a>
+			</h3>
+			
+			<p class='ipsType_medium ipsType_reset ipsType_blendLinks ipsTruncate ipsTruncate_line'>{lang="byline_nodate" htmlsprintf="$file->author()->link()"}</p>
+			{{if $file->container()->bitoptions['reviews']}}
+				{template="rating" group="global" location="front" app="core" params="'medium', $file->averageReviewRating(), \IPS\Settings::i()->reviews_rating_out_of"}
+			{{endif}}
+			<p class='ipsType_medium ipsType_reset'>
+				{{if $file->isPaid() and in_array( 'purchases', explode( ',', settings.bit_nexus_display ) )}}
+					<span {{if !$file->purchaseCount()}}class='ipsType_light'{{endif}} title='{lang="x_purchases" pluralize="$file->purchaseCount()"}' data-ipsTooltip><i class='fa fa-shopping-cart'></i> {$file->purchaseCount()}</span>&nbsp;&nbsp;
+				{{endif}}
+				{{if !$file->isPaid() or in_array( 'bitracker', explode( ',', settings.bit_nexus_display ) )}}
+					<span {{if !$file->bitracker}}class='ipsType_light'{{endif}} title='{lang="x_bitracker" pluralize="$file->bitracker"}' data-ipsTooltip><i class='fa fa-arrow-circle-down'></i> {number="$file->bitracker"}</span>&nbsp;&nbsp;
+				{{endif}}
+				 
+				{{if $file->container()->bitoptions['comments']}}<span {{if !$file->comments}}class='ipsType_light'{{endif}} title='{lang="num_comments" pluralize="$file->comments"}' data-ipsTooltip><i class='fa fa-comment'></i> {$file->comments}</span>{{endif}}
+			</p>
+			
+			{{if \IPS\Application::appIsEnabled( 'nexus' ) and settings.bit_nexus_on}}
+				<span class="cFilePrice ipsType_medium">
+					{{if $file->isPaid()}}
+						{{if $price = $file->price()}}
+							{$price|raw}
+						{{else}}
+							&nbsp;
+						{{endif}}
+					{{else}}
+						{lang="file_free"}
+					{{endif}}
+				</span>
+			{{endif}}
+		</div>
+</li>

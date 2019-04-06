@@ -1,0 +1,103 @@
+<ips:template parameters="$file" />
+
+<li class='ipsCarousel_item ipsAreaBackground_reset ipsPad'>
+	<div class='ipsColumns ipsColumns_collapsePhone'>
+		<div class='ipsColumn ipsColumn_medium ipsType_center'>
+			{{if $file->primary_screenshot}}
+            {template="thumbImage" group="global" app="core" params="$file->primary_screenshot_thumb, $file->name, 'large', '', 'view_this', $file->url()"}
+			{{else}}
+				<div class='ipsPos_left ipsNoThumb ipsThumb ipsThumb_large'></div>
+			{{endif}}
+		</div>
+		<div class='ipsColumn ipsColumn_fluid'>
+			<h2 class='ipsType_pageTitle ipsContained_container'>
+				{{if $file->prefix()}}
+					<span><a href="{url="app=core&module=search&controller=search&tags={$file->prefix( TRUE )}" seoTemplate="tags"}" title="{lang="find_tagged_content" sprintf="$file->prefix()"}" class='ipsTag_prefix'>{$file->prefix()}</a></span>
+				{{endif}}
+				<span class='ipsType_break ipsContained'><a href='{$file->url()}'>{$file->name}</a></span>
+				{{if $file->mapped('pinned') || $file->hidden() === -1 || $file->hidden() === 1}}
+					<span>
+					{{if $file->hidden() === -1}}
+						<span class="ipsBadge ipsBadge_small ipsBadge_icon ipsBadge_warning" data-ipsTooltip title='{$file->hiddenBlurb()}'><i class='fa fa-eye-slash'></i></span>
+					{{elseif $file->hidden() === 1}}
+						<span class="ipsBadge ipsBadge_small ipsBadge_icon ipsBadge_warning" data-ipsTooltip title='{lang="pending_approval"}'><i class='fa fa-warning'></i></span>
+					{{endif}}
+					{{if $file->mapped('pinned')}}
+						<span class="ipsBadge ipsBadge_small ipsBadge_icon ipsBadge_positive" data-ipsTooltip title='{lang="pinned"}'><i class='fa fa-thumb-tack'></i></span>
+					{{endif}}
+					</span>
+				{{endif}}
+				<span class='ipsType_large ipsType_light ipsType_unbold ipsType_noBreak'>{lang="byline_nodate" htmlsprintf="$file->author()->link()"}</span>
+			</h2>
+			<ul class='ipsList_inline ipsSpacer_top ipsSpacer_half'>
+				{{if $price = $file->price()}}
+					<li>
+						<span class='cFilePrice ipsType_large'>{$price|raw}</span>
+					</li>
+				{{endif}}
+				{{if $file->container()->bitoptions['reviews']}}
+					<li>
+						{template="rating" group="global" location="front" app="core" params="'large', $file->rating, \IPS\Settings::i()->reviews_rating_out_of"}
+					</li>
+					<li class='ipsType_normal'>
+						{{if $file->reviews}}
+							<a href='{$file->url()->setQueryString( 'tab', 'reviews' )->setFragment('replies')}'>
+						{{endif}}
+						{lang="num_reviews" pluralize="$file->reviews"}
+						{{if $file->reviews}}
+							</a>
+						{{endif}}
+					</li>
+				{{endif}}
+				{{if $file->isPaid() and in_array( 'purchases', explode( ',', settings.bit_nexus_display ) )}}
+					<li class='ipsType_normal'>
+						{{if $purchases = $file->purchaseCount()}}
+							<i class='fa fa-shopping-cart'></i> {$purchases}
+						{{else}}
+							<span class='ipsType_light'><i class='fa fa-shopping-cart'></i> 0</span>
+						{{endif}}
+					</li>
+				{{endif}}
+				
+				{{if !$file->isPaid() or in_array( 'bitracker', explode( ',', settings.bit_nexus_display ) )}}
+					<li class='ipsType_normal'>
+						{{if $file->bitracker}}
+							<i class='fa fa-arrow-circle-down'></i> {number="$file->bitracker"}
+						{{else}}
+							<span class='ipsType_light'><i class='fa fa-arrow-circle-down'></i> 0</span>
+						{{endif}}
+					</li>
+				{{endif}}
+				
+				{{if $file->container()->bitoptions['comments']}}
+					<li class='ipsType_normal'>
+						{{if $file->comments}}
+							<i class='fa fa-comment'></i> {$file->comments}
+						{{else}}
+							<span class='ipsType_light'><i class='fa fa-comment'></i> 0</span>
+						{{endif}}
+					</li>
+				{{endif}}
+			</ul>
+			
+			<div class='ipsType_richText ipsType_normal ipsSpacer_both' data-ipsTruncate data-ipsTruncate-type="remove" data-ipsTruncate-size="2 lines">
+				{$file->truncated(TRUE)|raw}
+			</div>
+
+			<ul class='ipsToolList ipsToolList_horizontal'>
+				{{if ( $file->canDownload() or ( $file->container()->message('npd') and !$file->canBuy() ) ) && !$file->canBuy()}}
+					<li class='ipsToolList_primaryAction ipsPos_left'>
+						<a href='{{if settings.bit_antileech}}{$file->url('download')->csrf()}{{else}}{$file->url('download')}{{endif}}' class='ipsButton ipsButton_important ipsButton_fullWidth ipsButton_small' {{if $file->container()->message('disclaimer') or count( $file->files() ) > 1 or member.group['bit_wait_period']}}data-ipsDialog{{endif}}>{lang="download"}</a>
+					</li>
+				{{elseif $file->canBuy()}}
+					<li class='ipsToolList_primaryAction ipsPos_left'>
+						<a href='{$file->url('buy')->csrf()}' class='ipsButton ipsButton_small ipsButton_fullWidth ipsButton_important'><i class='fa fa-shopping-cart'></i> &nbsp;{lang="buy_now"}{{if $price}} - {expression="strip_tags($price)"}{{endif}}</a>
+					</li>
+				{{endif}}
+				<li class='ipsPos_left'>
+					<a href='{$file->url()}' class='ipsButton ipsButton_light ipsButton_fullWidth ipsButton_small' title='{lang="view_this_file" sprintf="$file->name"}'>{lang="more_information"}</a>
+				</li>
+			</ul>								
+		</div>
+	</div>
+</li>

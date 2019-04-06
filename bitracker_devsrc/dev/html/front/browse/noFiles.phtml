@@ -1,0 +1,14 @@
+<ips:template parameters="$category" />
+
+<div class='ipsType_center ipsPad'>
+	<p class='ipsType_large'>{lang="no_torrents_in_cat"}</p>
+
+	{{if $category->can('add')}}
+		{{if $category->club()}}
+			<a href='{url="app=bitracker&module=submit&controller=submit&do=submit&category={$category->id}" seoTemplate="bitracker_submit"}' class='ipsButton ipsButton_primary ipsButton_medium'>
+		{{else}}
+			<a href='{url="app=bitracker&module=submit&controller=submit&_new=1&category={$category->id}" seoTemplate="bitracker_submit"}' class='ipsButton ipsButton_primary ipsButton_medium' data-ipsDialog data-ipsDialog-title='{lang="submit_first_file"}' data-ipsDialog-size='narrow'>
+		{{endif}}
+		{lang="submit_first_file"}</a>
+	{{endif}}
+</div>

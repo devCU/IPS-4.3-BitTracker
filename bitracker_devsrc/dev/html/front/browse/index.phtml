@@ -1,0 +1,122 @@
+<ips:template parameters="$featured, $new, $rated, $downloaded" />
+
+<div class="ipsPageHeader ipsClearfix ipsSpacer_bottom">
+	{template="pageHeader" group="global" app="core" params="\IPS\Settings::i()->bit_application_name"}
+</div>
+{{if !\IPS\bitracker\Category::theOnlyNode()}}
+	<a href='#elTorrentsCategories_menu' data-ipsMenu id='elTorrentsCategories' class='ipsButton ipsButton_light ipsButton_small ipsButton_fullWidth ipsResponsive_hideDesktop ipsResponsive_block ipsSpacer_bottom'><span class='ipsType_light'>{lang="bitracker_category_select"}&nbsp;&nbsp;</span> {lang="all"} <i class='fa fa-caret-down'></i></a>
+	{template="categoryMenu" group="browse" params="\IPS\bitracker\Category::roots()"}
+{{else}}
+	<a href='{expression="\IPS\bitracker\Category::theOnlyNode()->url()"}' class='ipsButton ipsButton_light ipsButton_small ipsButton_fullWidth ipsResponsive_hideDesktop ipsResponsive_block ipsSpacer_bottom'>{lang="view_all_files"}</a>
+{{endif}}
+
+			{{if \IPS\Settings::i()->bit_view_portal_switch}}
+Classic Veiw Coming
+           {{else}}
+{{if !empty( $featured )}}
+	<div class='ipsBox ipsSpacer_bottom'>
+		<h2 class='ipsType_sectionTitle ipsType_reset'>{lang="featured_bitracker"}</h2>
+		<section id='elTorrentsFeatured'>
+			<div class='ipsCarousel ipsClearfix' data-ipsCarousel data-ipsCarousel-fullSizeItems data-ipsCarousel-slideshow data-ipsCarousel-shadows='false'>
+				<div class='ipsCarousel_inner'>
+					<ul class='cBitrackerCarousel ipsClearfix' data-role="carouselItems">
+						{{foreach $featured as $file}}
+							{template="featuredFile" group="browse" app="bitracker" params="$file"}
+						{{endforeach}}
+					</ul>
+				</div>
+				<span class='ipsCarousel_shadow ipsCarousel_shadowLeft'></span>
+				<span class='ipsCarousel_shadow ipsCarousel_shadowRight'></span>
+				<a href='#' class='ipsCarousel_nav ipsHide' data-action='prev'><i class='fa fa-chevron-left'></i></a>
+				<a href='#' class='ipsCarousel_nav ipsHide' data-action='next'><i class='fa fa-chevron-right'></i></a>
+			</div>
+		</section>
+	</div>
+{{endif}}
+
+{{if \IPS\bitracker\Category::canOnAny('add') OR \IPS\bitracker\Category::theOnlyNode()}}
+<ul class="ipsToolList ipsToolList_horizontal ipsResponsive_hidePhone ipsClearfix ipsSpacer_bottom">
+	{template="categoryButtons" group="browse" params="\IPS\bitracker\Category::canOnAny('add')"}
+	{{if \IPS\bitracker\Category::theOnlyNode() and ( !\IPS\Settings::i()->club_nodes_in_apps or !\IPS\bitracker\Category::clubNodes() )}}
+		<li><a class='ipsButton ipsButton_link ipsButton_medium ipsButton_fullWidth' href='{expression="\IPS\bitracker\Category::theOnlyNode()->url()"}'>{lang="view_all_files"}</a></li>
+	{{endif}}
+</ul>
+{{endif}}
+{{if settings.bit_show_newest }}
+	<div class='ipsBox'>
+		<h2 class='ipsType_sectionTitle ipsType_reset'>{lang="browse_whats_new"}</h2>
+		<div class='ipsPad_half'>
+			{{if count( $new )}}
+				<div class='ipsCarousel ipsClearfix' data-ipsCarousel data-ipsCarousel-showDots>
+					<div class='ipsCarousel_inner'>
+						<ul class='cBitrackerCarousel' data-role="carouselItems">
+							{{foreach $new as $idx => $file}}
+								{template="indexBlock" group="browse" params="$file"}
+							{{endforeach}}
+						</ul>
+					</div>
+					<span class='ipsCarousel_shadow ipsCarousel_shadowLeft'></span>
+					<span class='ipsCarousel_shadow ipsCarousel_shadowRight'></span>
+					<a href='#' class='ipsCarousel_nav ipsHide' data-action='prev'><i class='fa fa-chevron-left'></i></a>
+					<a href='#' class='ipsCarousel_nav ipsHide' data-action='next'><i class='fa fa-chevron-right'></i></a>
+				</div>
+			{{else}}
+				<p class='ipsType_reset ipsType_light ipsPad'>{lang="no_new_files"}</p>
+			{{endif}}
+		</div>
+	</div>
+{{endif}}
+
+{{if settings.bit_show_highest_rated }}
+	<div class='ipsBox ipsSpacer_top'>
+		<h2 class='ipsType_sectionTitle ipsType_reset'>{lang="browse_highest_rated"}</h2>
+		<div class='ipsPad_half'>
+			{{if count( $rated )}}
+				<div class='ipsCarousel ipsClearfix' data-ipsCarousel data-ipsCarousel-showDots>
+					<div class='ipsCarousel_inner'>
+						<ul class='cBitrackerCarousel' data-role="carouselItems">
+							{{foreach $rated as $idx => $file}}
+								{template="indexBlock" group="browse" params="$file"}
+							{{endforeach}}
+						</ul>
+					</div>
+					<span class='ipsCarousel_shadow ipsCarousel_shadowLeft'></span>
+					<span class='ipsCarousel_shadow ipsCarousel_shadowRight'></span>
+					<a href='#' class='ipsCarousel_nav ipsHide' data-action='prev'><i class='fa fa-chevron-left'></i></a>
+					<a href='#' class='ipsCarousel_nav ipsHide' data-action='next'><i class='fa fa-chevron-right'></i></a>
+				</div>
+			{{else}}
+				<p class='ipsType_reset ipsType_light ipsPad'>{lang="no_rated_files"}</p>
+			{{endif}}
+		</div>
+	</div>
+{{endif}}
+
+{{if settings.bit_show_most_downloaded }}
+	<div class='ipsBox ipsSpacer_top'>
+		<h2 class='ipsType_sectionTitle ipsType_reset'>{lang="browse_most_downloaded"}</h2>
+		<div class='ipsPad_half'>
+			{{if count( $downloaded )}}
+				<div class='ipsCarousel ipsClearfix' data-ipsCarousel data-ipsCarousel-showDots>
+					<div class='ipsCarousel_inner'>
+						<ul class='cBitrackerCarousel' data-role="carouselItems">
+							{{foreach $downloaded as $idx => $file}}
+								{template="indexBlock" group="browse" params="$file"}
+							{{endforeach}}
+						</ul>
+					</div>
+					<span class='ipsCarousel_shadow ipsCarousel_shadowLeft'></span>
+					<span class='ipsCarousel_shadow ipsCarousel_shadowRight'></span>
+					<a href='#' class='ipsCarousel_nav ipsHide' data-action='prev'><i class='fa fa-chevron-left'></i></a>
+					<a href='#' class='ipsCarousel_nav ipsHide' data-action='next'><i class='fa fa-chevron-right'></i></a>
+				</div>
+			{{else}}
+				<p class='ipsType_reset ipsType_light ipsPad'>{lang="no_downloaded_files"}</p>
+			{{endif}}
+		</div>
+	</div>
+{{endif}}
+           {{endif}}
+<ul class="ipsToolList ipsToolList_horizontal ipsResponsive_showPhone ipsResponsive_block ipsClearfix ipsSpacer_top">
+	{template="categoryButtons" group="browse" params="\IPS\bitracker\Category::canOnAny('add')"}
+</ul>

@@ -1,0 +1,11 @@
+<ips:template parameters="$categories" />
+
+<ul class='ipsMenu ipsMenu_auto ipsHide' id='elTorrentsCategories_menu'>
+	{{foreach $categories as $cat}}
+		{{if $cat->can('view')}}
+			<li class='ipsMenu_item'>
+				<a href='{$cat->url()}'><span class="ipsMenu_itemCount">{number="\IPS\bitracker\File::contentCount( $cat )"}</span>{$cat->_title}</a>
+			</li>
+		{{endif}}
+	{{endforeach}}
+</ul>

@@ -1,0 +1,98 @@
+<ips:template parameters="$table, $headers, $files" />
+
+{{if count( $files )}}
+	{{foreach $files as $file}}
+		<li class='ipsDataItem {{if $file->unread()}}ipsDataItem_unread{{endif}} {{if method_exists( $file, 'tableClass' ) && $file->tableClass()}}ipsDataItem_{$file->tableClass()}{{endif}} {{if $file->hidden()}}ipsModerated{{endif}}'>
+			<div class='ipsDataItem_generic ipsDataItem_size3 ipsPos_top'>
+				{template="thumbImage" group="global" app="core" params="$file->primary_screenshot_thumb, $file->name, 'medium', '', 'view_this', $file->url()"}
+				{{if \IPS\Application::appIsEnabled( 'nexus' ) and settings.bit_nexus_on}}
+					<p class='ipsType_large ipsType_center ipsType_reset ipsSpacer_top ipsSpacer_half'>
+						<span class='cFilePrice'>
+							{{if $file->isPaid()}}
+								{{if $price = $file->price()}}
+									{$price|raw}
+								{{endif}}
+							{{else}}
+								{lang="file_free"}
+							{{endif}}
+						</span>
+					</p>
+				{{endif}}
+			</div>
+			<div class='ipsDataItem_main'>
+				<h4 class='ipsDataItem_title ipsType_sectionHead ipsContained_container'>
+					{{if $file->unread()}}
+						<span><span class='ipsItemStatus ipsItemStatus_small' data-ipsTooltip title='{{if $file->unread() === -1}}{lang="new"}{{else}}{lang="updated"}{{endif}}'><i class="fa fa-circle"></i></span>&nbsp;</span>
+					{{endif}}
+					
+					{{if $file->mapped('pinned') || $file->mapped('featured') || $file->hidden() === -1 || $file->hidden() === 1}}
+						{{if $file->hidden() === -1}}
+							<span><span class="ipsBadge ipsBadge_small ipsBadge_icon ipsBadge_warning" data-ipsTooltip title='{$file->hiddenBlurb()}'><i class='fa fa-eye-slash'></i></span></span>
+						{{elseif $file->hidden() === 1}}
+							<span><span class="ipsBadge ipsBadge_small ipsBadge_icon ipsBadge_warning" data-ipsTooltip title='{lang="pending_approval"}'><i class='fa fa-warning'></i></span></span>
+						{{endif}}
+						{{if $file->mapped('pinned')}}
+							<span><span class="ipsBadge ipsBadge_small ipsBadge_icon ipsBadge_positive" data-ipsTooltip title='{lang="pinned"}'><i class='fa fa-thumb-tack'></i></span></span>
+						{{endif}}
+						{{if $file->mapped('featured')}}
+							<span><span class="ipsBadge ipsBadge_small ipsBadge_icon ipsBadge_positive" data-ipsTooltip title='{lang="featured"}'><i class='fa fa-star'></i></span></span>
+						{{endif}}
+					{{endif}}
+					
+					{{if $file->prefix()}}
+						<span>{template="prefix" group="global" app="core" params="$file->prefix( TRUE ), $file->prefix()"}</span>
+					{{endif}}
+					
+					<span class='ipsType_break ipsContained'><a href='{$file->url()}' title='{lang="view_this_file" sprintf="$file->name"} {{if $file->canEdit()}}{lang="click_hold_edit"}{{endif}}' {{if $file->canEdit()}}data-role="editableTitle"{{endif}}>{$file->name}</a></span>
+				</h4>
+				<p class='ipsType_reset ipsType_light ipsType_blendLinks'>
+					{lang="byline_nodate" htmlsprintf="$file->author()->link()"}
+					{{if \IPS\Request::i()->app != 'bitracker'}}
+						{lang="in"} <a href="{$file->container()->url()}">{$file->container()->_title}</a>
+					{{endif}}
+				</p>
+				<div class='ipsType_medium ipsType_richText ipsType_break ipsSpacer_top' data-ipsTruncate data-ipsTruncate-type="remove" data-ipsTruncate-size="2 lines">
+					{$file->truncated()|raw}
+				</div>
+
+				<p class='ipsType_normal'>
+					{{if $file->isPaid() and in_array( 'purchases', explode( ',', settings.bit_nexus_display ) )}}
+						<span {{if !$file->purchaseCount()}}class='ipsType_light'{{endif}}><i class='fa fa-shopping-cart'></i> {lang="x_purchases" pluralize="$file->purchaseCount()"}</span>&nbsp;&nbsp;
+					{{endif}}
+					{{if !$file->isPaid() or in_array( 'bitracker', explode( ',', settings.bit_nexus_display ) )}}
+						<span {{if !$file->bitracker}}class='ipsType_light'{{endif}}><i class='fa fa-arrow-circle-down'></i> {lang="num_bitracker" pluralize="$file->bitracker"}</span>
+					{{endif}}
+				</p>
+
+				{{if count( $file->tags() )}}
+					{template="tags" group="global" app="core" params="$file->tags(), TRUE"}
+				{{endif}}
+			</div>
+			<div class='ipsDataItem_generic ipsDataItem_size8'>
+				{{if $file->container()->bitoptions['reviews']}}
+					{template="rating" group="global" location="front" app="core" params="'large', $file->averageReviewRating(), \IPS\Settings::i()->reviews_rating_out_of, $file->memberReviewRating()"}&nbsp;&nbsp; <span class='ipsType_normal ipsType_light'>({lang="num_reviews" pluralize="$file->reviews"})</span>
+				{{endif}}
+				{{if $file->container()->bitoptions['comments']}}
+					<p class='ipsType_normal'>
+						{{if $file->comments}}
+							<a href='{$file->url()->setQueryString( 'tab', 'comments' )->setFragment('replies')}'>
+						{{endif}}
+						<i class='fa fa-comment'></i> {lang="num_comments" pluralize="$file->comments"}
+						{{if $file->comments}}
+							</a>
+						{{endif}}
+					</p>
+				{{endif}}
+				<p class='ipsType_medium'><strong>{{if $file->updated == $file->submitted}}{lang="submitted"} {datetime="$file->submitted" lowercase="true"}{{else}}{lang="updated"} {datetime="$file->updated" lowercase="true"}{{endif}}</strong></p>
+			</div>
+			{{if method_exists( $table, 'canModerate' ) AND $table->canModerate()}}
+				<div class='ipsDataItem_modCheck'>
+					<span class='ipsCustomInput'>
+						<input type='checkbox' data-role='moderation' name="moderate[{$file->id}]" data-actions="{expression="implode( ' ', $table->multimodActions( $file ) )"}" data-state='{{if $file->tableStates()}}{$file->tableStates()}{{endif}}'>
+						<span></span>
+					</span>
+				</div>
+			{{endif}}
+		</li>
+	{{endforeach}}
+{{endif}}

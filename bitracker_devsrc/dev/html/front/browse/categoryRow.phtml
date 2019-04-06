@@ -1,0 +1,56 @@
+<ips:template parameters="$table, $headers, $categories" />
+
+{{foreach $categories as $category}}
+	{{if $category->can('view') AND ( $category->open OR \IPS\Member::loggedIn()->isAdmin() )}}
+		{{$club = $category->club();}}
+		<li class="ipsDataItem ipsDataItem_responsivePhoto ipsClearfix">
+			<div class='ipsDataItem_icon'>
+				{{if $club}}
+					<img src="{{if $club->profile_photo}}{file="$club->profile_photo" extension="core_Clubs"}{{else}}{resource="default_club.png" app="core" location="global"}{{endif}}" class='ipsItemStatus ipsItemStatus_large {{if !\IPS\bitracker\File::containerUnread( $category )}}ipsItemStatus_read{{endif}}'>
+				{{else}}
+					<span class='ipsItemStatus ipsItemStatus_large {{if !\IPS\bitracker\File::containerUnread( $category )}}ipsItemStatus_read{{endif}}'>
+						<i class="fa fa-download"></i>
+					</span>
+				{{endif}}
+			</div>
+			<div class="ipsDataItem_main ipsPos_middle">
+				<h4 class="ipsDataItem_title ipsType_large">
+					<a href="{$category->url()}">{{if $club}}{lang="club_node" sprintf="$club->name, $category->_title"}{{else}}{$category->_title}{{endif}}</a>
+				</h4>
+				{{if $category->hasChildren()}}
+					<ul class="ipsDataItem_subList ipsList_inline">
+						{{foreach $category->children() as $subcategory}}
+							<li class="{{if \IPS\bitracker\File::containerUnread( $subcategory )}}ipsDataItem_unread{{endif}}">
+								<a href="{$subcategory->url()}">{$subcategory->_title}</a>
+							</li>
+						{{endforeach}}
+					</ul>
+				{{endif}}
+				{{if $category->description}}
+					<p class="ipsDataItem_meta">{$category->description|raw}</p>
+				{{endif}}
+			</div>
+			<dl class="ipsDataItem_stats ipsDataItem_statsLarge">
+				{{$count = \IPS\bitracker\File::contentCount( $category );}}
+				<dt class="ipsDataItem_stats_number">{number="$count"}</dt>
+				<dd class="ipsDataItem_stats_type ipsType_light">{lang="files_no_number" pluralize="$count"}</dd>
+			</dl>
+			<ul class="ipsDataItem_lastPoster ipsDataItem_withPhoto">
+				{{if $lastPost = $category->lastFile()}}
+					<li>{template="userPhoto" app="core" group="global" params="$lastPost->author(), 'tiny'"}</li>
+					<li><a href="{$lastPost->url()}" class='ipsType_break ipsContained'>{$lastPost->name}</a></li>
+					<li class='ipsType_blendLinks'>{lang="byline_nodate" htmlsprintf="$lastPost->author()->link()"}</li>
+					<li data-short="1 dy" class="ipsType_light">{datetime="$lastPost->submitted"}</li>
+				{{endif}}
+			</ul>
+		{{if method_exists( $table, 'canModerate' ) AND $table->canModerate()}}
+			<div class='ipsDataItem_modCheck'>
+				<span class='ipsCustomInput'>
+					<input type='checkbox' data-role='moderation' name="moderate[{$category->_id}]" data-actions="{expression="implode( ' ', $table->multimodActions( $category ) )"}" data-state=''>
+					<span></span>
+				</span>
+			</div>
+		{{endif}}
+		</li>
+	{{endif}}
+{{endforeach}}
