@@ -1,0 +1,31 @@
+<ips:template parameters="$file, $version" />
+
+<p class='ipsType_reset ipsType_light'>{lang="file_version_released" htmlsprintf="\IPS\DateTime::ts( $version['b_backup'] )->html()"}</p>
+<div class='ipsType_richText ipsType_normal'>
+	{{if $version['b_changelog']}}
+		{$version['b_changelog']|raw}
+	{{else}}
+		<p><em>{lang="file_no_changelog"}</em></p>
+	{{endif}}
+</div>
+{{if isset( $version['b_id'] ) and ( $file->canDownload() or ( $file->canEdit() and member.group['bit_bypass_revision'] ) )}}
+	<ul class='ipsList_inline'>
+		<li><img src='{resource="subitem_stem.png" app="core"}' alt=''> <strong>{lang="with_version" sprintf="$version['b_version']"}</strong></li>
+		{{if $file->canDownload()}}
+			<li><a href='{$file->url()->setQueryString( array( 'do' => 'download', 'version' => $version['b_id'] ) )->csrf()}' {{if $file->container()->message('disclaimer') or count( $file->files( $version['b_id'] ) ) > 1}}data-ipsDialog{{endif}}>{lang="download"}</a></li>
+		{{endif}}
+		{{if $file->canEdit() and member.group['bit_bypass_revision']}}
+			<li><a href="{$file->url()->setQueryString( array( 'do' => 'restorePreviousVersion', 'version' => $version['b_id'] ) )->csrf()}" data-confirm data-confirmMessage="{lang="version_restore_confirm" sprintf="$version['b_version']"}" data-confirmSubMessage="{lang="version_restore_confirm_desc" sprintf="$version['b_version']"}">{lang="restore"}</a></li>
+			<li><a href='{$file->url()->setQueryString( array( 'do' => 'deletePreviousVersion', 'version' => $version['b_id'] ) )->csrf()}' data-confirm data-confirmMessage="{lang="version_delete_confirm" sprintf="$version['b_version']"}">{lang="delete"}</a></li>
+			<li>
+				<a href='{$file->url()->setQueryString( array( 'do' => 'previousVersionVisibility', 'version' => $version['b_id'] ) )->csrf()}'>
+					{{if $version['b_hidden']}}
+						{lang="unhide_from_members"}
+					{{else}}
+						{lang="hide_from_members"}
+					{{endif}}
+				</a>
+			</li>
+		{{endif}}
+	</ul>
+{{endif}}

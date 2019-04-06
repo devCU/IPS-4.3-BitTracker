@@ -1,0 +1,14 @@
+<ips:template parameters="$file" />
+
+<li>
+	{{if !$file->canDownload() AND !( !$file->container()->can( 'download' ) AND $file->container()->message('npd') )}}
+		{{if !\IPS\Member::loggedIn()->member_id}}
+			<span class="ipsType_light ipsType_blendLinks ipsResponsive_hidePhone ipsResponsive_inline"><i class="fa fa-info-circle"></i> {lang="download_no_permission_guest"}</span>
+			<a href='{url="app=core&module=system&controller=login" seoTemplate="login"}' class='ipsButton ipsButton_light ipsButton_medium ipsButton_fullWidth ipsSpacer_top'>{lang="sign_in_short"}</a>
+		{{else}}
+			<span class="ipsType_light ipsType_blendLinks ipsResponsive_hidePhone ipsResponsive_inline"><i class="fa fa-info-circle"></i> {lang="download_no_permission"}</span>
+		{{endif}}
+	{{else}}
+		<a href='{{if settings.bit_antileech}}{$file->url('download')->csrf()}{{else}}{$file->url('download')}{{endif}}' class='ipsButton ipsButton_fullWidth ipsButton_large ipsButton_important' {{if $file->container()->message('disclaimer') or count( $file->files() ) > 1 or member.group['bit_wait_period']}}data-ipsDialog{{endif}}>{lang="download_now"}</a>
+	{{endif}}
+</li>

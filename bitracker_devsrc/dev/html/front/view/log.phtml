@@ -1,0 +1,6 @@
+<ips:template parameters="$file, $table" />
+
+{{if $file->container()->log}}
+	<div class='ipsPad_half'><div class='ipsMessage ipsMessage_info'>{lang="log_days" pluralize="$file->container()->log"}</div></div>
+{{endif}}
+{$table|raw}

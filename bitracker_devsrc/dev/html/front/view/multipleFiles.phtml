@@ -1,0 +1,27 @@
+<ips:template parameters="$fileObject, $files, $waitingOn, $waitingFor" />
+
+<div class='ipsPad'>
+	<h1 class='ipsType_pageTitle'>{lang="download_your_files"}</h1>
+	<p class='ipsType_reset ipsType_normal ipsType_light'>{lang="download_file_count" pluralize="count( $files )"}</p>
+	<hr class='ipsHr'>
+	<ul class='ipsDataList ipsDataList_reducedSpacing'>
+		{{foreach $files as $k => $file}}
+			{{$data = $files->data();}}
+			<li class='ipsDataItem'>
+				<div class='ipsDataItem_main'>
+					<h4 class='ipsDataItem_title ipsContained_container'><span class='ipsType_break ipsContained'>{{if $data['record_realname']}}{$data['record_realname']}{{else}}{{$pathBits = explode( '/', \IPS\Http\Url::external( $data['record_location'] )->data[ \IPS\Http\Url::COMPONENT_PATH ] );}}{expression="count( $pathBits ) ? array_pop( $pathBits ) : $data['record_location']"}{{endif}}</span></h4>
+					{{if $data['record_size']}}<p class='ipsType_reset ipsDataItem_meta'>{filesize="$data['record_size']"}</p>{{endif}}
+				</div>
+				{{if $waitingOn == $k}}
+					<div class='ipsDataItem_generic ipsDataItem_size6 ipsType_warning'>
+						<noscript>{lang="wait_x_seconds_noscript" pluralize="$waitingFor"}</noscript>
+					</div>
+				{{endif}}
+				<div class='ipsDataItem_generic ipsDataItem_size4 ipsType_right'>
+					<span class="ipsHide" data-role="downloadCounterContainer">{lang="download_begins_in"} <span data-role="downloadCounter"></span> {lang="seconds"}</span>
+					<a href='{$fileObject->url()->setQueryString( array( 'do' => 'download', 'r' => $k, 'confirm' => 1, 't' => 1, 'version' => isset( \IPS\Request::i()->version ) ? \IPS\Request::i()->version : NULL ) )->csrf()}' class='ipsButton ipsButton_primary ipsButton_small' data-action="download" {{if member.group['bit_wait_period']}}data-wait='true'{{endif}}>{lang="download"}</a>
+				</div>
+			</li>
+		{{endforeach}}
+	</ul>
+</div>

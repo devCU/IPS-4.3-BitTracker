@@ -1,0 +1,9 @@
+<ips:template parameters="$file, $terms = NULL, $download = NULL, $confirmUrl, $multipleFiles, $waitingOn=NULL, $waitingFor=0" />
+
+<div data-controller='bitracker.front.view.download'>
+	{{if $terms}}
+		{template="downloadTerms" group="view" app="bitracker" params="$file, $terms, $confirmUrl, $multipleFiles"}
+	{{else}}
+		{template="multipleFiles" group="view" app="bitracker" params="$file, $download, $waitingOn, $waitingFor"}
+	{{endif}}
+</div>

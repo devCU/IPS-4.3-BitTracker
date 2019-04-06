@@ -1,0 +1,18 @@
+<ips:template parameters="$file, $downloadTerms, $confirmUrl, $multipleFiles" />
+
+<div class='ipsPad'>
+	<h1 class='ipsType_pageTitle'>{lang="download_terms"}</h1>
+	<strong>{lang="download_terms_desc"}</strong>
+
+	<hr class='ipsHr'>
+
+	<div class='ipsType_richText ipsType_medium'>
+		{$downloadTerms|raw}
+	</div>
+</div>
+<div class='ipsAreaBackground ipsType_right ipsPad'>
+	<ul class='ipsList_inline'>
+		<li><a href='{$file->url()}' class='ipsButton ipsButton_link ipsButton_medium' data-action='dialogClose' title='{lang="cancel_downloading"}'>{lang="cancel"}</a></li>
+		<li><a href='{$confirmUrl}' class='ipsButton ipsButton_primary ipsButton_medium' data-action='{{if $multipleFiles or member.group['bit_wait_period']}}selectFile{{else}}download{{endif}}' title='{lang="agree_and_download_full"}'>{lang="agree_and_download"}</a></li>
+	</ul>
+</div>

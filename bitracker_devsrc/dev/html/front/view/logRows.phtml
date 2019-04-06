@@ -1,0 +1,11 @@
+<ips:template parameters="$table, $headers, $rows" />
+
+{{foreach $rows as $row}}
+	<li class='ipsGrid_span6 ipsPhotoPanel ipsPhotoPanel_mini ipsClearfix ipsPad_half'>
+		{template="userPhoto" app="core" group="global" params="\IPS\Member::load( $row['dmid'] ), 'mini'"}
+		<div>
+			<h3 class='ipsType_normal ipsType_reset ipsTruncate ipsTruncate_line'>{member="name" id="$row['dmid']"}</h3>
+			<span class='ipsType_light'>{datetime="$row['dtime']" norelative="true"}</span>
+		</div>
+	</li>
+{{endforeach}}
