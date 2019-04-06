@@ -2830,13 +2830,14 @@
                 "type": "key",
                 "name": "field_14",
                 "length": [
-                    null
+                    191
                 ],
                 "columns": [
                     "field_14"
                 ]
             }
-        }
+        },
+        "collation": "utf8mb4_unicode_ci"
     },
     "bitracker_sessions": {
         "name": "bitracker_sessions",
