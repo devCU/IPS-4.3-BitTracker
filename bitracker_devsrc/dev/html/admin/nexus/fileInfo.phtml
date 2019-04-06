@@ -1,0 +1,43 @@
+<ips:template parameters="$file" />
+
+<div class='ipsAreaBackground_light ipsPad'>
+	<div class='ipsDataItem'>
+		<div class='ipsDataItem_generic ipsDataItem_size3 ipsPos_top'>
+			{template="thumbImage" group="global" app="core" location="front" params="$file->primary_screenshot_thumb, $file->name, 'medium', '', 'view_this', $file->url()"}
+		</div>
+		<div class='ipsDataItem_main'>
+			<h4 class='ipsDataItem_title ipsType_sectionHead'>
+				{{if $file->prefix()}}
+					<span>{template="prefix" group="global" app="core" location="front" params="$file->prefix( TRUE ), $file->prefix()"}</span>
+				{{endif}}
+				<span class='ipsType_break ipsContained'><a href='{$file->url()}' title='{lang="view_this_file" sprintf="$file->name"}'>{$file->name}</a></span>
+			</h4>
+			<p class='ipsType_reset ipsType_light ipsType_blendLinks'>
+				{lang="byline_nodate" htmlsprintf="$file->author()->link()"}
+				{{if \IPS\Request::i()->app != 'bitracker'}}
+					{lang="in"} <a href="{$file->container()->url()}">{$file->container()->_title}</a>
+				{{endif}}
+			</p>
+			<div class='ipsType_medium ipsType_richText ipsType_break ipsSpacer_top' data-ipsTruncate data-ipsTruncate-type="remove" data-ipsTruncate-size="2 lines">
+				{$file->truncated()|raw}
+			</div>
+		</div>
+		<div class='ipsDataItem_generic ipsDataItem_size8'>
+			{{if $file->container()->bitoptions['reviews']}}
+				{template="rating" group="global" location="front" app="core" params="'large', $file->averageReviewRating(), \IPS\Settings::i()->reviews_rating_out_of, $file->memberReviewRating()"}&nbsp;&nbsp; <span class='ipsType_normal ipsType_light'>({lang="num_reviews" pluralize="$file->reviews"})</span>
+			{{endif}}
+			{{if $file->container()->bitoptions['comments']}}
+				<p class='ipsType_normal'>
+					{{if $file->comments}}
+						<a href='{$file->url()->setQueryString( 'tab', 'comments' )->setFragment('replies')}'>
+					{{endif}}
+					<i class='fa fa-comment'></i> {lang="num_comments" pluralize="$file->comments"}
+					{{if $file->comments}}
+						</a>
+					{{endif}}
+				</p>
+			{{endif}}
+			<p class='ipsType_medium'><strong>{{if $file->updated == $file->submitted}}{lang="submitted"} {datetime="$file->submitted"}{{else}}{lang="updated"} {datetime="$file->updated"}{{endif}}</strong></p>
+		</div>
+	</div>
+</div>
