@@ -129,3 +129,23 @@ html[dir="rtl"] #elDownloadStatsLatest > .ipsWidget_latestItem {
 	color: green;
 	display: none;
 }
+
+#torrentable {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+#torrentable td, #torrentable th {
+  padding: 8px;
+}
+
+#torrentable tr:nth-child(even){background-color: #f2f2f2;}
+
+#torrentable tr:hover {background-color: #ddd;}
+
+#torrentable th {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  text-align: left;
+  color: #000;
+}
