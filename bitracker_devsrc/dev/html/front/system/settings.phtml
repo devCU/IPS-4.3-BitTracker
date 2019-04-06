@@ -1,0 +1,45 @@
+<ips:template parameters="$tab, $output" />
+
+{template="pageHeader" group="global" app="core" params="\IPS\Member::loggedIn()->language()->addToStack('system_bitracker_settings'), \IPS\Member::loggedIn()->language()->addToStack('system_bitracker_settings_blurb')"}
+<div class='ipsBox ipsBox_transparent ipsAreaBackground' id='elSettingsTabs' data-ipsTabBar data-ipsTabBar-contentArea='#elProfileTabContent' data-ipsTabBar-itemSelector='.ipsSideMenu_item' data-ipsTabBar-activeClass='ipsSideMenu_itemActive'>
+	<div class='ipsColumns ipsColumns_collapsePhone ipsColumns_bothSpacing'>
+		<div class='ipsColumn ipsColumn_wide'>
+			<div class='ipsSideMenu' data-ipsSideMenu>
+				<h3 class="ipsSideMenu_mainTitle ipsAreaBackground_light ipsType_medium">
+					<a href="#modcp_menu" class="ipsPad_double" data-action="openSideMenu">
+						<i class="fa fa-bars"></i> &nbsp;{lang="settings_area"}&nbsp;<i class="fa fa-caret-down"></i>
+					</a>
+				</h3>
+				<ul class="ipsSideMenu_list">
+					<li>
+						<a href='{url="app=bitracker&module=system&controller=settings" seoTemplate="bitracker_overview"}' id='bitracker_overview' class='ipsType_normal ipsSideMenu_item {{if $tab === 'overview'}}ipsSideMenu_itemActive{{endif}}' title="{lang="system_bitracker_overview"}" role="tab" aria-selected="{{if $tab === 'overview'}}true{{else}}false{{endif}}">
+							<i class='fa fa-cog fa-spin'></i> {lang="system_bitracker_overview"}
+						</a>
+					</li>
+						<li>
+							<a href='{url="app=bitracker&module=system&controller=settings&area=configure" seoTemplate="bitracker_configure"}' id='bitracker_configure' class='ipsType_normal ipsSideMenu_item {{if $tab === 'configure'}}ipsSideMenu_itemActive{{endif}}' title="{lang="system_bitracker_configure"}" role="tab" aria-selected="{{if $tab === 'configure'}}true{{else}}false{{endif}}">
+								<i class='fa fa-wrench'></i> {lang="system_bitracker_configure"}
+							</a>
+						</li>
+						<li>
+							<a href='{url="app=bitracker&module=system&controller=settings&area=security" seoTemplate="bitracker_security"}' id='bitracker_security' class='ipsType_normal ipsSideMenu_item {{if $tab === 'security'}}ipsSideMenu_itemActive{{endif}}' title="{lang="system_bitracker_security"}" role="tab" aria-selected="{{if $tab === 'security'}}true{{else}}false{{endif}}">
+								<i class='fa fa-lock'></i> {lang="system_bitracker_security"}
+							</a>
+						</li>
+						<li>
+							<a href='{url="app=bitracker&module=system&controller=settings&area=privacy" seoTemplate="bitracker_privacy"}' id='bitracker_privacy' class='ipsType_normal ipsSideMenu_item {{if $tab === 'privacy'}}ipsSideMenu_itemActive{{endif}}' title="{lang="system_bitracker_privacy"}" role="tab" aria-selected="{{if $tab === 'privacy'}}true{{else}}false{{endif}}">
+								<i class='fa fa-shield'></i> {lang="system_bitracker_privacy"}
+							</a>
+						</li>
+				</ul>
+			</div>
+		</div>
+		<div class='ipsColumn ipsColumn_fluid'>
+			<section id='elProfileTabContent' class='ipsBox ipsPad'>
+				<div id="ipsTabs_elSettingsTabs_setting_{$tab}_panel" class="ipsTabs_panel" aria-labelledby="bitracker_overview" aria-hidden="false">
+					{$output|raw}
+				</div>
+			</section>
+		</div>
+	</div>
+</div>

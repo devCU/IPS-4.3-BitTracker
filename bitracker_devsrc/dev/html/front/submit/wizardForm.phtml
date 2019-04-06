@@ -1,0 +1,7 @@
+<ips:template parameters="$stepNames, $activeStep, $output, $baseUrl, $showSteps" />
+
+{{foreach $stepNames as $step => $name}}
+	{{if $activeStep == $name}}
+		{$output|raw}
+	{{endif}}
+{{endforeach}}
