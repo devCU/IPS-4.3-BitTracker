@@ -5,17 +5,18 @@
 		<ul class='ipsDataList'>
 			<li class='ipsDataItem'>
 				<div class='ipsDataItem_main'>
-					<h3 class='ipsType_sectionHead'><strong>{lang="system_tracker_info"}</strong></h3><br><br>
+					<h3 class='ipsType_sectionHead'><strong>{lang="system_bitracker_info"}</strong></h3><br><br>
 			{{if \IPS\Settings::i()->bit_announce_enable}}
-                     <a class="ipsBadge ipsBadge_positive" href="#"> Enabled </a> <strong>{lang="Private Tracker"}</strong> <i class="fa fa-question-circle" aria-hidden="true" data-ipsTooltip title="Tracker will only accept private torrents"></i><br><br>
+                     <a class="ipsBadge ipsBadge_positive" href="#"> {lang="system_bitracker_enabled"} </a> <strong>{lang="system_private_tracker"}</strong> <i class="fa fa-question-circle" aria-hidden="true" data-ipsTooltip title="{lang="system_private_tracker_enabled"}"></i><br><br>
             {{else}}
-                     <a class="ipsBadge ipsBadge_negative" href="#"> Disabled </a> <strong>{lang="Private Tracker"}</strong> <i class="fa fa-question-circle" aria-hidden="true" data-ipsTooltip title="Tracker will accept public torrents"></i><br><br>
+                     <a class="ipsBadge ipsBadge_negative" href="#"> {lang="system_bitracker_disabled"} </a> <strong>{lang="system_private_tracker"}</strong> <i class="fa fa-question-circle" aria-hidden="true" data-ipsTooltip title="{lang="system_private_tracker_disabled"}"></i><br><br>
            {{endif}}
 			{{if \IPS\Settings::i()->bit_security_forcessl}}
-                     <a class="ipsBadge ipsBadge_positive" href="#"> Enabled </a> <strong>{lang="HTTPS Only (SSL Encrypted)"}</strong> <i class="fa fa-question-circle" aria-hidden="true" data-ipsTooltip title="Tracker will only accept SSL secure connections"></i><br><br>
+                     <a class="ipsBadge ipsBadge_positive" href="#"> {lang="system_bitracker_enabled"} </a> <strong>{lang="system_ssl_secure"}</strong> <i class="fa fa-question-circle" aria-hidden="true" data-ipsTooltip title="{lang="system_ssl_secure_enabled"}"></i><br><br>
             {{else}}
-                     <a class="ipsBadge ipsBadge_negative" href="#"> Disabled </a> <strong>{lang="HTTPS Only (SSL Encrypted)"}</strong> <i class="fa fa-question-circle" aria-hidden="true" data-ipsTooltip title="Tracker will accept non-SSL insecure connections"></i><br><br>
+                     <a class="ipsBadge ipsBadge_negative" href="#"> {lang="system_bitracker_disabled"} </a> <strong>{lang="system_ssl_secure"}</strong> <i class="fa fa-question-circle" aria-hidden="true" data-ipsTooltip title="{lang="system_ssl_secure_disabled"}"></i><br><br>
            {{endif}}
+     <strong>{lang="system_bitracker_announceurl"}</strong> <i class="fa fa-question-circle" aria-hidden="true" data-ipsTooltip title="{lang="system_bitracker_announceurl_tip"}"></i><br><br>
     <input id='announce' type='text' value='{expression="\IPS\Settings::i()->bit_announce_url"}' readonly>
     <button class="ann ipsButton ipsButton_link" data-clipboard-action="copy" data-clipboard-target="#announce" data-ipsTooltip title="Copy to clipboard">Copy</button>
 
@@ -41,19 +42,19 @@
 						<a href="{url="app=bitracker&module=system&controller=settings&area=security" seoTemplate="bitracker_security"}" class="ipsButton ipsButton_link ipsPos_right">{lang="Change"}</a>
 					<h3 class='ipsType_sectionHead'><strong>{lang="system_connection_security"}</strong></h3><br><br>
 			{{if \IPS\Settings::i()->bit_security_permkey}}
-                     <a class="ipsBadge ipsBadge_positive" href="#"> Enabled </a> <strong>{lang="Secure PassKey Access"}</strong> <i class="fa fa-question-circle" aria-hidden="true" data-ipsTooltip title="Tracker will only accept announce with unique key"></i><br><br>
+                     <a class="ipsBadge ipsBadge_positive" href="#"> {lang="system_bitracker_enabled"} </a> <strong>{lang="Secure PassKey Access"}</strong> <i class="fa fa-question-circle" aria-hidden="true" data-ipsTooltip title="Tracker will only accept announce with unique key"></i><br><br>
             {{else}}
-                     <a class="ipsBadge ipsBadge_negative" href="#"> Disabled </a> <strong>{lang="Secure PassKey Access"}</strong> <i class="fa fa-question-circle" aria-hidden="true" data-ipsTooltip title="Tracker will accept announce with no unique key"></i><br><br>
+                     <a class="ipsBadge ipsBadge_negative" href="#"> {lang="system_bitracker_disabled"} </a> <strong>{lang="Secure PassKey Access"}</strong> <i class="fa fa-question-circle" aria-hidden="true" data-ipsTooltip title="Tracker will accept announce with no unique key"></i><br><br>
            {{endif}}
 			{{if \IPS\Settings::i()->bit_security_ipenable}}
-					<a class="ipsBadge ipsBadge_positive" href="#"> Enabled </a>
+					<a class="ipsBadge ipsBadge_positive" href="#"> {lang="system_bitracker_enabled"} </a>
 					{{if \IPS\Settings::i()->bit_security_bindip}}
-					<a class="ipsBadge ipsBadge_neutral" href="#"> Forced </a> <strong>{lang="IP Address Bind"}</strong> <i class="fa fa-question-circle" aria-hidden="true" data-ipsTooltip title="You can only connect from IP addresses in your account"></i><br><span class='ipsFieldRow_required'>* {lang="Admin has forced Bind IP on all accounts"}</span>
+					<a class="ipsBadge ipsBadge_neutral" href="#"> {lang="system_bitracker_forced"} </a> <strong>{lang="IP Address Bind"}</strong> <i class="fa fa-question-circle" aria-hidden="true" data-ipsTooltip title="You can only connect from IP addresses in your account"></i><br><span class='ipsFieldRow_required'>* {lang="Admin has forced Bind IP on all accounts"}</span>
 					{{else}} 
-					<a class="ipsBadge ipsBadge_intermediary" href="#"> Optional </a> <strong>{lang="IP Address Bind"}</strong> <i class="fa fa-question-circle" aria-hidden="true" data-ipsTooltip title="You can connect from any IP addresses in your account"></i><br><span class='ipsFieldRow_required'>* {lang="Admin has allowed optional Bind IP for members"}</span>
+					<a class="ipsBadge ipsBadge_intermediary" href="#"> {lang="system_bitracker_optional"} </a> <strong>{lang="IP Address Bind"}</strong> <i class="fa fa-question-circle" aria-hidden="true" data-ipsTooltip title="You can connect from any IP addresses in your account"></i><br><span class='ipsFieldRow_required'>* {lang="Admin has allowed optional Bind IP for members"}</span>
 			        {{endif}} 
             {{else}}
-                     <a class="ipsBadge ipsBadge_negative" href="#"> Disabled </a> <strong>{lang="IP Address Bind"}</strong> <i class="fa fa-question-circle" aria-hidden="true" data-ipsTooltip title="Tracker will accept any IP"></i>
+                     <a class="ipsBadge ipsBadge_negative" href="#"> {lang="system_bitracker_disabled"} </a> <strong>{lang="IP Address Bind"}</strong> <i class="fa fa-question-circle" aria-hidden="true" data-ipsTooltip title="Tracker will accept any IP"></i>
            {{endif}}
 				</div>
 			</li>
