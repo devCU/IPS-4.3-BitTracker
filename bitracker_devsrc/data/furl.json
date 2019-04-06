@@ -49,6 +49,10 @@
 	        "friendly": "privacy",
 	        "real": "app=bitracker&module=system&controller=settings&area=privacy"
 	    },
+	    "bitracker_ipaddress": {
+	        "friendly": "ipaddress",
+	        "real": "app=bitracker&module=system&controller=settings&area=ipaddress"
+	    },
 		"bitracker": {
 			"friendly": "",
 			"real": "app=bitracker&module=portal&controller=main"
