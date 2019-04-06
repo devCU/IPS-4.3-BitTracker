@@ -1,0 +1,141 @@
+<ips:template parameters="$week, $month, $year, $all, $orientation='vertical'" />
+
+<h3 class='ipsType_reset ipsWidget_title'>{lang="block_topSubmitters"}</h3>
+
+{{if $orientation == 'vertical'}}
+	<div class='ipsTabs ipsTabs_small ipsTabs_stretch ipsClearfix' id='elTorrentsTopSubmitters' data-ipsTabBar data-ipsTabBar-contentArea='#elTorrentsTopSubmitters_content'>
+		<a href='#elTorrentsTopSubmitters' data-action='expandTabs'><i class='fa fa-caret-down'></i></a>
+		<ul role="tablist">
+			<li>
+				<a href='#ipsTabs_elTorrentsTopSubmitters_elTorrents_topSubmittersWeek_panel' id='elTorrents_topSubmittersWeek' class='ipsTabs_item ipsTabs_activeItem ipsType_center' role="tab" aria-selected='true'>{lang="top_week"}</a>
+			</li>
+			<li>
+				<a href='#ipsTabs_elTorrentsTopSubmitters_elTorrents_topSubmittersMonth_panel' id='elTorrents_topSubmittersMonth' class='ipsTabs_item ipsType_center' role="tab" aria-selected='false'>{lang="top_month"}</a>
+			</li>		
+			<li>
+				<a href='#ipsTabs_elTorrentsTopSubmitters_elTorrents_topSubmittersYear_panel' id='elTorrents_topSubmittersYear' class='ipsTabs_item ipsType_center' role="tab" aria-selected='false'>{lang="top_year"}</a>
+			</li>
+			<li>
+				<a href='#ipsTabs_elTorrentsTopSubmitters_elTorrents_topSubmittersAll_panel' id='elTorrents_topSubmittersAll' class='ipsTabs_item ipsType_center' role="tab" aria-selected='false'>{lang="top_alltime"}</a>
+			</li>
+		</ul>
+	</div>
+
+	<section id='elTorrentsTopSubmitters_content' class='ipsWidget_inner'>
+		<div id="ipsTabs_elTorrentsTopSubmitters_elTorrents_topSubmittersWeek_panel" class='ipsTabs_panel'>
+			{{if count( $week )}}
+				<ol class='ipsDataList ipsDataList_reducedSpacing'>
+					{{foreach $week as $idx => $data}}
+						{template="topSubmitterRow" group="widgets" app="bitracker" params="$idx, $data, $orientation"}
+					{{endforeach}}
+				</ol>
+			{{else}}
+				<div class='ipsPad'>
+					<p class='ipsType_reset'>{lang="top_submitters_empty__week"}</p>
+				</div>
+			{{endif}}
+		</div>
+		<div id="ipsTabs_elTorrentsTopSubmitters_elTorrents_topSubmittersMonth_panel" class='ipsTabs_panel'>
+			{{if count( $month )}}
+				<ol class='ipsDataList ipsDataList_reducedSpacing'>
+					{{foreach $month as $idx => $data}}
+						{template="topSubmitterRow" group="widgets" app="bitracker" params="$idx, $data, $orientation"}
+					{{endforeach}}
+				</ol>
+			{{else}}
+				<div class='ipsPad'>
+					<p class='ipsType_reset'>{lang="top_submitters_empty__month"}</p>
+				</div>
+			{{endif}}
+		</div>
+		<div id="ipsTabs_elTorrentsTopSubmitters_elTorrents_topSubmittersYear_panel" class='ipsTabs_panel'>
+			{{if count( $year )}}
+				<ol class='ipsDataList ipsDataList_reducedSpacing'>
+					{{foreach $year as $idx => $data}}
+						{template="topSubmitterRow" group="widgets" app="bitracker" params="$idx, $data, $orientation"}
+					{{endforeach}}
+				</ol>
+			{{else}}
+				<div class='ipsPad'>
+					<p class='ipsType_reset'>{lang="top_submitters_empty__year"}</p>
+				</div>
+			{{endif}}
+		</div>
+		<div id="ipsTabs_elTorrentsTopSubmitters_elTorrents_topSubmittersAll_panel" class='ipsTabs_panel'>
+			{{if count( $all )}}
+				<ol class='ipsDataList ipsDataList_reducedSpacing'>
+					{{foreach $all as $idx => $data}}
+						{template="topSubmitterRow" group="widgets" app="bitracker" params="$idx, $data, $orientation"}
+					{{endforeach}}
+				</ol>
+			{{else}}
+				<div class='ipsPad'>
+					<p class='ipsType_reset'>{lang="top_submitters_empty__all"}</p>
+				</div>
+			{{endif}}
+		</div>
+	</section>
+{{else}}
+	<div class='ipsGrid ipsGrid_collapsePhone ipsWidget_columns ipsPad'>
+		<div class='ipsGrid_span3'>
+			<h4 class='ipsType_sectionHead ipsType_normal'>{lang="week"}</h4>
+
+			{{if count( $week )}}
+				<ol class='ipsDataList ipsDataList_reducedSpacing'>
+					{{foreach $week as $idx => $data}}
+						{template="topSubmitterRow" group="widgets" app="bitracker" params="$idx, $data, $orientation"}
+					{{endforeach}}
+				</ol>
+			{{else}}
+				<div class='ipsPad'>
+					<p class='ipsType_reset ipsType_left ipsType_light'>{lang="top_submitters_empty__week"}</p>
+				</div>
+			{{endif}}
+		</div>
+		<div class='ipsGrid_span3'>
+			<h4 class='ipsType_sectionHead ipsType_normal'>{lang="month"}</h4>
+
+			{{if count( $month )}}
+				<ol class='ipsDataList ipsDataList_reducedSpacing'>
+					{{foreach $month as $idx => $data}}
+						{template="topSubmitterRow" group="widgets" app="bitracker" params="$idx, $data, $orientation"}
+					{{endforeach}}
+				</ol>
+			{{else}}
+				<div class='ipsPad'>
+					<p class='ipsType_reset ipsType_left ipsType_light'>{lang="top_submitters_empty__month"}</p>
+				</div>
+			{{endif}}
+		</div>
+		<div class='ipsGrid_span3'>
+			<h4 class='ipsType_sectionHead ipsType_normal'>{lang="year"}</h4>
+
+			{{if count( $year )}}
+				<ol class='ipsDataList ipsDataList_reducedSpacing'>
+					{{foreach $year as $idx => $data}}
+						{template="topSubmitterRow" group="widgets" app="bitracker" params="$idx, $data, $orientation"}
+					{{endforeach}}
+				</ol>
+			{{else}}
+				<div class='ipsPad'>
+					<p class='ipsType_reset ipsType_left ipsType_light'>{lang="top_submitters_empty__year"}</p>
+				</div>
+			{{endif}}
+		</div>
+		<div class='ipsGrid_span3'>
+			<h4 class='ipsType_sectionHead ipsType_normal'>{lang="alltime"}</h4>
+
+			{{if count( $all )}}
+				<ol class='ipsDataList ipsDataList_reducedSpacing'>
+					{{foreach $all as $idx => $data}}
+						{template="topSubmitterRow" group="widgets" app="bitracker" params="$idx, $data, $orientation"}
+					{{endforeach}}
+				</ol>
+			{{else}}
+				<div class='ipsPad'>
+					<p class='ipsType_reset ipsType_left ipsType_light'>{lang="top_submitters_empty__all"}</p>
+				</div>
+			{{endif}}
+		</div>
+	</div>
+{{endif}}

@@ -1,0 +1,37 @@
+<ips:template parameters="$file, $orientation='vertical'" />
+
+<li class='ipsDataItem ipsCarousel_item {{if $orientation == 'horizontal'}}ipsGrid_span3{{endif}}' >
+	<div class='ipsDataItem_icon ipsPos_top'>
+		{template="thumbImage" group="global" app="core" params="$file->primary_screenshot_thumb, $file->name, 'tiny'"}
+		{{$price = NULL;}}
+		{{if \IPS\Application::appIsEnabled( 'nexus' ) and settings.bit_nexus_on}}
+			<p class="cWidgetPrice ipsType_reset ipsType_medium ipsType_center">
+				{{if $file->isPaid()}}
+					{{if $price = $file->price()}}
+						{$price|raw}
+					{{endif}}
+				{{else}}
+					{lang="file_free_feed"}
+				{{endif}}
+			</p>
+		{{endif}}
+	</div>
+	<div class='ipsDataItem_main'>
+		<div class='ipsType_break ipsContained'><a href="{$file->url()}" title='{lang="view_this_file" sprintf="$file->name"}' class='ipsTruncate ipsTruncate_line'>{$file->name}</a></div>
+		<span class='ipsType_light ipsType_medium ipsType_blendLinks'>{lang="byline_nodate" htmlsprintf="$file->author()->link()"}</span><br>
+		{{if $file->container()->bitoptions['reviews']}}
+			{template="rating" group="global" location="front" app="core" params="'small', $file->rating, \IPS\Settings::i()->reviews_rating_out_of"} &nbsp;&nbsp;
+		{{endif}}
+
+		<span class='ipsType_medium ipsType_reset ipsType_noBreak'>
+			{{if $file->isPaid() and in_array( 'purchases', explode( ',', settings.bit_nexus_display ) )}}
+				<span {{if !$file->purchaseCount()}}class='ipsType_light'{{endif}} title='{lang="bit_purchases"}' data-ipsTooltip><i class='fa fa-shopping-cart'></i> {$file->purchaseCount()}</span>&nbsp;&nbsp;
+			{{endif}}
+			{{if !$file->isPaid() or in_array( 'bitracker', explode( ',', settings.bit_nexus_display ) )}}
+				<span {{if !$file->bitracker}}class='ipsType_light'{{endif}} title='{lang="bitracker"}' data-ipsTooltip><i class='fa fa-arrow-circle-down'></i> {number="$file->bitracker"}</span>&nbsp;&nbsp;
+			{{endif}}
+
+			{{if $file->container()->bitoptions['comments']}}<span {{if !$file->comments}}class='ipsType_light'{{endif}} title='{lang="total_comments"}' data-ipsTooltip><i class='fa fa-comment'></i> {$file->comments}</span>{{endif}}
+		</span>
+	</div>
+</li>]]></

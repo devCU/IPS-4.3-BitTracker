@@ -1,0 +1,14 @@
+<ips:template parameters="$idx, $data, $orientation='vertical'" />
+
+<li class='ipsDataItem'>
+	{{if $orientation == 'vertical'}}
+		<div class='ipsDataItem_generic ipsPos_middle ipsDataItem_size1 ipsType_center ipsType_large ipsType_light'><strong>{expression="$idx + 1"}</strong></div>
+	{{endif}}
+	<div class='ipsDataItem_main ipsPhotoPanel ipsPhotoPanel_tiny'>
+		{template="userPhoto" app="core" group="global" params="$data['member'], 'tiny'"}
+		<div>
+			<a href='{url="app=core&module=members&controller=profile&id={$data['member']->member_id}&do=content&type=bitracker_file" base="front" seoTitles="$data['member']->members_seo_name" seoTemplate="profile_content"}' class='ipsType_truncate ipsType_truncateLine'>{$data['member']->name}</a><br>
+			<span class='ipsType_small'><strong>{lang="download_file_count" pluralize="$data['files']"}</strong></span> &nbsp;&middot;&nbsp;<div data-ipsTooltip title='{lang="top_avg_rating"}' class='cRatingWrapper'>{template="rating" group="global" location="front" app="core" params="'small', $data['rating'], \IPS\Settings::i()->reviews_rating_out_of"}</div>
+		</div>
+	</div>
+</li>
