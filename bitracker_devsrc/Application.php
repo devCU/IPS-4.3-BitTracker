@@ -66,7 +66,7 @@ class _Application extends \IPS\Application
 	 */
 	protected function get__icon()
 	{
-		return 'cloud-upload-alt';
+		return 'cloud';
 	}
 	
 	/**
@@ -134,6 +134,6 @@ class _Application extends \IPS\Application
 	public function uploadSettings()
 	{
 		/* Apps can overload this */
-		return array( 'idm_watermarkpath' );
+		return array( 'bit_watermarkpath' );
 	}
 }
