@@ -1,0 +1,39 @@
+<ips:template parameters="$form, $category" />
+
+{template="pageHeader" group="global" app="core" params="\IPS\Member::loggedIn()->language()->addToStack('submit_bulk_information')"}
+<hr class='ipsHr'>
+
+{{if $form->error}}
+	<div class="ipsMessage ipsMessage_error">
+		{$form->error}
+	</div>
+	<br>
+{{endif}}
+
+
+<form accept-charset='utf-8' method="post" action="{$form->action}" enctype="multipart/form-data" id='elTorrentsSubmit' data-ipsForm data-ipsFormSubmit>
+	<input type="hidden" name="{$form->id}_submitted" value="1">
+	{{foreach $form->hiddenValues as $k => $v}}
+		<input type="hidden" name="{$k}" value="{$v}">
+	{{endforeach}}
+
+	{{foreach $form->elements as $fileName => $collection}}
+		<h2 class='ipsType_sectionTitle ipsType_reset'>{$fileName}</h2>
+		<div class='ipsAreaBackground ipsPad_half'>
+			<div class='ipsAreaBackground_reset ipsPad'>
+				<ul class='ipsForm ipsForm_vertical'>
+					{{foreach $collection as $input}}
+						{{if $input instanceof \IPS\Helpers\Form\FormAbstract}}
+							{$input|raw}
+						{{endif}}
+					{{endforeach}}
+				</ul>
+			</div>
+		</div>
+		<br><hr class='ipsHr'><br>
+	{{endforeach}}
+
+	<div class='ipsType_right'>
+		<button type='submit' class='ipsButton ipsButton_large ipsButton_primary' data-role='submitForm'>{lang="save_and_submit_files"}</button>
+	</div>
+</form>

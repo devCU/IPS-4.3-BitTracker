@@ -1,0 +1,11 @@
+<ips:template parameters="$file" />
+
+{{if $file->container()->can( 'download' )}}
+	<a {{if $file->canView() }}href='{{if settings.bit_antileech}}{$file->url('download')->csrf()}{{else}}{$file->url('download')}{{endif}}'{{endif}} class='ipsButton ipsButton_medium {{if $file->canView()}}ipsButton_primary{{else}}ipsButton_disabled{{endif}}' {{if $file->container()->message('disclaimer') or count( $file->files() ) > 1 or member.group['bit_wait_period']}}data-ipsDialog{{endif}}>{lang="download_now"}</a>
+{{endif}}
+{{if $file->container()->can( 'view' )}}
+	<a {{if $file->canView() }}href='{$file->url()}'{{endif}} class='ipsButton ipsButton_medium {{if $file->canView()}}ipsButton_alternate{{else}}ipsButton_disabled{{endif}}'>{lang="file_view_details"}</a>
+{{endif}}
+{{if !$file->canView()}}
+<p class='ipsType_light'>{lang="nexus_file_no_longer_available"}</p>
+{{endif}}
