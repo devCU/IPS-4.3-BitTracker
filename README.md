@@ -42,11 +42,11 @@
 
 ## ** Updated Notes **
 
-04/05/19
+04/06/19
 
-- Stable 1.0.3 files for release version
-- Release April 7th for Patrons
-- Release April 14th for Public
+- Stable 1.0.3 is release version
+- Release moved to April 10th for Patrons, just not ready, sorry.
+- Release April 17th for Public
 - Added bitracker_devsrc development files for those who want continue work after 4.3 EOL in September
 - Will do a release of compiled source in IPS .tar file format for import installations
 - Have already begun work on the [IPS 4.4x version](https://github.com/GaalexxC/IPS-4.4-BitTracker/) and should be a quick refactor and release.
