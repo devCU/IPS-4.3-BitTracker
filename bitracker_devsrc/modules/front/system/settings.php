@@ -77,8 +77,8 @@ class _settings extends \IPS\Dispatcher\Controller
 		}
 		
 		/* Display */
-		\IPS\Output::i()->title = \IPS\Member::loggedIn()->language()->addToStack('settings');
-		\IPS\Output::i()->breadcrumb[] = array( NULL, \IPS\Member::loggedIn()->language()->addToStack('settings') );
+		\IPS\Output::i()->title = \IPS\Member::loggedIn()->language()->addToStack('system_bitracker_settings');
+		\IPS\Output::i()->breadcrumb[] = array( NULL, \IPS\Member::loggedIn()->language()->addToStack('system_bitracker_settings') );
 		if ( !\IPS\Request::i()->isAjax() )
 		{
 			if ( \IPS\Request::i()->service )
@@ -128,6 +128,8 @@ class _settings extends \IPS\Dispatcher\Controller
 	 */
 	protected function _overview()
 	{
+		\IPS\Output::i()->jsFiles = array_merge( \IPS\Output::i()->jsFiles, \IPS\Output::i()->js( 'clipboard.min.js', 'bitracker', 'front' ) );
+		\IPS\Output::i()->jsFiles = array_merge( \IPS\Output::i()->jsFiles, \IPS\Output::i()->js( 'settings.js', 'bitracker', 'front' ) );
 		return \IPS\Theme::i()->getTemplate( 'system' )->settingsOverview( );
 	}
 
