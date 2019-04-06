@@ -17,7 +17,7 @@
                      <a class="ipsBadge ipsBadge_negative" href="#"> {lang="system_bitracker_disabled"} </a> <strong>{lang="system_ssl_secure"}</strong> <i class="fa fa-question-circle" aria-hidden="true" data-ipsTooltip title="{lang="system_ssl_secure_disabled"}"></i><br><br>
            {{endif}}
      <strong>{lang="system_bitracker_announceurl"}</strong> <i class="fa fa-question-circle" aria-hidden="true" data-ipsTooltip title="{lang="system_bitracker_announceurl_tip"}"></i><br><br>
-    <input id='announce' type='text' value='{expression="\IPS\Settings::i()->bit_announce_url"}' readonly>
+    <input id='announce' type='text' value='{expression="\IPS\Settings::i()->bit_announce_url"}-{member="bit_perm_key"}' readonly>
     <button class="ann ipsButton ipsButton_link" data-clipboard-action="copy" data-clipboard-target="#announce" data-ipsTooltip title="Copy to clipboard">Copy</button>
 
 				</div>
