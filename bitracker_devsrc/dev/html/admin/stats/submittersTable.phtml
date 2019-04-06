@@ -1,0 +1,40 @@
+<ips:template parameters="$select, $pagination, $members" />
+
+{{if trim( $pagination )}}
+	{$pagination|raw}
+	<br><br>
+{{endif}}
+{{if count( $select )}}
+	<table class="ipsTable ipsTable_zebra">
+		<thead>
+			<tr>
+				<th>{lang="member"}</th>
+				<th>{lang="files"}</th>
+			</tr>
+		</thead>
+		<tbody>
+			{{foreach $select as $row}}
+				{{if isset( $members[ $row['file_submitter'] ] )}}
+					{{$member = \IPS\Member::constructFromData( $members[ $row['file_submitter'] ] );}}
+				{{else}}
+					{{$member = new \IPS\Member;}}
+				{{endif}}
+				<tr>
+					<td>{template="userPhoto" app="core" group="global" params="$member"} {$member->link()|raw}</td>
+					<td>
+						{{if $member->member_id}}
+							<a href='{$member->url()->setQueryString( array( 'do' => 'content', 'type' => 'bitracker_file' ) )}' target='_blank'>{$row['files']}</a>
+						{{else}}
+							{$row['files']}
+						{{endif}}
+					</td>
+				</tr>
+			{{endforeach}}
+		</tbody>
+	</table>
+	<br>
+
+	{$pagination|raw}
+{{else}}
+	<p class="ipsPad">{lang="no_results"}</p>
+{{endif}}
