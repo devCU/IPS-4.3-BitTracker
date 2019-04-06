@@ -1,0 +1,48 @@
+<ips:template parameters="$category, $table" />
+
+{{if $club = $category->club()}}
+	{{if settings.clubs and settings.clubs_header == 'full'}}
+		{template="header" app="core" group="clubs" params="$club, $category"}
+	{{endif}}
+	<div id='elClubContainer'>
+{{endif}}
+
+<div class="ipsPageHeader ipsClearfix ipsSpacer_bottom">
+	<h1 class="ipsType_pageTitle">{$category->_title}</h1>
+	<div class='ipsPos_right ipsResponsive_noFloat ipsResponsive_hidePhone'>
+		{template="follow" app="core" group="global" params="'bitracker', 'category', $category->_id, \IPS\bitracker\File::containerFollowers( $category )->count( TRUE )"}
+	</div>
+	{{if $category->hasChildren()}}
+		<br>
+		<a href='#elTorrentsCategories_menu' data-ipsMenu id='elTorrentsCategories' class='ipsButton ipsButton_fullWidth ipsButton_light ipsButton_small ipsResponsive_block ipsResponsive_hideDesktop'>{lang="subcategory"} &nbsp;<i class='fa fa-caret-down'></i></a>
+	{{endif}}
+	{{if $category->description}}
+		<div class='ipsPageHeader_info ipsType_normal'>
+			{$category->description|raw}
+		</div>
+	{{endif}}
+</div>
+
+<div data-controller='bitracker.front.bitracker.browse'>
+	{template="categoryMenu" group="browse" params="$category->children()"}
+
+	<ul class="ipsToolList ipsToolList_horizontal ipsResponsive_hidePhone ipsClearfix ipsSpacer_both">
+		{template="categoryButtons" group="browse" params="\IPS\bitracker\Category::canOnAny('add') or $category->can('add'), $category"}
+	</ul>
+
+	<div class='ipsBox cBitrackerCategoryTable'>
+	{$table|raw}
+	</div>
+
+	<ul class="ipsToolList ipsToolList_horizontal ipsResponsive_showPhone ipsResponsive_block ipsClearfix ipsSpacer_top">
+		{template="categoryButtons" group="browse" params="\IPS\bitracker\Category::canOnAny('add') or $category->can('add'), $category"}
+	</ul>
+</div>
+
+<div class='ipsResponsive_showPhone ipsResponsive_block ipsSpacer_top'>
+	{template="follow" app="core" group="global" params="'bitracker', 'category', $category->_id, \IPS\bitracker\File::containerFollowers( $category )->count( TRUE )"}
+</div>
+
+{{if $category->club()}}
+	</div>
+{{endif}}

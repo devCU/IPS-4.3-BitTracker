@@ -1,0 +1,35 @@
+<ips:template parameters="$comment, $item, $url" />
+
+<div data-embedInfo-maxSize='500' class='ipsRichEmbed'>
+	{template="embedHeader" group="embed" app="core" params="$comment, \IPS\Member::loggedIn()->language()->addToStack( 'x_commented_file', FALSE, array( 'sprintf' => array( $comment->author()->name ) ) ), $comment->mapped('date'), $url"}
+	<div class='ipsPad_double'>
+		<div class='ipsRichEmbed_originalItem ipsAreaBackground_reset ipsSpacer_bottom ipsType_blendLinks'>
+			<div>
+				{{if $item->primary_screenshot_thumb}}
+					<div class='ipsRichEmbed_masthead ipsRichEmbed_mastheadBg ipsRichEmbed_mastheadBg_small cFileEmbed ipsType_center'>
+						<a href='{$url}' title='{$item->mapped('title')}' style='background-image: url( "{expression="str_replace( array( '(', ')' ), array( '\(', '\)' ), \IPS\File::get( 'bitracker_Screenshots', $item->primary_screenshot_thumb )->url )"}") '>
+							<img src='{file="$item->primary_screenshot_thumb" extension="bitracker_Screenshots"}' alt="{$item->mapped('title')}" class='ipsHide'>
+						</a>
+					</div>
+				{{else}}
+					<div class='cFileEmbed ipsNoThumb ipsNoThumb_video'>&nbsp;</div>
+				{{endif}}
+				<div class='ipsPad'>
+					{template="embedOriginalItem" group="embed" app="core" params="$item, FALSE, \IPS\Theme::i()->getTemplate( 'global', 'bitracker' )->embedFileItemSnippet( $item ) "}
+				</div>
+			</div>
+		</div>
+
+		<div class='ipsType_richText ipsType_medium' data-truncate='3'>
+			{$comment->truncated(TRUE)|raw}
+		</div>
+
+		{{if settings.reputation_enabled and \IPS\IPS::classUsesTrait( $comment, 'IPS\Content\Reactable' ) and count( $comment->reactions() )}}
+			<ul class='ipsList_inline ipsSpacer_top ipsSpacer_half'>
+				<li>
+					{template="reactionOverview" app="core" group="global" params="$comment, TRUE, 'small'"}
+				</li>
+			</ul>
+		{{endif}}
+	</div>
+</div>

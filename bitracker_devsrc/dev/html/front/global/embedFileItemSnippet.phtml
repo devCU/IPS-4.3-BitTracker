@@ -1,0 +1,24 @@
+<ips:template parameters="$item" />
+
+<ul class='ipsList_inline ipsType_normal ipsSpacer_bottom ipsSpacer_half'>
+	{{if \IPS\Application::appIsEnabled( 'nexus' ) and settings.bit_nexus_on}}
+		<li class='cFilePrice'>
+			{{if $item->isPaid()}}
+				{$item->price()|raw}
+			{{else}}
+				{lang="file_free"}
+			{{endif}}
+		</li>
+		{{if $renewalTerm = $item->renewalTerm()}}
+			<li class='ipsType_light'>
+				{lang="file_renewal_term_val" sprintf="$renewalTerm"}
+			</li>
+		{{endif}}
+	{{endif}}
+	{{if $item->isPaid() and in_array( 'purchases', explode( ',', settings.bit_nexus_display ) )}}
+		<li {{if !$item->purchaseCount()}}class='ipsType_light'{{endif}} title="{lang="x_purchases" pluralize="$item->purchaseCount()"}"><i class='fa fa-shopping-cart'></i> {$item->purchaseCount()}</li>
+	{{endif}}
+	{{if !$item->isPaid() or in_array( 'bitracker', explode( ',', settings.bit_nexus_display ) )}}
+		<li {{if !$item->bitracker}}class='ipsType_light'{{endif}} title="{lang="num_bitracker" pluralize="$item->bitracker"}"><i class='fa fa-arrow-circle-down'></i> {number="$item->bitracker"}</li>
+	{{endif}}
+</ul>

@@ -1,0 +1,68 @@
+<ips:template parameters="$item, $url, $image=NULL" />
+
+<div data-embedInfo-maxSize='500' class='ipsRichEmbed'>
+	{template="embedHeader" group="embed" app="core" params="$item, \IPS\Member::loggedIn()->language()->addToStack( 'x_created_file_in', FALSE, array( 'sprintf' => array( $item->author()->name, $item->container()->_title ) ) ), $item->mapped('date'), $url"}
+	{{if $item->primary_screenshot_thumb}}
+		<div class='ipsRichEmbed_masthead ipsRichEmbed_mastheadBg cFileEmbed ipsType_center'>
+			<a href='{$url}' title='{$item->mapped('title')}' style='background-image: url( "{expression="str_replace( array( '(', ')' ), array( '\(', '\)' ), \IPS\File::get( 'bitracker_Screenshots', $item->primary_screenshot_thumb )->url )"}") '>
+				<img src='{file="$item->primary_screenshot_thumb" extension="bitracker_Screenshots"}' alt="{$item->mapped('title')}" class='ipsHide'>
+			</a>
+		</div>
+	{{else}}
+		<div class='cFileEmbed ipsNoThumb ipsNoThumb_video'>&nbsp;</div>
+	{{endif}}
+	<div class='ipsPad_double ipsClearfix'>
+		<h3 class='ipsRichEmbed_itemTitle ipsTruncate ipsTruncate_line ipsType_blendLinks'>
+			<a href='{$url}' title="{$item->mapped('title')}">{$item->mapped('title')}</a>
+		</h3>
+		{{if \IPS\Application::appIsEnabled( 'nexus' ) and settings.bit_nexus_on}}
+			<ul class='ipsList_inline ipsType_normal ipsSpacer_bottom ipsSpacer_half'>
+				<li class='cFilePrice'>
+					{{if $item->isPaid()}}
+						{$item->price()|raw}
+					{{else}}
+						{lang="file_free"}
+					{{endif}}
+				</li>
+				{{if $renewalTerm = $item->renewalTerm()}}
+					<li class='ipsType_light'>
+						{lang="file_renewal_term_val" sprintf="$renewalTerm"}
+					</li>
+				{{endif}}
+			</ul>
+		{{endif}}
+		<ul class='ipsList_inline'>
+			<li><i class='fa fa-info-circle'></i> {lang="version"} {$item->version}</li>
+			{{if $item->isPaid() and in_array( 'purchases', explode( ',', settings.bit_nexus_display ) )}}
+				<li {{if !$item->purchaseCount()}}class='ipsType_light'{{endif}}><i class='fa fa-shopping-cart'></i> {lang="x_purchases" pluralize="$item->purchaseCount()"}</li>
+			{{endif}}
+			{{if !$item->isPaid() or in_array( 'bitracker', explode( ',', settings.bit_nexus_display ) )}}
+				<li {{if !$item->bitracker}}class='ipsType_light'{{endif}}><i class='fa fa-arrow-circle-down'></i> {lang="num_bitracker" pluralize="$item->bitracker"}</li>
+			{{endif}}
+		</ul>
+		{{if \IPS\Member::loggedIn()->member_id}}
+			<div class='ipsSpacer_top ipsSpacer_half'>
+				{{if $item->canBuy()}}
+					{{if $item->canDownload()}}
+						<a href='{{if settings.bit_antileech}}{$item->url('download')->csrf()}{{else}}{$item->url('download')}{{endif}}' class='ipsButton ipsButton_fullWidth ipsButton_small ipsButton_primary' {{if $item->container()->message('disclaimer') or count( $item->files() ) > 1 or member.group['bit_wait_period']}}data-dialog{{endif}}>{lang="download_now"}</a>
+					{{else}}
+						<a href='{$item->url('buy')->csrf()}' class='ipsButton ipsButton_fullWidth ipsButton_small ipsButton_primary'><i class='fa fa-shopping-cart'></i> &nbsp;{lang="buy_now"}{{if $price = $item->price()}} - {$price|raw}{{endif}}</a>
+					{{endif}}
+				{{else}}
+					{{if $item->canDownload() or !$item->downloadTeaser()}}
+						<a href='{{if settings.bit_antileech}}{$item->url('download')->csrf()}{{else}}{$item->url('download')}{{endif}}' class='ipsButton ipsButton_fullWidth ipsButton_small ipsButton_primary' {{if $item->container()->message('disclaimer') or count( $item->files() ) > 1 or member.group['bit_wait_period']}}data-dialog{{endif}}>{lang="download_now"}</a>
+					{{else}}
+						<span class="ipsButton ipsButton_light ipsButton_fullWidth ipsButton_small ipsButton_disable">{lang="download_teaser"}</span>
+					{{endif}}
+				{{endif}}
+			</div>
+		{{endif}}
+		<hr class='ipsHr'>
+
+		<div class='ipsType_richText ipsType_medium ipsSpacer_top ipsSpacer_half' data-truncate='2'>
+			{$item->truncated(TRUE)|raw}
+		</div>
+
+		{template="embedItemStats" group="embed" app="core" params="$item"}
+	</div>
+</div>
