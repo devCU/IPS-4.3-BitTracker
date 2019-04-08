@@ -128,17 +128,19 @@ class _Category extends \IPS\Node\Model implements \IPS\Node\Permissions
 			'bitoptions' => array(
 				'allowss'				=> 1,	// Allow screenshots?
 				'reqss'					=> 2,	// Require screenshots?
-				'comments'				=> 4,	// Enable comments?
-				'moderation'			=> 8,	// Require files to be approved?
-				'comment_moderation'	=> 16,	// Require comments to be approved?
+				'allownfo'				=> 4,	// Allow NFO?
+				'reqnfo'					=> 8,	// Require NFO?
+				'comments'				=> 16,	// Enable comments?
+				'moderation'			=> 64,	// Require files to be approved?
+				'comment_moderation'	=> 128,	// Require comments to be approved?
 				# 32 is deprecated
-				'moderation_edits'		=> 64,	// Edits must be approved?
-				'submitter_log'			=> 128,	// File submitter can view downloads logs?
-				'reviews'				=> 256,	// Enable reviews?
-				'reviews_mod'			=> 512,	// Reviews must be approved?
-				'reviews_bitrack'		=> 1024,// Users must have downloaded before they can review?
-				'topic_delete'			=> 2048,// Delete created topics when file is deleted?
-				'topic_screenshot'		=> 4096,// Include screenshot with topics?
+				'moderation_edits'		=> 256,	// Edits must be approved?
+				'submitter_log'			=> 512,	// File submitter can view downloads logs?
+				'reviews'				=> 1024,	// Enable reviews?
+				'reviews_mod'			=> 2048,	// Reviews must be approved?
+				'reviews_bitrack'		=> 4096,// Users must have downloaded before they can review?
+				'topic_delete'			=> 8192,// Delete created topics when file is deleted?
+				'topic_screenshot'		=> 16384,// Include screenshot with topics?
 			)
 		)
 	);
@@ -326,6 +328,10 @@ class _Category extends \IPS\Node\Model implements \IPS\Node\Permissions
 		$form->addHeader( 'category_moderation' );
 		$form->add( new \IPS\Helpers\Form\YesNo( 'cbitoptions_moderation', $this->bitoptions['moderation'], FALSE, array( 'togglesOn' => array( 'cbitoptions_moderation_edits' ) ) ) );
 		$form->add( new \IPS\Helpers\Form\YesNo( 'cbitoptions_moderation_edits', $this->bitoptions['moderation_edits'], FALSE, array(), NULL, NULL, NULL, 'cbitoptions_moderation_edits' ) );
+		$form->addHeader( 'category_nfo' );
+		$form->add( new \IPS\Helpers\Form\YesNo( 'cbitoptions_allownfo', $this->id ? $this->bitoptions['allownfo'] : TRUE, FALSE, array( 'togglesOn' => array( 'cbitoptions_reqnfo', 'cmaxnfo' ) ), NULL, NULL, NULL, 'cbitoptions_allownfo' ) );
+		$form->add( new \IPS\Helpers\Form\YesNo( 'cbitoptions_reqnfo', $this->bitoptions['reqnfo'], FALSE, array(), NULL, NULL, NULL, 'cbitoptions_reqnfo' ) );
+		$form->add( new \IPS\Helpers\Form\Number( 'cmaxnfo', $this->maxnfo, FALSE, array( 'unlimited' => 0 ), NULL, NULL, \IPS\Member::loggedIn()->language()->addToStack('filesize_raw_k'), 'cmaxnfo' ) );
 		$form->addHeader( 'category_screenshots' );
 		$form->add( new \IPS\Helpers\Form\YesNo( 'cbitoptions_allowss', $this->id ? $this->bitoptions['allowss'] : TRUE, FALSE, array( 'togglesOn' => array( 'cbitoptions_reqss', 'cmaxss', 'cmaxdims' ) ), NULL, NULL, NULL, 'cbitoptions_allowss' ) );
 		$form->add( new \IPS\Helpers\Form\YesNo( 'cbitoptions_reqss', $this->bitoptions['reqss'], FALSE, array(), NULL, NULL, NULL, 'cbitoptions_reqss' ) );
@@ -399,7 +405,7 @@ class _Category extends \IPS\Node\Model implements \IPS\Node\Permissions
 			}
 		}
 		
-		foreach ( array( 'moderation', 'moderation_edits', 'allowss', 'reqss', 'comments', 'comment_moderation', 'submitter_log', 'reviews', 'reviews_mod', 'reviews_bitrack', 'topic_delete', 'topic_screenshot' ) as $k )
+		foreach ( array( 'moderation', 'moderation_edits', 'allownfo', 'reqnfo', 'allowss', 'reqss', 'comments', 'comment_moderation', 'submitter_log', 'reviews', 'reviews_mod', 'reviews_bitrack', 'topic_delete', 'topic_screenshot' ) as $k )
 		{
 			if ( array_key_exists( "cbitoptions_{$k}", $values ) )
 			{
@@ -413,7 +419,7 @@ class _Category extends \IPS\Node\Model implements \IPS\Node\Permissions
 			$values['cversioning'] = $values['cversioning_on'] ? ( ( $values['cversioning'] < 0 ) ? NULL : $values['cversioning'] ) : 0;
 		}
 		
-		foreach ( array( 'cmaxfile', 'cmaxss' ) as $k )
+		foreach ( array( 'cmaxfile', 'cmaxnfo', 'cmaxss' ) as $k )
 		{
 			if ( isset( $values[ $k ] ) and $values[ $k ] == -1 )
 			{
@@ -787,6 +793,8 @@ class _Category extends \IPS\Node\Model implements \IPS\Node\Permissions
 		$form->add( new \IPS\Helpers\Form\Editor( 'club_node_description', $this->_id ? \IPS\Member::loggedIn()->language()->get( static::$titleLangPrefix . $this->_id . '_desc' ) : NULL, FALSE, array( 'app' => 'bitracker', 'key' => 'Categories', 'autoSaveKey' => ( $this->id ? "bitracker-cat-{$this->id}" : "bitracker-new-cat" ), 'attachIds' => $this->id ? array( $this->id, NULL, 'description' ) : NULL, 'minimize' => 'cdesc_placeholder' ) ) );
 		$form->add( new \IPS\Helpers\Form\YesNo( 'cbitoptions_comments', $this->id ? $this->bitoptions['comments'] : TRUE, FALSE, array(), NULL, NULL, NULL, 'cbitoptions_comments' ) );
 		$form->add( new \IPS\Helpers\Form\YesNo( 'cbitoptions_reviews', $this->id ? $this->bitoptions['reviews'] : TRUE, FALSE, array( 'togglesOn' => array( 'cbitoptions_reviews_bitrack' ) ) ) );
+		$form->add( new \IPS\Helpers\Form\YesNo( 'cbitoptions_allownfo', $this->id ? $this->bitoptions['allownfo'] : TRUE, FALSE, array( 'togglesOn' => array( 'cbitoptions_reqnfo', 'cmaxnfo' ) ), NULL, NULL, NULL, 'cbitoptions_allownfo' ) );
+		$form->add( new \IPS\Helpers\Form\YesNo( 'cbitoptions_reqnfo', $this->bitoptions['reqnfo'], FALSE, array(), NULL, NULL, NULL, 'cbitoptions_reqnfo' ) );
 		$form->add( new \IPS\Helpers\Form\YesNo( 'cbitoptions_allowss', $this->id ? $this->bitoptions['allowss'] : TRUE, FALSE, array( 'togglesOn' => array( 'cbitoptions_reqss', 'cmaxss', 'cmaxdims' ) ), NULL, NULL, NULL, 'cbitoptions_allowss' ) );
 		$form->add( new \IPS\Helpers\Form\YesNo( 'cbitoptions_reqss', $this->bitoptions['reqss'], FALSE, array(), NULL, NULL, NULL, 'cbitoptions_reqss' ) );
 		$form->add( new \IPS\Helpers\Form\Text( 'ctypes', $this->id ? $this->_data['types'] : NULL, FALSE, array( 'autocomplete' => array( 'unique' => 'true' ), 'nullLang' => 'any_extensions' ), NULL, NULL, NULL, 'ctypes' ) );
@@ -801,7 +809,7 @@ class _Category extends \IPS\Node\Model implements \IPS\Node\Permissions
 	 */
 	public function _saveClubForm( \IPS\Member\Club $club, $values )
 	{
-		foreach ( array( 'allowss', 'reqss', 'comments', 'reviews' ) as $k )
+		foreach ( array( 'allowss', 'reqss', 'allownfo', 'reqnfo', 'comments', 'reviews' ) as $k )
 		{
 			$this->bitoptions[ $k ] = $values[ 'cbitoptions_' . $k ];
 		}
@@ -819,7 +827,7 @@ class _Category extends \IPS\Node\Model implements \IPS\Node\Permissions
 		if ( !$this->_id )
 		{
 			$this->save();
-			\IPS\File::claimAttachments( 'downloads-new-cat', $this->id, NULL, 'description' );
+			\IPS\File::claimAttachments( 'bitracker-new-cat', $this->id, NULL, 'description' );
 		}
 	}
 	
