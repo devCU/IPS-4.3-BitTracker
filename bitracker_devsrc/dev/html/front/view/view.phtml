@@ -297,7 +297,7 @@
 						<span class="ipsDataItem_generic cFileInfoData">{number="$file->views"}</span>
 					</li>
 					{{if $file->isPaid() and !$file->nexus and in_array( 'purchases', explode( ',', settings.bit_nexus_display ) )}}
-						<li class="ipsDataItem" title='{lang="x_bitracker" pluralize="$file->bitracker"}' data-ipsTooltip>
+						<li class="ipsDataItem" title='{lang="x_downloads" pluralize="$file->bitracker"}' data-ipsTooltip>
 							<span class="ipsDataItem_generic ipsDataItem_size3"><strong>{lang="bit_purchases"}</strong></span>
 							<span class="ipsDataItem_generic cFileInfoData">{$file->purchaseCount()}</span>
 						</li>

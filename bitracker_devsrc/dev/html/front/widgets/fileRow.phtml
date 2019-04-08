@@ -28,10 +28,10 @@
 				<span {{if !$file->purchaseCount()}}class='ipsType_light'{{endif}} title='{lang="bit_purchases"}' data-ipsTooltip><i class='fa fa-shopping-cart'></i> {$file->purchaseCount()}</span>&nbsp;&nbsp;
 			{{endif}}
 			{{if !$file->isPaid() or in_array( 'bitracker', explode( ',', settings.bit_nexus_display ) )}}
-				<span {{if !$file->bitracker}}class='ipsType_light'{{endif}} title='{lang="bitracker"}' data-ipsTooltip><i class='fa fa-arrow-circle-down'></i> {number="$file->bitracker"}</span>&nbsp;&nbsp;
+				<span {{if !$file->bitracker}}class='ipsType_light'{{endif}} title='{lang="x_downloads" pluralize="$file->bitracker"}' data-ipsTooltip><i class='fa fa-arrow-circle-down'></i> {number="$file->bitracker"}</span>&nbsp;&nbsp;
 			{{endif}}
 
 			{{if $file->container()->bitoptions['comments']}}<span {{if !$file->comments}}class='ipsType_light'{{endif}} title='{lang="total_comments"}' data-ipsTooltip><i class='fa fa-comment'></i> {$file->comments}</span>{{endif}}
 		</span>
 	</div>
-</li>]]></
+</li>

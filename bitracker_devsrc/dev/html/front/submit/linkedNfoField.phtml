@@ -1,0 +1,6 @@
+<ips:template parameters="$name, $value" />
+
+<div data-controller="bitracker.front.submit.linkedNfo" data-name='{$name}' data-initialValue='{expression="json_encode( $value )"}'>
+	<ul data-role="fieldsArea" class="ipsList_reset"></ul>
+	<a class="ipsButton ipsButton_light ipsButton_small" data-action="addField"><i class="fa fa-plus-circle"></i> {lang="stack_add"}</a>
+</div>

@@ -96,7 +96,7 @@
 								{{if isset( $form->elements['']['url_nfo'] )}}
 									<ul class='ipsList_inline ipsClearfix ipsType_right'>
 										<li>
-											<a href='#' class='ipsButton ipsButton_veryLight ipsButton_verySmall' id='elURLScreenshots' data-ipsMenu data-ipsMenu-closeOnClick='false' data-ipsMenu-appendTo='#elTorrentsSubmit_nfo'>
+											<a href='#' class='ipsButton ipsButton_veryLight ipsButton_verySmall' id='elURLNfo' data-ipsMenu data-ipsMenu-closeOnClick='false' data-ipsMenu-appendTo='#elTorrentsSubmit_nfo'>
 												<i class='fa fa-globe'></i>&nbsp; {lang="add_nfo_by_url"} <i class='fa fa-caret-down'></i>
 												<span class='ipsNotificationCount {{if !count( $form->elements['']['url_nfo']->value )}}ipsHide{{endif}}' data-role='fileCount'>{expression="count( $form->elements['']['url_nfo']->value )"}</span>
 											</a>
