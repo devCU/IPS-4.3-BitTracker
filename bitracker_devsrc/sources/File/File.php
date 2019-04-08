@@ -155,6 +155,7 @@ class _File extends \IPS\Content\Item implements
 	{
 		$return = parent::basicDataColumns();
 		$return[] = 'file_primary_screenshot';
+		$return[] = 'file_nfo';
 		$return[] = 'file_version';
 		$return[] = 'file_bitracker';
 		$return[] = 'file_cost';
@@ -233,7 +234,7 @@ class _File extends \IPS\Content\Item implements
 	/**
 	 * @brief	URL Base
 	 */
-	public static $urlBase = 'app=bitracker&module=bitracker&controller=view&id=';
+	public static $urlBase = 'app=bitracker&module=portal&controller=view&id=';
 	
 	/**
 	 * @brief	URL Base
@@ -1319,7 +1320,7 @@ class _File extends \IPS\Content\Item implements
 		$return = parent::formElements( $item, $container );
 
 		/* Description */
-		$return['description'] = new \IPS\Helpers\Form\Editor( 'file_desc', $item ? $item->desc : NULL, TRUE, array( 'app' => 'bitracker', 'key' => 'bitracker', 'autoSaveKey' => 'bitracker-new-file', 'attachIds' => ( $item === NULL ? NULL : array( $item->id, NULL, 'desc' ) ) ), '\IPS\Helpers\Form::floodCheck' );
+		$return['description'] = new \IPS\Helpers\Form\Editor( 'file_desc', $item ? $item->desc : NULL, TRUE, array( 'app' => 'bitracker', 'key' => 'Bitracker', 'autoSaveKey' => 'bitracker-new-file', 'attachIds' => ( $item === NULL ? NULL : array( $item->id, NULL, 'desc' ) ) ), '\IPS\Helpers\Form::floodCheck' );
 		
 		/* Primary screenshot */
 		if ( $item )
@@ -1655,7 +1656,7 @@ class _File extends \IPS\Content\Item implements
 	{
 		if ( is_array( $val ) )
 		{
-			foreach ( explode( ',', \IPS\Settings::i()->bit_link_blacklist ) as $blackListedDomain )
+			foreach ( explode( ',', '\IPS\Settings::i()->bit_link_blacklist' ) as $blackListedDomain )
 			{
 				foreach ( array_filter( $val ) as $url )
 				{
@@ -2435,6 +2436,7 @@ class _File extends \IPS\Content\Item implements
 	 * @apiresponse	string							version				Current version number
 	 * @apiresponse	string							changelog			Description of what changed between this version and the previous one
 	 * @apiresponse	[\IPS\File]						files				The files
+	 * @apiresponse	[\IPS\File]						nfo				The nfo
 	 * @apiresponse	[\IPS\File]						screenshots			Screenshots
 	 * @apiresponse	\IPS\File						primaryScreenshot	The primary screenshot
 	 * @apiresponse	int								bitracker			Number of downloads
@@ -2464,6 +2466,9 @@ class _File extends \IPS\Content\Item implements
 			'files'				=> array_values( array_map( function( $file ) use ( $authorizedMember ) {
 				return $file->apiOutput( $authorizedMember );
 			}, iterator_to_array( $this->files( $backup ? $backup['b_id'] : NULL ) ) ) ),
+			'nfo'		=> array_values( array_map( function( $file ) use ( $authorizedMember ) {
+				return $file->apiOutput( $authorizedMember );
+			}, iterator_to_array( $this->nfo( 0, TRUE, $backup ? $backup['b_id'] : NULL ) ) ) ),
 			'screenshots'		=> array_values( array_map( function( $file ) use ( $authorizedMember ) {
 				return $file->apiOutput( $authorizedMember );
 			}, iterator_to_array( $this->screenshots( 0, TRUE, $backup ? $backup['b_id'] : NULL ) ) ) ),
