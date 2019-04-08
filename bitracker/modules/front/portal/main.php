@@ -270,7 +270,7 @@ class _main extends \IPS\Dispatcher\Controller
 					'file_paid'	=> "( file_cost<>'' OR file_nexus>0 )",
 				);
 			}
-			$table->title = \IPS\Member::loggedIn()->language()->pluralize(  \IPS\Member::loggedIn()->language()->get('bitrack_file_count'), array( $_count ) );
+			$table->title = \IPS\Member::loggedIn()->language()->pluralize(  \IPS\Member::loggedIn()->language()->get('download_file_count'), array( $_count ) );
 		}
 
 		/* Online User Location */
