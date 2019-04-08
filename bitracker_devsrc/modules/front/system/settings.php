@@ -128,8 +128,7 @@ class _settings extends \IPS\Dispatcher\Controller
 	 */
 	protected function _overview()
 	{
-		\IPS\Output::i()->jsFiles = array_merge( \IPS\Output::i()->jsFiles, \IPS\Output::i()->js( 'clipboard.min.js', 'bitracker', 'front' ) );
-		\IPS\Output::i()->jsFiles = array_merge( \IPS\Output::i()->jsFiles, \IPS\Output::i()->js( 'settings.js', 'bitracker', 'front' ) );
+		\IPS\Output::i()->jsFiles = array_merge( \IPS\Output::i()->jsFiles, \IPS\Output::i()->js( 'front_settings.js', 'bitracker', 'front' ) );
 		return \IPS\Theme::i()->getTemplate( 'system' )->settingsOverview( );
 	}
 
