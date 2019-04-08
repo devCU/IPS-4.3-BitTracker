@@ -132,7 +132,7 @@ class _overview extends \IPS\Dispatcher\Controller
 		$data = array(
 			'total_disk_transfer'			=> (int) \IPS\Db::i()->select( 'SUM(record_size)', 'bitracker_torrents_records' )->first(),
 			'total_torrents'				=> (int) \IPS\Db::i()->select( 'COUNT(*)', 'bitracker_torrents' )->first(),
-			'total_peers'				=> (int) \IPS\Db::i()->select( 'COUNT(*)', 'bitracker_torrents' )->first(),
+			'total_peers'				=> (int) \IPS\Db::i()->select( 'COUNT(*)', 'bitracker_torrent_peers' )->first(),
 			'total_views'				=> (int) \IPS\Db::i()->select( 'SUM(file_views)', 'bitracker_torrents' )->first(),
 			'total_downloads'			=> (int) \IPS\Db::i()->select( 'SUM(file_bitracker)', 'bitracker_torrents' )->first(),
 			'total_bandwidth'			=> (int) \IPS\Db::i()->select( 'SUM(dsize)', 'bitracker_downloads' )->first(),
