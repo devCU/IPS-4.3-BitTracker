@@ -9,11 +9,11 @@
  * @license     GNU General Public License v3.0
  * @package     Invision Community Suite 4.2x/4.3x
  * @subpackage	BitTracker
- * @version     1.0.0
+ * @version     1.0.3
  * @source      https://github.com/GaalexxC/IPS-4.2-BitTracker
  * @Issue Trak  https://www.devcu.com/forums/devcu-tracker/
  * @Created     11 FEB 2018
- * @Updated     31 MAR 2019
+ * @Updated     08 APR 2019
  *
  *                    GNU General Public License v3.0
  *    This program is free software: you can redistribute it and/or modify       
@@ -130,7 +130,7 @@ class _torrents extends \IPS\Content\Api\ItemController
 	 * @apiparam	string				version			The version number
 	 * @reqapiparam	object				files			Files. Keys should be filename (e.g. 'file.txt') and values should be file content
 	 * @apiparam	object				screenshots		Screenshots. Keys should be filename (e.g. 'screenshot1.png') and values should be file content.
-	 * @apiparam	object				NFO		NFO. Keys should be filename (e.g. 'filename.nfo') and values should be file content.
+	 * @apiparam	object				NFO		        NFO. Keys should be filename (e.g. 'filename.nfo') and values should be file content.
 	 * @apiparam	string				prefix			Prefix tag
 	 * @apiparam	string				tags			Comma-separated list of tags (do not include prefix)
 	 * @apiparam	datetime			date			The date/time that should be used for the file post date. If not provided, will use the current date/time. Ignored for requests using an OAuth Access Token for a particular member.
@@ -214,9 +214,9 @@ class _torrents extends \IPS\Content\Api\ItemController
 		$file = $this->_create( $category, $author );
 				
 		/* Save records */
-		foreach ( \IPS\Request::i()->torrents as $name => $content )
+		foreach ( array_keys( \IPS\Request::i()->torrents ) as $name )
 		{
-			$fileObject = \IPS\File::create( 'bitracker_Torrents', $name, $content );
+			$fileObject = \IPS\File::create( 'bitracker_Torrents', $name, $_POST['torrents'][ $name ] );
 			
 			\IPS\Db::i()->insert( 'bitracker_torrents_records', array(
 				'record_file_id'	=> $file->id,
@@ -234,13 +234,15 @@ class _torrents extends \IPS\Content\Api\ItemController
 				$fileObject = \IPS\File::create( 'bitracker_Nfo', $name, $_POST['nfo'][ $name ] );
 				
 				\IPS\Db::i()->insert( 'bitracker_torrents_records', array(
-					'record_file_id'		=> $file->id,
-					'record_type'			=> 'nfoupload',
-					'record_location'		=> (string) $fileObject,
-					'record_realname'		=> $fileObject->originalFilename,
-					'record_size'			=> \strlen( $fileObject->contents() ),
-					'record_time'			=> time(),
+				'record_file_id'	=> $file->id,
+				'record_type'		=> 'bfoupload',
+				'record_location'	=> (string) $fileObject,
+				'record_realname'	=> $fileObject->originalFilename,
+				'record_size'		=> $fileObject->filesize(),
+				'record_time'		=> time(),
 				) );
+			}
+		}
 			
 		if ( $category->bitoptions['allowss'] and isset( \IPS\Request::i()->screenshots ) )
 		{
@@ -315,7 +317,6 @@ class _torrents extends \IPS\Content\Api\ItemController
 				throw new \IPS\Api\Exception( 'NO_NFO', '1S303/N', 400 );
 			}
 		}
-	}
 		
 		if ( $category->bitoptions['allowss'] )
 		{
@@ -605,7 +606,7 @@ class _torrents extends \IPS\Content\Api\ItemController
 	 * @apiparam	int					save			If 1 this will be saved as a new version and the previous version available in the history. If 0, will simply replace the existing files/screenshots. Defaults to 1. Ignored if category does not have versioning enabled or authorized user does not have permission to disable.
 	 * @reqapiparam	object				files			Files. Keys should be filename (e.g. 'file.txt') and values should be file content - will replace all current files
 	 * @apiparam	object				screenshots		Screenshots. Keys should be filename (e.g. 'screenshot1.png') and values should be file content - will replace all current screenshots
-	 * @apiparam	object				NFO		NFO. Keys should be filename (e.g. 'filename.nfo') and values should be file content - will replace all current screenshots
+	 * @apiparam	object				NFO		        NFO. Keys should be filename (e.g. 'filename.nfo') and values should be file content - will replace all current screenshots
 	 * @throws		2S303/F				INVALID_ID		The file ID is invalid or the authorized user does not have permission to view it
 	 * @throws		1S303/G				NO_FILES		No files were supplied
 	 * @throws		2S303/Q				NO_PERMISSION	The authorized user does not have permission to edit the file
@@ -647,7 +648,7 @@ class _torrents extends \IPS\Content\Api\ItemController
 			$save = FALSE;
 			if ( $category->versioning !== 0 )
 			{
-				if ( $this->member and !$this->member->group['idm_bypass_revision'] )
+				if ( $this->member and !$this->member->group['bit_bypass_revision'] )
 				{
 					$save = TRUE;
 				}
@@ -664,11 +665,11 @@ class _torrents extends \IPS\Content\Api\ItemController
 			{
 				foreach ( \IPS\Db::i()->select( 'record_location', 'bitracker_torrents_records', array( 'record_file_id=?', $file->id ) ) as $record )
 				{
-					if ( in_array( $record['record_type'], array( 'upload', 'ssupload' ) ) )
+					if ( in_array( $record['record_type'], array( 'upload', 'nfoupload', 'ssupload' ) ) )
 					{
 						try
 						{
-							\IPS\File::get( $record['record_type'] == 'upload' ? 'bitracker_Torrents' : 'bitracker_Screenshots', $url )->delete();
+							\IPS\File::get( $record['record_type'] == 'upload' ? 'bitracker_Torrents' : 'bitracker_Screenshots', $record['record_location'] )->delete();
 						}
 						catch ( \Exception $e ) { }
 					}
@@ -697,12 +698,12 @@ class _torrents extends \IPS\Content\Api\ItemController
 					$fileObject = \IPS\File::create( 'bitracker_Nfo', $name, $_POST['nfo'][ $name ] );
 					
 					\IPS\Db::i()->insert( 'bitracker_torrents_records', array(
-						'record_file_id'		=> $file->id,
-						'record_type'			=> 'nfoupload',
-						'record_location'		=> (string) $fileObject,
-						'record_realname'		=> $fileObject->originalFilename,
-						'record_size'			=> \strlen( $fileObject->contents() ),
-						'record_time'			=> time(),
+					'record_file_id'	=> $file->id,
+					'record_type'		=> 'nfoupload',
+					'record_location'	=> (string) $fileObject,
+					'record_realname'	=> $fileObject->originalFilename,
+					'record_size'		=> $fileObject->filesize(),
+					'record_time'		=> time(),
 					) );
 				}
 			} 
