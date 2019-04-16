@@ -1,16 +1,19 @@
 <?php
 /**
- * @brief       BitTracker Application Class
+ *     Support this Project... Keep it free! Become an Open Source Patron
+ *                       https://www.patreon.com/devcu
+ *
+ * @brief       BitTracker Update Controller
  * @author      Gary Cornell for devCU Software Open Source Projects
  * @copyright   (c) <a href='https://www.devcu.com'>devCU Software Development</a>
  * @license     GNU General Public License v3.0
- * @package     Invision Community Suite 4.2x
+ * @package     Invision Community Suite 4.2x/4.3x
  * @subpackage	BitTracker
- * @version     1.0.0 Beta 1
+ * @version     1.0.3
  * @source      https://github.com/GaalexxC/IPS-4.2-BitTracker
- * @Issue Trak  https://www.devcu.com/forums/devcu-tracker/ips4bt/
+ * @Issue Trak  https://www.devcu.com/forums/devcu-tracker/
  * @Created     11 FEB 2018
- * @Updated     26 MAR 2018
+ * @Updated     16 APR 2019
  *
  *                    GNU General Public License v3.0
  *    This program is free software: you can redistribute it and/or modify       
