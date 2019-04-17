@@ -1,0 +1,35 @@
+<ips:template parameters="$file, $email" />
+<tr style='border-bottom: 1px solid #eeeeee'>
+	<td dir='{dir}' width='120' align='center' valign='top'>
+		{{if $file->primary_screenshot_thumb}}
+			<img src='{$file->primary_screenshot_thumb}' style='border: 1px solid #000; vertical-align: middle;' width='100' height='100'>
+		{{else}}
+			<div style='width: 100px; height: 100px; background: #f5f5f5'>&nbsp;</div>
+		{{endif}}
+	</td>
+	<td dir='{dir}' align='left'>
+		<p style='font-family: "Helvetica Neue", helvetica, sans-serif; margin: 0; font-size: 13px; font-weight: bold'>
+			{$email->language->addToStack("x_created_file_in", FALSE, array( 'sprintf' => array( $file->author()->name, $file->container()->_title ) ) )}
+		</p>
+		<h2 style="font-family: 'Helvetica Neue', helvetica, sans-serif; font-size: 18px; font-weight: 500 !important; margin: 0;">
+			<a href='{$file->url()}' style='text-decoration: none;'>{$file->name} ({$file->version})</a>
+			{{if $file->mapped('featured')}}&nbsp;&nbsp;<span style='color: #68a72f; font-weight: bold; font-size: 12px; text-transform: uppercase;'>{$email->language->addToStack("featured", FALSE)}</span>{{endif}}
+		</h2>
+		<div style='font-family: "Helvetica Neue", helvetica, sans-serif; line-height: 22px; margin-top: 10px; margin-bottom: 10px'>
+			{$email->parseTextForEmail( $file->content(), $email->language )|raw}
+		</div>
+		<p style='font-family: "Helvetica Neue", helvetica, sans-serif; margin: 0; font-size: 13px;'>
+			{{if $file->container()->bitoptions['reviews']}}
+				{{foreach range( 1, 5 ) as $i}}{{if $i <= $file->averageReviewRating()}}<img src='{resource="email/rating_on.png" location="interface" app="core"}' width='14' height='13' style='vertical-align: middle; margin-right: 2px'>{{elseif ( $i - 0.5 ) <= $file->averageReviewRating()}}<img src='{resource="email/rating_half.png" location="interface" app="core"}' width='14' height='13' style='vertical-align: middle; margin-right: 2px'>{{else}}<img src='{resource="email/rating_off.png" location="interface" app="core"}' width='14' height='13' style='vertical-align: middle; margin-right: 2px'>{{endif}}{{endforeach}}
+				&nbsp;&nbsp;
+ 			{{endif}}
+
+			<strong style='font-family: "Helvetica Neue", helvetica, sans-serif; '>
+				<img src='{resource="email/download.png" location="interface" app="core"}' width='13' height='12' style='vertical-align: middle'>&nbsp; {$email->language->addToStack("num_downloads", FALSE, array( 'pluralize' => array( $file->downloads ) ) )}&nbsp;&nbsp;&nbsp;&nbsp;
+				{{if $file->container()->bitoptions['comments']}}
+					<img src='{resource="email/comment.png" location="interface" app="core"}' width='13' height='12' style='vertical-align: middle'>&nbsp; {$email->language->addToStack("num_comments", FALSE, array( 'pluralize' => array( $file->comments ) ) )}
+				{{endif}}
+			</strong>
+		</p>
+	</td>
+</tr>
