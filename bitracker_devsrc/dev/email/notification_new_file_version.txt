@@ -1,0 +1,19 @@
+<ips:template parameters="$content, $email" />
+
+{$email->language->addToStack("email_new_file_version_plain", FALSE, array( 'sprintf' => array( $content->author()->name, $content->indefiniteArticle( $email->language ) ) ) )} {$content->mapped('title')}
+
+----------------------------------------------------
+
+{$email->language->addToStack("file_changelog", FALSE)}
+{$email->parseTextForEmail( $content->changelog, $email->language )|raw}
+
+----------------------------------------------------
+
+{$email->language->addToStack("file_desc", FALSE)}
+{$email->parseTextForEmail( $content->content(), $email->language )|raw}
+
+----------------------------------------------------
+
+{$email->language->addToStack("go_to_this_x", FALSE, array( 'sprintf' => array( mb_strtolower( $email->language->addToStack( $content::$title, FALSE ) ) ) ) )}: {$content->url()}
+
+-- {setting="board_name"}
