@@ -1,0 +1,2 @@
+<ips:template parameters="$comment, $email" />
+{$email->language->addToStack("x_commented_file", FALSE, array( 'sprintf' => array( $comment->author()->name ) ) )}: {$comment->item()->name} ({$comment->url()})
