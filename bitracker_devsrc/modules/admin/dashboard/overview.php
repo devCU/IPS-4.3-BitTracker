@@ -1,16 +1,19 @@
 <?php
 /**
- * @brief       BitTracker Application Class
+ *     Support this Project... Keep it free! Become an Open Source Patron
+ *                       https://www.patreon.com/devcu
+ *
+ * @brief       BitTracker Overview Controller
  * @author      Gary Cornell for devCU Software Open Source Projects
  * @copyright   (c) <a href='https://www.devcu.com'>devCU Software Development</a>
  * @license     GNU General Public License v3.0
- * @package     Invision Community Suite 4.2x
+ * @package     Invision Community Suite 4.2x/4.3x
  * @subpackage	BitTracker
- * @version     1.0.0 Beta 1
+ * @version     1.0.3
  * @source      https://github.com/GaalexxC/IPS-4.2-BitTracker
- * @Issue Trak  https://www.devcu.com/forums/devcu-tracker/ips4bt/
+ * @Issue Trak  https://www.devcu.com/forums/devcu-tracker/
  * @Created     11 FEB 2018
- * @Updated     25 MAR 2019
+ * @Updated     16 APR 2019
  *
  *                    GNU General Public License v3.0
  *    This program is free software: you can redistribute it and/or modify       
@@ -142,9 +145,9 @@ class _overview extends \IPS\Dispatcher\Controller
 		/* Specific files (will fail if no files yet) */
 		try
 		{
-			$data['largest_file'] = \IPS\bitracker\File::constructFromData( \IPS\Db::i()->select( '*', 'bitracker_torrents', NULL, 'file_size DESC', 1 )->first() );
-			$data['most_viewed_file'] = \IPS\bitracker\File::constructFromData( \IPS\Db::i()->select( '*', 'bitracker_torrents', NULL, 'file_views DESC', 1 )->first() );
-			$data['most_downloaded_file'] = \IPS\bitracker\File::constructFromData( \IPS\Db::i()->select( '*', 'bitracker_torrents', NULL, 'file_bitracker DESC', 1 )->first() );
+			$data['largest_file'] = \IPS\bitracker\File::constructFromData( \IPS\Db::i()->select( '*', 'bitracker_torrents', NULL, 'file_size DESC', 2 )->first() );
+			$data['most_viewed_file'] = \IPS\bitracker\File::constructFromData( \IPS\Db::i()->select( '*', 'bitracker_torrents', NULL, 'file_views DESC', 2 )->first() );
+			$data['most_downloaded_file'] = \IPS\bitracker\File::constructFromData( \IPS\Db::i()->select( '*', 'bitracker_torrents', NULL, 'file_bitracker DESC', 2 )->first() );
 		}
 		catch ( \Exception $e ) { }
 		
