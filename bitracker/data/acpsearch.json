@@ -58,7 +58,7 @@
             "Tracker access"
         ]
     },
-    "app=bitracker&module=bitracker&controller=categories": {
+    "app=bitracker&module=configure&controller=categories": {
         "lang_key": "menu__bitracker_bitracker_categories",
         "restriction": "categories_manage",
         "keywords": [
@@ -66,7 +66,7 @@
             "torrent categories"
         ]
     },
-    "app=bitracker&module=bitracker&controller=categories&do=form": {
+    "app=bitracker&module=configure&controller=categories&do=form": {
         "lang_key": "menu__bitracker_bitracker_categories",
         "restriction": "categories_manage",
         "keywords": [
@@ -74,14 +74,22 @@
             "bitracker category"
         ]
     },
-    "app=bitracker&module=bitracker&controller=categories&do=permissions": {
+    "app=bitracker&module=configure&controller=categories&do=permissions": {
         "lang_key": "menu__bitracker_bitracker_categories",
         "restriction": "categories_manage",
         "keywords": [
             "category permissions"
         ]
     },
-    "app=bitracker&module=bitracker&controller=categories&searchResult=cbitoptions_allowss": {
+    "app=bitracker&module=configure&controller=categories&searchResult=cbitoptions_allownfo": {
+        "lang_key": "cbitoptions_allownfo",
+        "restriction": "categories_manage",
+        "keywords": [
+            "allow nfo",
+            "nfo"
+        ]
+    },
+    "app=bitracker&module=configure&controller=categories&searchResult=cbitoptions_allowss": {
         "lang_key": "cbitoptions_allowss",
         "restriction": "categories_manage",
         "keywords": [
@@ -89,7 +97,7 @@
             "screenshots"
         ]
     },
-    "app=bitracker&module=bitracker&controller=categories&searchResult=cbitoptions_comment_moderation": {
+    "app=bitracker&module=configure&controller=categories&searchResult=cbitoptions_comment_moderation": {
         "lang_key": "cbitoptions_comment_moderation",
         "restriction": "categories_manage",
         "keywords": [
@@ -98,14 +106,22 @@
             "must approved"
         ]
     },
-    "app=bitracker&module=bitracker&controller=categories&searchResult=cbitoptions_comments": {
+    "app=bitracker&module=configure&controller=categories&searchResult=cbitoptions_comments": {
         "lang_key": "cbitoptions_comments",
         "restriction": "categories_manage",
         "keywords": [
             "allow comments"
         ]
     },
-    "app=bitracker&module=bitracker&controller=categories&searchResult=cbitoptions_reqss": {
+    "app=bitracker&module=configure&controller=categories&searchResult=cbitoptions_reqnfo": {
+        "lang_key": "cbitoptions_reqnfo",
+        "restriction": "categories_manage",
+        "keywords": [
+            "require",
+            "require nfo"
+        ]
+    },
+    "app=bitracker&module=configure&controller=categories&searchResult=cbitoptions_reqss": {
         "lang_key": "cbitoptions_reqss",
         "restriction": "categories_manage",
         "keywords": [
@@ -113,7 +129,7 @@
             "require screenshots"
         ]
     },
-    "app=bitracker&module=bitracker&controller=categories&searchResult=cbitoptions_reviews_bitrack": {
+    "app=bitracker&module=configure&controller=categories&searchResult=cbitoptions_reviews_bitrack": {
         "lang_key": "cbitoptions_reviews_bitrack",
         "restriction": "categories_manage",
         "keywords": [
@@ -122,7 +138,7 @@
             "must download before"
         ]
     },
-    "app=bitracker&module=bitracker&controller=categories&searchResult=cbitoptions_reviews_mod": {
+    "app=bitracker&module=configure&controller=categories&searchResult=cbitoptions_reviews_mod": {
         "lang_key": "cbitoptions_reviews_mod",
         "restriction": "categories_manage",
         "keywords": [
@@ -131,7 +147,7 @@
             "reviews approved"
         ]
     },
-    "app=bitracker&module=bitracker&controller=categories&searchResult=cdisclaimer-editor": {
+    "app=bitracker&module=configure&controller=categories&searchResult=cdisclaimer-editor": {
         "lang_key": "cdisclaimer",
         "restriction": "categories_manage",
         "keywords": [
@@ -139,7 +155,7 @@
             "terms"
         ]
     },
-    "app=bitracker&module=bitracker&controller=categories&searchResult=clog": {
+    "app=bitracker&module=configure&controller=categories&searchResult=clog": {
         "lang_key": "clog",
         "restriction": "categories_manage",
         "keywords": [
@@ -147,7 +163,7 @@
             "retain logs"
         ]
     },
-    "app=bitracker&module=bitracker&controller=categories&searchResult=cmaxdims": {
+    "app=bitracker&module=configure&controller=categories&searchResult=cmaxdims": {
         "lang_key": "cmaxdims",
         "restriction": "categories_manage",
         "keywords": [
@@ -156,7 +172,7 @@
             "screenshot dimensions"
         ]
     },
-    "app=bitracker&module=bitracker&controller=categories&searchResult=cmaxfile": {
+    "app=bitracker&module=configure&controller=categories&searchResult=cmaxfile": {
         "lang_key": "cmaxfile",
         "restriction": "categories_manage",
         "keywords": [
@@ -165,7 +181,16 @@
             "maximum size"
         ]
     },
-    "app=bitracker&module=bitracker&controller=categories&searchResult=cmaxss": {
+    "app=bitracker&module=configure&controller=categories&searchResult=cmaxnfo": {
+        "lang_key": "cmaxnfo",
+        "restriction": "categories_manage",
+        "keywords": [
+            "maximum nfo size",
+            "maximum nfo filesize",
+            "nfo filesize"
+        ]
+    },
+    "app=bitracker&module=configure&controller=categories&searchResult=cmaxss": {
         "lang_key": "cmaxss",
         "restriction": "categories_manage",
         "keywords": [
@@ -174,7 +199,7 @@
             "screenshot filesize"
         ]
     },
-    "app=bitracker&module=bitracker&controller=categories&searchResult=csortorder": {
+    "app=bitracker&module=configure&controller=categories&searchResult=csortorder": {
         "lang_key": "csortorder",
         "restriction": "categories_manage",
         "keywords": [
@@ -182,7 +207,7 @@
             "sort order"
         ]
     },
-    "app=bitracker&module=bitracker&controller=categories&searchResult=ctags_disabled": {
+    "app=bitracker&module=configure&controller=categories&searchResult=ctags_disabled": {
         "lang_key": "ctags_disabled",
         "restriction": "categories_manage",
         "keywords": [
@@ -190,7 +215,7 @@
             "tags"
         ]
     },
-    "app=bitracker&module=bitracker&controller=categories&searchResult=ctags_noprefixes": {
+    "app=bitracker&module=configure&controller=categories&searchResult=ctags_noprefixes": {
         "lang_key": "ctags_noprefixes",
         "restriction": "categories_manage",
         "keywords": [
@@ -198,7 +223,7 @@
             "prefixes"
         ]
     },
-    "app=bitracker&module=bitracker&controller=categories&searchResult=ctypes": {
+    "app=bitracker&module=configure&controller=categories&searchResult=ctypes": {
         "lang_key": "ctypes",
         "restriction": "categories_manage",
         "keywords": [
@@ -207,7 +232,7 @@
             "allowed file extensions"
         ]
     },
-    "app=bitracker&module=bitracker&controller=categories&searchResult=cversioning": {
+    "app=bitracker&module=configure&controller=categories&searchResult=cversioning": {
         "lang_key": "cversioning",
         "restriction": "categories_manage",
         "keywords": [
@@ -215,7 +240,7 @@
             "revisions"
         ]
     },
-    "app=bitracker&module=bitracker&controller=categories&searchResult=form_2_cbitoptions_moderation": {
+    "app=bitracker&module=configure&controller=categories&searchResult=form_2_cbitoptions_moderation": {
         "lang_key": "cbitoptions_moderation",
         "restriction": "categories_manage",
         "keywords": [
@@ -224,7 +249,7 @@
             "files approved"
         ]
     },
-    "app=bitracker&module=bitracker&controller=categories&searchResult=form_2_cbitoptions_reviews": {
+    "app=bitracker&module=configure&controller=categories&searchResult=form_2_cbitoptions_reviews": {
         "lang_key": "cbitoptions_reviews",
         "restriction": "categories_manage",
         "keywords": [
@@ -232,14 +257,14 @@
             "reviews"
         ]
     },
-    "app=bitracker&module=bitracker&controller=categories&searchResult=form_2_cdesc": {
+    "app=bitracker&module=configure&controller=categories&searchResult=form_2_cdesc": {
         "lang_key": "cdesc",
         "restriction": "categories_manage",
         "keywords": [
             "subcategory description"
         ]
     },
-    "app=bitracker&module=bitracker&controller=categories&searchResult=form_2_cforum_on": {
+    "app=bitracker&module=configure&controller=categories&searchResult=form_2_cforum_on": {
         "lang_key": "cforum_on",
         "restriction": "categories_manage",
         "keywords": [
@@ -248,14 +273,14 @@
             "submitted"
         ]
     },
-    "app=bitracker&module=bitracker&controller=categories&searchResult=form_2_clog_on": {
+    "app=bitracker&module=configure&controller=categories&searchResult=form_2_clog_on": {
         "lang_key": "clog_on",
         "restriction": "categories_manage",
         "keywords": [
             "log bitracker"
         ]
     },
-    "app=bitracker&module=bitracker&controller=categories&searchResult=form_2_cname": {
+    "app=bitracker&module=configure&controller=categories&searchResult=form_2_cname": {
         "lang_key": "cname",
         "restriction": "categories_manage",
         "keywords": [
@@ -263,14 +288,14 @@
             "subcategory name"
         ]
     },
-    "app=bitracker&module=bitracker&controller=categories&searchResult=form_2_cparent": {
+    "app=bitracker&module=configure&controller=categories&searchResult=form_2_cparent": {
         "lang_key": "cparent",
         "restriction": "categories_manage",
         "keywords": [
             "parent category"
         ]
     },
-    "app=bitracker&module=bitracker&controller=categories&searchResult=form_2_csubmissionterms": {
+    "app=bitracker&module=configure&controller=categories&searchResult=form_2_csubmissionterms": {
         "lang_key": "csubmissionterms",
         "restriction": "categories_manage",
         "keywords": [
@@ -279,7 +304,7 @@
             "terms"
         ]
     },
-    "app=bitracker&module=bitracker&controller=categories&searchResult=form_2_cversioning_on": {
+    "app=bitracker&module=configure&controller=categories&searchResult=form_2_cversioning_on": {
         "lang_key": "cversioning_on",
         "restriction": "categories_manage",
         "keywords": [
@@ -288,7 +313,7 @@
             "previous"
         ]
     },
-    "app=bitracker&module=bitracker&controller=categories&searchResult=form_2_noperm_dl": {
+    "app=bitracker&module=configure&controller=categories&searchResult=form_2_noperm_dl": {
         "lang_key": "noperm_dl",
         "restriction": "categories_manage",
         "keywords": [
@@ -296,7 +321,7 @@
             "error messages"
         ]
     },
-    "app=bitracker&module=bitracker&controller=categories&searchResult=form_2_noperm_view": {
+    "app=bitracker&module=configure&controller=categories&searchResult=form_2_noperm_view": {
         "lang_key": "noperm_view",
         "restriction": "categories_manage",
         "keywords": [
@@ -304,7 +329,7 @@
             "error messages"
         ]
     },
-    "app=bitracker&module=bitracker&controller=categories&searchResult=submitter_log": {
+    "app=bitracker&module=configure&controller=categories&searchResult=submitter_log": {
         "lang_key": "cbitoptions_submitter_log",
         "restriction": "categories_manage",
         "keywords": [
@@ -313,7 +338,15 @@
             "view logs"
         ]
     },
-    "app=bitracker&module=bitracker&controller=categories&subnode=0&parent=1&searchResult=cbitoptions_allowss": {
+    "app=bitracker&module=configure&controller=categories&subnode=0&parent=1&searchResult=cbitoptions_allownfo": {
+        "lang_key": "cbitoptions_allownfo",
+        "restriction": "categories_manage",
+        "keywords": [
+            "allow nfo",
+            "nfo"
+        ]
+    },
+    "app=bitracker&module=configure&controller=categories&subnode=0&parent=1&searchResult=cbitoptions_allowss": {
         "lang_key": "cbitoptions_allowss",
         "restriction": "categories_manage",
         "keywords": [
@@ -321,7 +354,7 @@
             "screenshots"
         ]
     },
-    "app=bitracker&module=bitracker&controller=categories&subnode=0&parent=1&searchResult=cbitoptions_comment_moderation": {
+    "app=bitracker&module=configure&controller=categories&subnode=0&parent=1&searchResult=cbitoptions_comment_moderation": {
         "lang_key": "cbitoptions_comment_moderation",
         "restriction": "categories_manage",
         "keywords": [
@@ -330,7 +363,7 @@
             "must approved"
         ]
     },
-    "app=bitracker&module=bitracker&controller=categories&subnode=0&parent=1&searchResult=cbitoptions_comments": {
+    "app=bitracker&module=configure&controller=categories&subnode=0&parent=1&searchResult=cbitoptions_comments": {
         "lang_key": "cbitoptions_comments",
         "restriction": "categories_manage",
         "keywords": [
@@ -338,7 +371,15 @@
             "comments"
         ]
     },
-    "app=bitracker&module=bitracker&controller=categories&subnode=0&parent=1&searchResult=cbitoptions_reqss": {
+    "app=bitracker&module=configure&controller=categories&subnode=0&parent=1&searchResult=cbitoptions_reqnfo": {
+        "lang_key": "cbitoptions_reqnfo",
+        "restriction": "categories_manage",
+        "keywords": [
+            "require",
+            "require nfo"
+        ]
+    },
+    "app=bitracker&module=configure&controller=categories&subnode=0&parent=1&searchResult=cbitoptions_reqss": {
         "lang_key": "cbitoptions_reqss",
         "restriction": "categories_manage",
         "keywords": [
@@ -346,7 +387,7 @@
             "require screenshots"
         ]
     },
-    "app=bitracker&module=bitracker&controller=categories&subnode=0&parent=1&searchResult=cbitoptions_reviews_bitrack": {
+    "app=bitracker&module=configure&controller=categories&subnode=0&parent=1&searchResult=cbitoptions_reviews_bitrack": {
         "lang_key": "cbitoptions_reviews_bitrack",
         "restriction": "categories_manage",
         "keywords": [
@@ -355,7 +396,7 @@
             "download before reviewing"
         ]
     },
-    "app=bitracker&module=bitracker&controller=categories&subnode=0&parent=1&searchResult=cbitoptions_reviews_mod": {
+    "app=bitracker&module=configure&controller=categories&subnode=0&parent=1&searchResult=cbitoptions_reviews_mod": {
         "lang_key": "cbitoptions_reviews_mod",
         "restriction": "categories_manage",
         "keywords": [
@@ -363,7 +404,7 @@
             "reviews approved"
         ]
     },
-    "app=bitracker&module=bitracker&controller=categories&subnode=0&parent=1&searchResult=cdisclaimer-editor": {
+    "app=bitracker&module=configure&controller=categories&subnode=0&parent=1&searchResult=cdisclaimer-editor": {
         "lang_key": "cdisclaimer",
         "restriction": "categories_manage",
         "keywords": [
@@ -371,7 +412,7 @@
             "terms"
         ]
     },
-    "app=bitracker&module=bitracker&controller=categories&subnode=0&parent=1&searchResult=clog": {
+    "app=bitracker&module=configure&controller=categories&subnode=0&parent=1&searchResult=clog": {
         "lang_key": "clog",
         "restriction": "categories_manage",
         "keywords": [
@@ -379,7 +420,7 @@
             "retain logs"
         ]
     },
-    "app=bitracker&module=bitracker&controller=categories&subnode=0&parent=1&searchResult=cmaxdims": {
+    "app=bitracker&module=configure&controller=categories&subnode=0&parent=1&searchResult=cmaxdims": {
         "lang_key": "cmaxdims",
         "restriction": "categories_manage",
         "keywords": [
@@ -390,7 +431,7 @@
             "screenshot dimensions"
         ]
     },
-    "app=bitracker&module=bitracker&controller=categories&subnode=0&parent=1&searchResult=cmaxfile": {
+    "app=bitracker&module=configure&controller=categories&subnode=0&parent=1&searchResult=cmaxfile": {
         "lang_key": "cmaxfile",
         "restriction": "categories_manage",
         "keywords": [
@@ -399,7 +440,17 @@
             "maximum size"
         ]
     },
-    "app=bitracker&module=bitracker&controller=categories&subnode=0&parent=1&searchResult=cmaxss": {
+    "app=bitracker&module=configure&controller=categories&subnode=0&parent=1&searchResult=cmaxnfo": {
+        "lang_key": "cmaxnfo",
+        "restriction": "categories_manage",
+        "keywords": [
+            "maximum",
+            "maximum nfo",
+            "maximum nfo filesize",
+            "nfo filesize"
+        ]
+    },
+    "app=bitracker&module=configure&controller=categories&subnode=0&parent=1&searchResult=cmaxss": {
         "lang_key": "cmaxss",
         "restriction": "categories_manage",
         "keywords": [
@@ -409,7 +460,7 @@
             "screenshot filesize"
         ]
     },
-    "app=bitracker&module=bitracker&controller=categories&subnode=0&parent=1&searchResult=csortorder": {
+    "app=bitracker&module=configure&controller=categories&subnode=0&parent=1&searchResult=csortorder": {
         "lang_key": "csortorder",
         "restriction": "categories_manage",
         "keywords": [
@@ -417,7 +468,7 @@
             "sort order"
         ]
     },
-    "app=bitracker&module=bitracker&controller=categories&subnode=0&parent=1&searchResult=ctags_disabled": {
+    "app=bitracker&module=configure&controller=categories&subnode=0&parent=1&searchResult=ctags_disabled": {
         "lang_key": "ctags_disabled",
         "restriction": "categories_manage",
         "keywords": [
@@ -425,7 +476,7 @@
             "tags"
         ]
     },
-    "app=bitracker&module=bitracker&controller=categories&subnode=0&parent=1&searchResult=ctags_noprefixes": {
+    "app=bitracker&module=configure&controller=categories&subnode=0&parent=1&searchResult=ctags_noprefixes": {
         "lang_key": "ctags_noprefixes",
         "restriction": "categories_manage",
         "keywords": [
@@ -433,7 +484,7 @@
             "prefixes"
         ]
     },
-    "app=bitracker&module=bitracker&controller=categories&subnode=0&parent=1&searchResult=ctypes": {
+    "app=bitracker&module=configure&controller=categories&subnode=0&parent=1&searchResult=ctypes": {
         "lang_key": "ctypes",
         "restriction": "categories_manage",
         "keywords": [
@@ -442,7 +493,7 @@
             "file extensions"
         ]
     },
-    "app=bitracker&module=bitracker&controller=categories&subnode=0&parent=1&searchResult=cversioning": {
+    "app=bitracker&module=configure&controller=categories&subnode=0&parent=1&searchResult=cversioning": {
         "lang_key": "cversioning",
         "restriction": "categories_manage",
         "keywords": [
@@ -450,7 +501,7 @@
             "number revisions"
         ]
     },
-    "app=bitracker&module=bitracker&controller=categories&subnode=0&parent=1&searchResult=form_new_cbitoptions_moderation": {
+    "app=bitracker&module=configure&controller=categories&subnode=0&parent=1&searchResult=form_new_cbitoptions_moderation": {
         "lang_key": "cbitoptions_moderation",
         "restriction": "categories_manage",
         "keywords": [
@@ -458,7 +509,7 @@
             "must approved"
         ]
     },
-    "app=bitracker&module=bitracker&controller=categories&subnode=0&parent=1&searchResult=form_new_cbitoptions_reviews": {
+    "app=bitracker&module=configure&controller=categories&subnode=0&parent=1&searchResult=form_new_cbitoptions_reviews": {
         "lang_key": "cbitoptions_reviews",
         "restriction": "categories_manage",
         "keywords": [
@@ -466,14 +517,14 @@
             "reviews"
         ]
     },
-    "app=bitracker&module=bitracker&controller=categories&subnode=0&parent=1&searchResult=form_new_cdesc": {
+    "app=bitracker&module=configure&controller=categories&subnode=0&parent=1&searchResult=form_new_cdesc": {
         "lang_key": "cdesc",
         "restriction": "categories_manage",
         "keywords": [
             "category description"
         ]
     },
-    "app=bitracker&module=bitracker&controller=categories&subnode=0&parent=1&searchResult=form_new_cforum_on": {
+    "app=bitracker&module=configure&controller=categories&subnode=0&parent=1&searchResult=form_new_cforum_on": {
         "lang_key": "cforum_on",
         "restriction": "categories_manage",
         "keywords": [
@@ -482,28 +533,28 @@
             "post topic when"
         ]
     },
-    "app=bitracker&module=bitracker&controller=categories&subnode=0&parent=1&searchResult=form_new_clog_on": {
+    "app=bitracker&module=configure&controller=categories&subnode=0&parent=1&searchResult=form_new_clog_on": {
         "lang_key": "clog_on",
         "restriction": "categories_manage",
         "keywords": [
             "log bitracker"
         ]
     },
-    "app=bitracker&module=bitracker&controller=categories&subnode=0&parent=1&searchResult=form_new_cname": {
+    "app=bitracker&module=configure&controller=categories&subnode=0&parent=1&searchResult=form_new_cname": {
         "lang_key": "cname",
         "restriction": "categories_manage",
         "keywords": [
             "category name"
         ]
     },
-    "app=bitracker&module=bitracker&controller=categories&subnode=0&parent=1&searchResult=form_new_cparent": {
+    "app=bitracker&module=configure&controller=categories&subnode=0&parent=1&searchResult=form_new_cparent": {
         "lang_key": "cparent",
         "restriction": "categories_manage",
         "keywords": [
             "parent category"
         ]
     },
-    "app=bitracker&module=bitracker&controller=categories&subnode=0&parent=1&searchResult=form_new_csubmissionterms": {
+    "app=bitracker&module=configure&controller=categories&subnode=0&parent=1&searchResult=form_new_csubmissionterms": {
         "lang_key": "csubmissionterms",
         "restriction": "categories_manage",
         "keywords": [
@@ -511,7 +562,7 @@
             "submission terms"
         ]
     },
-    "app=bitracker&module=bitracker&controller=categories&subnode=0&parent=1&searchResult=form_new_cversioning_on": {
+    "app=bitracker&module=configure&controller=categories&subnode=0&parent=1&searchResult=form_new_cversioning_on": {
         "lang_key": "cversioning_on",
         "restriction": "categories_manage",
         "keywords": [
@@ -520,7 +571,7 @@
             "previous versions"
         ]
     },
-    "app=bitracker&module=bitracker&controller=categories&subnode=0&parent=1&searchResult=form_new_noperm_dl": {
+    "app=bitracker&module=configure&controller=categories&subnode=0&parent=1&searchResult=form_new_noperm_dl": {
         "lang_key": "noperm_dl",
         "restriction": "categories_manage",
         "keywords": [
@@ -529,7 +580,7 @@
             "error messages"
         ]
     },
-    "app=bitracker&module=bitracker&controller=categories&subnode=0&parent=1&searchResult=form_new_noperm_view": {
+    "app=bitracker&module=configure&controller=categories&subnode=0&parent=1&searchResult=form_new_noperm_view": {
         "lang_key": "noperm_view",
         "restriction": "categories_manage",
         "keywords": [
@@ -538,7 +589,7 @@
             "view files"
         ]
     },
-    "app=bitracker&module=bitracker&controller=fields": {
+    "app=bitracker&module=configure&controller=fields": {
         "lang_key": "menu__bitracker_bitracker_fields",
         "restriction": "fields_manage",
         "keywords": [
@@ -547,7 +598,7 @@
             "file fields"
         ]
     },
-    "app=bitracker&module=bitracker&controller=fields&do=form": {
+    "app=bitracker&module=configure&controller=fields&do=form": {
         "lang_key": "menu__bitracker_bitracker_fields",
         "restriction": "fields_manage",
         "keywords": [
@@ -556,7 +607,7 @@
             "extra fields"
         ]
     },
-    "app=bitracker&module=bitracker&controller=fields&searchResult=form_1_cf_topic": {
+    "app=bitracker&module=configure&controller=fields&searchResult=form_1_cf_topic": {
         "lang_key": "cf_topic",
         "restriction": "fields_manage",
         "keywords": [
@@ -564,14 +615,14 @@
             "include field topics"
         ]
     },
-    "app=bitracker&module=bitracker&controller=fields&searchResult=form_1_pf_desc": {
+    "app=bitracker&module=configure&controller=fields&searchResult=form_1_pf_desc": {
         "lang_key": "pf_desc",
         "restriction": "fields_manage",
         "keywords": [
             "field description"
         ]
     },
-    "app=bitracker&module=bitracker&controller=fields&searchResult=form_1_pf_format": {
+    "app=bitracker&module=configure&controller=fields&searchResult=form_1_pf_format": {
         "lang_key": "pf_format",
         "restriction": "fields_manage",
         "keywords": [
@@ -579,21 +630,21 @@
             "field display format"
         ]
     },
-    "app=bitracker&module=bitracker&controller=fields&searchResult=form_1_pf_title": {
+    "app=bitracker&module=configure&controller=fields&searchResult=form_1_pf_title": {
         "lang_key": "pf_title",
         "restriction": "fields_manage",
         "keywords": [
             "field name"
         ]
     },
-    "app=bitracker&module=bitracker&controller=fields&searchResult=form_1_pf_type": {
+    "app=bitracker&module=configure&controller=fields&searchResult=form_1_pf_type": {
         "lang_key": "pf_type",
         "restriction": "fields_manage",
         "keywords": [
             "field type"
         ]
     },
-    "app=bitracker&module=bitracker&controller=fields&searchResult=form_new_cf_topic": {
+    "app=bitracker&module=configure&controller=fields&searchResult=form_new_cf_topic": {
         "lang_key": "cf_topic",
         "restriction": "fields_manage",
         "keywords": [
@@ -601,14 +652,14 @@
             "include field in topics"
         ]
     },
-    "app=bitracker&module=bitracker&controller=fields&searchResult=form_new_pf_desc": {
+    "app=bitracker&module=configure&controller=fields&searchResult=form_new_pf_desc": {
         "lang_key": "pf_desc",
         "restriction": "fields_manage",
         "keywords": [
             "field description"
         ]
     },
-    "app=bitracker&module=bitracker&controller=fields&searchResult=form_new_pf_format": {
+    "app=bitracker&module=configure&controller=fields&searchResult=form_new_pf_format": {
         "lang_key": "pf_format",
         "restriction": "fields_manage",
         "keywords": [
@@ -616,21 +667,21 @@
             "field display format"
         ]
     },
-    "app=bitracker&module=bitracker&controller=fields&searchResult=form_new_pf_title": {
+    "app=bitracker&module=configure&controller=fields&searchResult=form_new_pf_title": {
         "lang_key": "pf_title",
         "restriction": "fields_manage",
         "keywords": [
             "field name"
         ]
     },
-    "app=bitracker&module=bitracker&controller=fields&searchResult=form_new_pf_type": {
+    "app=bitracker&module=configure&controller=fields&searchResult=form_new_pf_type": {
         "lang_key": "pf_type",
         "restriction": "fields_manage",
         "keywords": [
             "field type"
         ]
     },
-    "app=bitracker&module=bitracker&controller=fields&searchResult=pf_input_format": {
+    "app=bitracker&module=configure&controller=fields&searchResult=pf_input_format": {
         "lang_key": "pf_input_format",
         "restriction": "fields_manage",
         "keywords": [
@@ -638,7 +689,7 @@
             "regular expression"
         ]
     },
-    "app=bitracker&module=bitracker&controller=fields&searchResult=pf_max_input": {
+    "app=bitracker&module=configure&controller=fields&searchResult=pf_max_input": {
         "lang_key": "pf_max_input",
         "restriction": "fields_manage",
         "keywords": [
@@ -648,7 +699,7 @@
             "maximum length"
         ]
     },
-    "app=bitracker&module=bitracker&controller=fields&searchResult=pf_not_null": {
+    "app=bitracker&module=configure&controller=fields&searchResult=pf_not_null": {
         "lang_key": "pf_not_null",
         "restriction": "fields_manage",
         "keywords": [
@@ -656,7 +707,7 @@
             "required"
         ]
     },
-    "app=bitracker&module=bitracker&controller=fields&searchResult=pf_search_type": {
+    "app=bitracker&module=configure&controller=fields&searchResult=pf_search_type": {
         "lang_key": "pf_search_type",
         "restriction": "fields_manage",
         "keywords": [
