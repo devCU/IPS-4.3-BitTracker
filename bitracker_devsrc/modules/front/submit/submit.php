@@ -13,7 +13,7 @@
  * @source      https://github.com/GaalexxC/IPS-4.2-BitTracker
  * @Issue Trak  https://www.devcu.com/forums/devcu-tracker/
  * @Created     11 FEB 2018
- * @Updated     06 APR 2019
+ * @Updated     08 APR 2019
  *
  *                    GNU General Public License v3.0
  *    This program is free software: you can redistribute it and/or modify       
@@ -72,7 +72,7 @@ class _submit extends \IPS\Dispatcher\Controller
 			'permissionCheck'		=> 'add',
 			'clubs'					=> \IPS\Settings::i()->club_nodes_in_apps
 		) ) );
-		if ( \IPS\Member::loggedIn()->group['idm_bulk_submit'] )
+		if ( \IPS\Member::loggedIn()->group['bit_bulk_submit'] )
 		{
 			$form->add( new \IPS\Helpers\Form\YesNo( 'bulk', NULL, FALSE, array( 'label' => "bulk_upload_button" ) ) );
 		}
@@ -510,7 +510,7 @@ class _submit extends \IPS\Dispatcher\Controller
 			foreach ( $data['files'] as $key => $file )
 			{
 				/* Header */
-				$file = \IPS\File::get( 'bitracker_Files', $file );
+				$file = \IPS\File::get( 'bitracker_Torrents', $file );
 
 				try
 				{
