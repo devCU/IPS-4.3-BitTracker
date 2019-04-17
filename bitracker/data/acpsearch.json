@@ -232,6 +232,15 @@
             "allowed file extensions"
         ]
     },
+    "app=bitracker&module=configure&controller=categories&searchResult=ctypesnfo": {
+        "lang_key": "ctypesnfo",
+        "restriction": "categories_manage",
+        "keywords": [
+            "allowed extensions",
+            "allowed nfo",
+            "allowed nfo extensions"
+        ]
+    },
     "app=bitracker&module=configure&controller=categories&searchResult=cversioning": {
         "lang_key": "cversioning",
         "restriction": "categories_manage",
@@ -491,6 +500,15 @@
             "allowed extensions",
             "allowed file extensions",
             "file extensions"
+        ]
+    },
+    "app=bitracker&module=configure&controller=categories&subnode=0&parent=1&searchResult=ctypesnfo": {
+        "lang_key": "ctypesnfo",
+        "restriction": "categories_manage",
+        "keywords": [
+            "allowed extensions",
+            "allowed nfo extensions",
+            "nfo extensions"
         ]
     },
     "app=bitracker&module=configure&controller=categories&subnode=0&parent=1&searchResult=cversioning": {
