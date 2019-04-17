@@ -110,6 +110,11 @@
 										</li>
 									</ul>
 								{{endif}}
+					<div id='elTorrentsSubmit_progress' class='ipsClear' data-ipsSticky>
+						<div class='ipsProgressBar ipsProgressBar_animated ipsClear' >
+							<div class='ipsProgressBar_progress' data-progress='0%'></div>
+						</div>
+					</div>
 								{{if isset( $form->elements['']['nfo'] )}}
 								<div id='elTorrentsSubmit_nfo'>
 									{$form->elements['']['nfo']->html( $form )|raw}
