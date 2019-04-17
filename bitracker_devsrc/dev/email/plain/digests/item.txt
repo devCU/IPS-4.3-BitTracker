@@ -1,0 +1,2 @@
+<ips:template parameters="$file, $email" />
+{$email->language->addToStack("x_created_file_in", FALSE, array( 'sprintf' => array( $file->author()->name, $file->container()->_title ) ) )}: {$file->title} ({$file->url()})
