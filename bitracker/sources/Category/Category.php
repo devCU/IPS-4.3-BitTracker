@@ -13,7 +13,7 @@
  * @source      https://github.com/GaalexxC/IPS-4.2-BitTracker
  * @Issue Trak  https://www.devcu.com/forums/devcu-tracker/
  * @Created     11 FEB 2018
- * @Updated     17 APR 2019
+ * @Updated     18 APR 2019
  *
  *                    GNU General Public License v3.0
  *    This program is free software: you can redistribute it and/or modify       
@@ -329,7 +329,7 @@ class _Category extends \IPS\Node\Model implements \IPS\Node\Permissions
 		$form->add( new \IPS\Helpers\Form\YesNo( 'cbitoptions_moderation', $this->bitoptions['moderation'], FALSE, array( 'togglesOn' => array( 'cbitoptions_moderation_edits' ) ) ) );
 		$form->add( new \IPS\Helpers\Form\YesNo( 'cbitoptions_moderation_edits', $this->bitoptions['moderation_edits'], FALSE, array(), NULL, NULL, NULL, 'cbitoptions_moderation_edits' ) );
 		$form->addHeader( 'category_nfo' );
-		$form->add( new \IPS\Helpers\Form\Text( 'ctypesnfo', $this->id ? $this->_data['types'] : NULL, FALSE, array( 'autocomplete' => array( 'unique' => 'true' ), 'nullLang' => 'any_extensions' ), NULL, NULL, NULL, 'ctypesnfo' ) );
+		$form->add( new \IPS\Helpers\Form\Text( 'ctypesnfo', $this->id ? $this->_data['typesnfo'] : NULL, FALSE, array( 'autocomplete' => array( 'unique' => 'true' ), 'nullLang' => 'any_extensions' ), NULL, NULL, NULL, 'ctypesnfo' ) );
 		$form->add( new \IPS\Helpers\Form\YesNo( 'cbitoptions_allownfo', $this->id ? $this->bitoptions['allownfo'] : TRUE, FALSE, array( 'togglesOn' => array( 'cbitoptions_reqnfo', 'cmaxnfo' ) ), NULL, NULL, NULL, 'cbitoptions_allownfo' ) );
 		$form->add( new \IPS\Helpers\Form\YesNo( 'cbitoptions_reqnfo', $this->bitoptions['reqnfo'], FALSE, array(), NULL, NULL, NULL, 'cbitoptions_reqnfo' ) );
 		$form->add( new \IPS\Helpers\Form\Number( 'cmaxnfo', $this->maxnfo, FALSE, array( 'unlimited' => 0 ), NULL, NULL, \IPS\Member::loggedIn()->language()->addToStack('filesize_raw_k'), 'cmaxnfo' ) );
@@ -513,6 +513,11 @@ class _Category extends \IPS\Node\Model implements \IPS\Node\Permissions
 	public function get_types()
 	{
 		return $this->_data['types'] ? explode( ',', $this->_data['types'] ) : NULL;
+	}
+
+	public function get_typesnfo()
+	{
+		return $this->_data['typesnfo'] ? explode( ',', $this->_data['typesnfo'] ) : NULL;
 	}
 	
 	/**
@@ -804,7 +809,7 @@ class _Category extends \IPS\Node\Model implements \IPS\Node\Permissions
 		$form->add( new \IPS\Helpers\Form\YesNo( 'cbitoptions_allowss', $this->id ? $this->bitoptions['allowss'] : TRUE, FALSE, array( 'togglesOn' => array( 'cbitoptions_reqss', 'cmaxss', 'cmaxdims' ) ), NULL, NULL, NULL, 'cbitoptions_allowss' ) );
 		$form->add( new \IPS\Helpers\Form\YesNo( 'cbitoptions_reqss', $this->bitoptions['reqss'], FALSE, array(), NULL, NULL, NULL, 'cbitoptions_reqss' ) );
 		$form->add( new \IPS\Helpers\Form\Text( 'ctypes', $this->id ? $this->_data['types'] : NULL, FALSE, array( 'autocomplete' => array( 'unique' => 'true' ), 'nullLang' => 'any_extensions' ), NULL, NULL, NULL, 'ctypes' ) );
-		$form->add( new \IPS\Helpers\Form\Text( 'ctypesnfo', $this->id ? $this->_data['types'] : NULL, FALSE, array( 'autocomplete' => array( 'unique' => 'true' ), 'nullLang' => 'any_extensions' ), NULL, NULL, NULL, 'ctypesnfo' ) );
+		$form->add( new \IPS\Helpers\Form\Text( 'ctypesnfo', $this->id ? $this->_data['typesnfo'] : NULL, FALSE, array( 'autocomplete' => array( 'unique' => 'true' ), 'nullLang' => 'any_extensions' ), NULL, NULL, NULL, 'ctypesnfo' ) );
 	}
 	
 	/**
