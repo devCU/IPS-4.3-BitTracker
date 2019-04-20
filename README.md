@@ -44,10 +44,10 @@
 
 ## ** Updated Notes **
 
-04/14/19
+04/20/19
 
 - Stable 1.0.3 is release version
-- Release delayed indefinitely, sorry been swamped past few days no time doing my best.
+- Release upcoming this week, fine tuning upload routine in javascript/templates
 - Release Unknown for Public
 - Added bitracker_devsrc development files for those who want continue work after 4.3 EOL in September
 - Will do a release of compiled source in IPS .tar file format for import installations
