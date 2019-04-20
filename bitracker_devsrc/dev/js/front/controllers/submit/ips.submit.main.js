@@ -51,12 +51,12 @@
 			}
 
 			this._ui = {
-				progressBar: this.scope.find('#elBitrackerSubmit_progress'),
-				nfo: this.scope.find('#elBitrackerSubmit_nfo'),
-				screenshots: this.scope.find('#elBitrackerSubmit_screenshots'),
-				fileInfo: this.scope.find('#elBitrackerSubmit_otherinfo')
+				progressBar: this.scope.find('#elTorrentsSubmit_progress'),
+				nfo: this.scope.find('#elTorrentsSubmit_nfo'),
+				screenshots: this.scope.find('#'elTorrentsSubmit_screenshots'),
+				fileInfo: this.scope.find('#'elTorrentsSubmit_otherinfo')
 			};
-
+elTorrentsSubmit
 
 			var hideProgressBar = function () {
 				if( !_.isUndefined( self._ui.progressBar.attr('data-ipsSticky') ) ){
@@ -79,8 +79,8 @@
 				if( !this.scope.find('input[name^="files_existing"]').length ){
 					hideProgressBar();
 				} else {
-					this.scope.find('#elBitrackerSubmit_uploader .ipsAttachment_dropZone').hide();
-					this.scope.find('#elBitrackerSubmit_uploader [data-action="uploadMore"]').show();
+					this.scope.find('#elTorrentsSubmit_uploader .ipsAttachment_dropZone').hide();
+					this.scope.find('#elTorrentsSubmit_uploader [data-action="uploadMore"]').show();
 					this._hiddenUploader = true;
 				}
 
@@ -169,8 +169,8 @@
 		uploadMore: function (e) {
 			e.preventDefault();
 
-			this.scope.find('#elBitrackerSubmit_uploader .ipsAttachment_dropZone').show();
-			this.scope.find('#elBitrackerSubmit_uploader [data-action="uploadMore"]').hide();
+			this.scope.find('#elTorrentsSubmit_uploader .ipsAttachment_dropZone').show();
+			this.scope.find('#elTorrentsSubmit_uploader [data-action="uploadMore"]').hide();
 			this._hiddenUploader = false;
 			this._overriddenUploader = true;
 		},
@@ -209,14 +209,14 @@
 			}
 
 			if( data.count === 0 ){
-				this.scope.find( '#elBitrackerSubmit_progress .ipsProgressBar_progress')
+				this.scope.find( '#elTorrentsSubmit_progress .ipsProgressBar_progress')
 					.attr('data-progress', '0%')
 					.css( {
 						width: '0%'
 					});
 
-				this.scope.find('#elBitrackerSubmit_uploader .ipsAttachment_dropZone').show();
-				this.scope.find('#elBitrackerSubmit_uploader [data-action="uploadMore"]').hide();
+				this.scope.find('#elTorrentsSubmit_uploader .ipsAttachment_dropZone').show();
+				this.scope.find('#elTorrentsSubmit_uploader [data-action="uploadMore"]').hide();
 				this._hiddenUploader = false;
 				this._overriddenUploader = true;
 			}
@@ -250,7 +250,7 @@
 			var self = this;
 			this._showProgress();
 
-			this.scope.find( '#elBitrackerSubmit_progress .ipsProgressBar_progress')
+			this.scope.find( '#elTorrentsSubmit_progress .ipsProgressBar_progress')
 				.attr('data-progress', data.percent + '%')
 				.css( {
 					width: data.percent + '%'
@@ -468,8 +468,8 @@
 		_showProgress: function () {
 			if( !this._hiddenUploader && !this._overriddenUploader ){
 				this._ui.progressBar.show().find('.ipsProgressBar').addClass('ipsProgressBar_animated');
-				this.scope.find('#elBitrackerSubmit_uploader .ipsAttachment_dropZone').hide();
-				this.scope.find('#elBitrackerSubmit_uploader [data-action="uploadMore"]').show();
+				this.scope.find('#elTorrentsSubmit_uploader .ipsAttachment_dropZone').hide();
+				this.scope.find('#elTorrentsSubmit_uploader [data-action="uploadMore"]').show();
 				this._hiddenUploader = true;
 			}
 		}
