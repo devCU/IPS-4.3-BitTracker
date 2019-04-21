@@ -13,7 +13,7 @@
  * @source      https://github.com/GaalexxC/IPS-4.2-BitTracker
  * @Issue Trak  https://www.devcu.com/forums/devcu-tracker/
  * @Created     11 FEB 2018
- * @Updated     08 APR 2019
+ * @Updated     20 APR 2019
  *
  *                    GNU General Public License v3.0
  *    This program is free software: you can redistribute it and/or modify       
@@ -143,7 +143,7 @@ class _torrents extends \IPS\Content\Api\ItemController
 	 * @throws		1S303/8				NO_AUTHOR		The author ID does not exist
 	 * @throws		1S303/9				NO_TITLE		No title was supplied
 	 * @throws		1S303/A				NO_DESC			No description was supplied
-	 * @throws		1S303/B				NO_FILES		No files were supplied
+	 * @throws		1S303/B				NO_TORRENTS		No torrent files were supplied
 	 * @throws		2S303/H				NO_PERMISSION	The authorized user does not have permission to create a file in that category
 	 * @throws		1S303/I				BAD_FILE_EXT	One of the files has a file type that is not allowed
 	 * @throws		1S303/J				BAD_FILE_SIZE	One of the files is too big
@@ -207,7 +207,7 @@ class _torrents extends \IPS\Content\Api\ItemController
 		}
 		if ( $this->member )
 		{
-			$this->_validateFilesForMember( $category );
+			$this->_validateTorrentsForMember( $category );
 		}
 		
 		/* Create torrent record */
@@ -281,7 +281,7 @@ class _torrents extends \IPS\Content\Api\ItemController
 	 * @param	\IPS\bitracker\Category	$category	The category
 	 * @return	void
 	 */
-	protected function _validateFilesForMember( $category )
+	protected function _validateTorrentsForMember( $category )
 	{
 		foreach ( \IPS\Request::i()->files as $name => $content )
 		{
@@ -608,7 +608,7 @@ class _torrents extends \IPS\Content\Api\ItemController
 	 * @apiparam	object				screenshots		Screenshots. Keys should be filename (e.g. 'screenshot1.png') and values should be file content - will replace all current screenshots
 	 * @apiparam	object				NFO		        NFO. Keys should be filename (e.g. 'filename.nfo') and values should be file content - will replace all current screenshots
 	 * @throws		2S303/F				INVALID_ID		The file ID is invalid or the authorized user does not have permission to view it
-	 * @throws		1S303/G				NO_FILES		No files were supplied
+	 * @throws		1S303/G				NO_TORRENTS	No torrent files were supplied
 	 * @throws		2S303/Q				NO_PERMISSION	The authorized user does not have permission to edit the file
 	 * @throws		1S303/I				BAD_FILE_EXT	One of the files has a file type that is not allowed
 	 * @throws		1S303/J				BAD_FILE_SIZE	One of the files is too big
@@ -641,7 +641,7 @@ class _torrents extends \IPS\Content\Api\ItemController
 			}
 			if ( $this->member )
 			{
-				$this->_validateFilesForMember( $category );
+				$this->_validateTorrentsForMember( $category );
 			}
 			
 			/* Save current version? */
@@ -669,7 +669,15 @@ class _torrents extends \IPS\Content\Api\ItemController
 					{
 						try
 						{
-							\IPS\File::get( $record['record_type'] == 'upload' ? 'bitracker_Torrents' : 'bitracker_Screenshots', $record['record_location'] )->delete();
+                            if (\IPS\File::get( $record['record_type'] == 'upload') {
+                                   $record['record_type'] = 'bitracker_Torrents';
+
+                                } elseif (\IPS\File::get( $record['record_type'] == 'nfoupload') {
+                                   $record['record_type'] = 'bitracker_Nfo';
+
+                                } else {
+                              \IPS\File::get( $record['record_type'] == 'bitracker_Screenshots', $record['record_location'] )->delete();
+                          }
 						}
 						catch ( \Exception $e ) { }
 					}
