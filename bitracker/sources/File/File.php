@@ -9,11 +9,11 @@
  * @license     GNU General Public License v3.0
  * @package     Invision Community Suite 4.2x/4.3x
  * @subpackage	BitTracker
- * @version     1.0.0
+ * @version     1.0.3
  * @source      https://github.com/GaalexxC/IPS-4.2-BitTracker
  * @Issue Trak  https://www.devcu.com/forums/devcu-tracker/
  * @Created     11 FEB 2018
- * @Updated     04 APR 2019
+ * @Updated     20 APR 2019
  *
  *                    GNU General Public License v3.0
  *    This program is free software: you can redistribute it and/or modify       
@@ -1751,7 +1751,15 @@ class _File extends \IPS\Content\Item implements
 					{
 						try
 						{
-							$file = \IPS\File::get( $file['record_type'] == 'upload' ? 'bitracker_Torrents' : 'bitracker_Screenshots', $file['record_location'] )->delete();
+                            if (\IPS\File::get( $record['record_type'] == 'upload') {
+                                   $record['record_type'] = 'bitracker_Torrents';
+
+                                } elseif (\IPS\File::get( $record['record_type'] == 'nfoupload') {
+                                   $record['record_type'] = 'bitracker_Nfo';
+
+                                } else {
+                              \IPS\File::get( $record['record_type'] == 'bitracker_Screenshots', $record['record_location'] )->delete();
+                          }
 						}
 						catch ( \Exception $e ) { }
 
