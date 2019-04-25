@@ -13,7 +13,7 @@
  * @source      https://github.com/GaalexxC/IPS-4.2-BitTracker
  * @Issue Trak  https://www.devcu.com/forums/devcu-tracker/
  * @Created     11 FEB 2018
- * @Updated     20 APR 2019
+ * @Updated     24 APR 2019
  *
  *                    GNU General Public License v3.0
  *    This program is free software: you can redistribute it and/or modify       
@@ -74,7 +74,7 @@ class _Nfo
 		
 		try
 		{
-			$file = \IPS\File::get( $oldConfiguration ?: 'bitracker_Torrents', $record['record_location'] )->move( $storageConfiguration );
+			$file = \IPS\File::get( $oldConfiguration ?: 'bitracker_Nfo', $record['record_location'] )->move( $storageConfiguration );
 			
 			if ( (string) $file != $record['record_location'] )
 			{
