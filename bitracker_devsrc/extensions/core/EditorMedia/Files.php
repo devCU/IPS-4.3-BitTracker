@@ -13,7 +13,7 @@
  * @source      https://github.com/GaalexxC/IPS-4.2-BitTracker
  * @Issue Trak  https://www.devcu.com/forums/devcu-tracker/
  * @Created     11 FEB 2018
- * @Updated     05 APR 2019
+ * @Updated     24 APR 2019
  *
  *                    GNU General Public License v3.0
  *    This program is free software: you can redistribute it and/or modify       
@@ -92,6 +92,7 @@ class _Files
 		{
 			$file = \IPS\bitracker\File::load( $row['record_file_id'] );
 			$obj = \IPS\File::get( 'bitracker_Torrents', $row['record_location'] );
+			$obj = \IPS\File::get( 'bitracker_Nfo', $row['record_location'] );
 			$obj->contextInfo = $file->name;
 			$obj->screenshot = $file->primary_screenshot;
 			$obj->originalFilename = $row['record_realname'];
