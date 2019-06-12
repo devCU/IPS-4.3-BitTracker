@@ -49,7 +49,7 @@
 06/12/19
 
 - This incomplete application is currently in hiatus as I finish work on the [IPS 4.4x version](https://github.com/GaalexxC/IPS-4.4-BitTracker/)
-= Will return to this as time allows, anyone wants to help and has PHP and IPS 4 experience it will definitely get these applications out faster. Contact me!
+- Will return to this as time allows, anyone wants to help and has PHP and IPS 4 experience it will definitely get these applications out faster. Contact me!
 
 
 ## License
