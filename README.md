@@ -2,9 +2,9 @@
 
 [![License](https://img.shields.io/badge/License-GNUv3-blue.svg)](https://github.com/GaalexxC/IPS-4.2-BitTracker/blob/master/LICENSE)
 [![Version](https://img.shields.io/badge/Version-1.0.0-ff69b4.svg)](https://www.devcu.com/devcu-tracker/)
-[![Build](https://img.shields.io/badge/Build-Release-yellow.svg)](https://www.devcu.com/devcu-tracker/)
+[![Build](https://img.shields.io/badge/Build-Incomplete-yellow.svg)](https://www.devcu.com/devcu-tracker/)
 [![Status](https://img.shields.io/badge/Status-Unstable-critical.svg)](https://www.devcu.com/devcu-tracker/)
-[![Development](https://img.shields.io/badge/Development-Active-success.svg)](https://www.devcu.com/devcu-tracker/)
+[![Development](https://img.shields.io/badge/Development-Stalled-success.svg)](https://www.devcu.com/devcu-tracker/)
 [![Platform](https://img.shields.io/badge/Platform-IPS4.3-blue.svg)](https://www.devcu.com/devcu-tracker/)
 [![GitHub last commit (branch)](https://img.shields.io/github/last-commit/GaalexxC/IPS-4.2-BitTracker/master.svg)](https://www.devcu.com/devcu-tracker/)
 
@@ -46,14 +46,10 @@
 
 ## ** Updated Notes **
 
-04/20/19
+06/12/19
 
-- Stable 1.0.3 is release version
-- Release upcoming this week, fine tuning upload routine in javascript/templates
-- Release Unknown for Public
-- Added bitracker_devsrc development files for those who want continue work after 4.3 EOL in September
-- Will do a release of compiled source in IPS .tar file format for import installations
-- Have already begun work on the [IPS 4.4x version](https://github.com/GaalexxC/IPS-4.4-BitTracker/) and should be a quick refactor and release.
+- This incomplete application is currently in hiatus as I finish work on the [IPS 4.4x version](https://github.com/GaalexxC/IPS-4.4-BitTracker/)
+= Will return to this as time allows, anyone wants to help and has PHP and IPS 4 experience it will definitely get these applications out faster. Contact me!
 
 
 ## License
