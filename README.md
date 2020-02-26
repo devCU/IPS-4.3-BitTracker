@@ -1,4 +1,4 @@
-![devCUHead](https://www.devcu.net/mediasrc/github-banner.png?V=1.0)
+![devCUHead](https://www.devcu.com/mediasrc/github-banner.png?V=1.0)
 
 [![License](https://img.shields.io/badge/License-GNUv3-blue.svg)](https://github.com/GaalexxC/IPS-4.2-BitTracker/blob/master/LICENSE)
 [![Version](https://img.shields.io/badge/Version-1.0.0-ff69b4.svg)](https://www.devcu.com/devcu-tracker/)
@@ -15,7 +15,7 @@
 
 - Patrons and Donators have access to Beta and Release version up to 2 weeks before the public
 
-[![donate](https://www.devcu.net/mediasrc/patronize_devcu.png)](https://www.patreon.com/devcu/) [![donate](https://www.devcu.net/mediasrc/support_devcu.png?v=1)](https://www.devcu.com/clients/donations/)
+[![donate](https://www.devcu.com/mediasrc/patronize_devcu.png)](https://www.patreon.com/devcu/) [![donate](https://www.devcu.com/mediasrc/support_devcu.png?v=1)](https://www.devcu.com/clients/donations/)
 
 
 <pre>
@@ -33,15 +33,15 @@
 </pre>
 
 ```diff
-- WARNING!! THIS IS AN INCOMPLETE DEVELOPMENT VERSION AND SHOULD NOT BE USED IN A PRODUCTION ENVIRONMENT!
+- WARNING!! THIS IS AN ARCHIVED DEVELOPMENT VERSION AND SHOULD NOT BE USED IN A PRODUCTION ENVIRONMENT!
 ```
 
 # IPS 4.3x BitTracker
 
 #### Full featured bit torrent tracker application for IPS 4.3x Community Suite focusing on privacy and security
 
-<img src="https://www.devcu.net/mediasrc/userSettings.PNG?V=1.7" width="30%"></img>
-<img src="https://www.devcu.net/mediasrc/ACPoverview.PNG?V=1.4" width="40%"></img>
+<img src="https://www.devcu.com/mediasrc/userSettings.PNG?V=1.7" width="30%"></img>
+<img src="https://www.devcu.com/mediasrc/ACPoverview.PNG?V=1.4" width="40%"></img>
 
 
 ## ** Updated Notes **
